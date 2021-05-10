@@ -10,5 +10,6 @@ namespace Matches
     abstract class Match
     {
         Team T1, T2;
+        Referee Ref;
     }
 }
