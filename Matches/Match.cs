@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kopakabana;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,6 @@ namespace Matches
 {
     abstract class Match
     {
+        Team T1, T2;
     }
 }
