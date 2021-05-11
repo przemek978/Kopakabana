@@ -108,14 +108,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Referees.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Resource Include="Referees.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Teams.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Resource Include="Teams.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Matches.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

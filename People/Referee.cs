@@ -6,17 +6,7 @@ using System.Threading.Tasks;
 
 namespace People
 {
-    public class Referee : Person
+    class Referee
     {
-
-        public Referee(string imie, string nazwisko)
-        {
-            Name = imie;
-            Surname = nazwisko;
-        }
-        public override string ToString()
-        {
-            return Name + " " + Surname;
-        }
     }
 }
