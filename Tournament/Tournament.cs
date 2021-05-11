@@ -12,9 +12,9 @@ namespace Kopakabana
 {
     class Tournament
     {
-        private List<Referee> Referees { get; set; }
-        private List<Team> Teams { get; set; }
-        private List<Match> Matches { get; set; }
+        private List<Referee> Referees;
+        private List<Team> Teams;
+        private List<Match> Matches;
         public Tournament()
         {
             Referees = new List<Referee>();
@@ -66,21 +66,11 @@ namespace Kopakabana
                         i = y;
                     }
                     Teams.Add(new Team(nazwa,PL[0], PL[1], PL[2], PL[3]));
-                    nazwa = "";
                 }
             }
             catch
             {
                 MessageBox.Show("Nie znaleziono pliku", "Error", MessageBoxButton.OK);
-            }
-            int q = 0;
-            foreach (Team T in Teams)
-            {
-                for(int i=q+1;i<Teams.Count;i++)
-                {
-                    Matches.Add(new VolleyBall(T, Teams[i]));
-                }
-                q++;
             }
         }
         public List<Team> getTeams()
@@ -91,10 +81,7 @@ namespace Kopakabana
         {
             return Referees;
         }
-        public List<Match> getMatches()
-        {
-            return Matches;
-        }
+       
     }
 }
 

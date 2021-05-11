@@ -22,13 +22,13 @@ namespace Kopakabana
     /// </summary>
     public partial class MainWindow : Window
     {
-        public List<Match> M{ get; set; }
-        //public List<Referee> Ref { get; set; }
-        //public List<Team> T { get; set; }
-        Tournament Tour = new Tournament();
+        public List<Match> Mat{ get; set; }
+        public List<Referee> Ref { get; set; }
+        public List<Team> T { get; set; }
         public MainWindow()
         {
             InitializeComponent();
+            Tournament Tour = new Tournament();
             Referee.Visibility = Visibility.Hidden;
             Team.Visibility = Visibility.Hidden;
             /*Lista.Items.Add(new Match("Real","Barca",2,0));
@@ -39,29 +39,27 @@ namespace Kopakabana
             Mat.Add(new Match(T[0],T[1], 0, 1));
             Mat.Add(new Match(T[2], T[3], 2, 0));
             Ref.Add(new Referee("Przemek","Kuczynski"));*/
-            //T = Tour.getTeams();
-            //Ref = Tour.getReferees();
-            //Mat = Tour.getMatches();
-            M= Tour.getMatches();
+            T = Tour.getTeams();
+            Ref = Tour.getReferees();
             DataContext = this;
         }
 
         private void Mecze_Click(object sender, RoutedEventArgs e)
         {
-            Lista.ItemsSource = Tour.getMatches();
+            Lista.ItemsSource = Mat;
             Referee.Visibility = Visibility.Hidden;
             Team.Visibility = Visibility.Hidden;
         }
         private void Sedzia(object sender, RoutedEventArgs e)
         {
-            Lista.ItemsSource = Tour.getReferees();
+            Lista.ItemsSource = Ref;
             Referee.Visibility = Visibility.Visible;
             Team.Visibility = Visibility.Hidden;
         }
 
         private void Druzyny_Click(object sender, RoutedEventArgs e)
         {
-            Lista.ItemsSource = Tour.getTeams();
+            Lista.ItemsSource = T;
             Referee.Visibility = Visibility.Hidden;
             Team.Visibility = Visibility.Visible;
         }

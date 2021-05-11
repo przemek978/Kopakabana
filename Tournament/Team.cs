@@ -19,10 +19,6 @@ namespace People
             P3 = p3;
             P4 = p4;
         }
-        public string getName()
-        {
-            return Name;
-        }
         public override string ToString()
         {
             return Name+"\n"+P1.ToString() + "\n"+ P2.ToString() + "\n"+ P3.ToString() + "\n"+ P4.ToString() ;
