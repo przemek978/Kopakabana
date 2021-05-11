@@ -7,8 +7,13 @@ using System.Threading.Tasks;
 
 namespace Matches
 {
-    class VolleyBall
+    class VolleyBall : Match
     {
         Referee AS1, AS2;
+        public VolleyBall(Team t1, Team t2)
+        {
+            T1 = t1;
+            T2 = t2;
+        }
     }
 }
