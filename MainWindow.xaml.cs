@@ -26,33 +26,69 @@ namespace Kopakabana
         public MainWindow()
         {
             InitializeComponent();
+            Referee.Visibility = Visibility.Hidden;
+            Team.Visibility = Visibility.Hidden;
             /*Lista.Items.Add(new Match("Real","Barca",2,0));
             Lista.Items.Add(new Match("Atletico","sevilla",0,0));*/
+            T = new List<Team>{ new Team("Real"), new Team("Sevilla"), new Team("Barca"), new Team("Atletico") };
+            //T = new List<Team>();
             Mat = new List<Match>();
             Ref = new List<Referee>();
-            T = new List<Team>{ new Team("Real"), new Team("Sevilla"), new Team("Barca"), new Team("Atletico") };
             Mat.Add(new Match(T[0],T[1], 0, 1));
             Mat.Add(new Match(T[2], T[3], 2, 0));
             Ref.Add(new Referee("Przemek","Kuczynski"));
-            //Mat.Add(new Match("Real", "Barca", 2, 0));
-            ///Mat.Add(new Match("Atletico", "sevilla", 0, 0));
             DataContext = this;
         }
 
         private void Mecze_Click(object sender, RoutedEventArgs e)
         {
             Lista.ItemsSource = Mat;
+            Referee.Visibility = Visibility.Hidden;
+            Team.Visibility = Visibility.Hidden;
         }
         private void Sedzia(object sender, RoutedEventArgs e)
         {
             Lista.ItemsSource = Ref;
+            Referee.Visibility = Visibility.Visible;
+            Team.Visibility = Visibility.Hidden;
         }
 
         private void Druzyny_Click(object sender, RoutedEventArgs e)
         {
             Lista.ItemsSource = T;
+            Referee.Visibility = Visibility.Hidden;
+            Team.Visibility = Visibility.Visible;
         }
 
+        private void RefAdd(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RefDelete(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RefEdit(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TAdd(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TDelete(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TEdit(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
     public class Match
     {

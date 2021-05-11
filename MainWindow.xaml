@@ -11,19 +11,27 @@
         <Button x:Name="Mecze" Content="Mecze" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="32.068" Click="Mecze_Click"/>
         <Button x:Name="Sedziowie" Content="Sedziowie" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="200,0,0,0" Height="32.068" Click="Sedzia"/>
         <Button x:Name="Druzyny" Content="Druzyny" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="400,0,-5,0" Height="32.068" Click="Druzyny_Click"/>
-        <ListView ItemsSource="{Binding list}" x:Name="Lista" HorizontalAlignment="Left" Height="339" Margin="0,80,0,0" VerticalAlignment="Top" Width="400">
+        <ListView ItemsSource="{Binding Mat}" x:Name="Lista" HorizontalAlignment="Left" Height="339" Margin="0,80,0,0" VerticalAlignment="Top" Width="390">
             <ListView.View>
                 <GridView>
                     <!--<GridViewColumn DisplayMemberBinding="{Binding name1}"  Width="150"/>
                     <GridViewColumn DisplayMemberBinding="{Binding name2}"  Width="150"/>-->
                     <GridViewColumn x:Name="Wynik" Width="400"/>
-                  
+
                 </GridView>
             </ListView.View>
         </ListView>
         <Grid x:Name="Match" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="600"/>
-        <Grid x:Name="Referee" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="600"/>
-        <Grid x:Name="Team" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="600"/>
+        <Grid x:Name="Referee" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="600" d:IsHidden="True">
+            <Button x:Name="RAdd" Content="Dodaj" HorizontalAlignment="Left" Margin="0,60,0,0" VerticalAlignment="Top" Width="130" Click="RefAdd"/>
+            <Button x:Name="RDelete" Content="Usun" HorizontalAlignment="Left" Margin="130,60,0,0" VerticalAlignment="Top" Width="130" Click="RefDelete"/>
+            <Button x:Name="REdit" Content="Edytuj" HorizontalAlignment="Left" Margin="260,60,0,0" VerticalAlignment="Top" Width="130" Click="RefEdit"/>
+        </Grid>
+        <Grid x:Name="Team" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="600" d:IsHidden="True">
+            <Button x:Name="TeamAdd" Content="Dodaj" HorizontalAlignment="Left" Margin="0,60,0,0" VerticalAlignment="Top" Width="130" Click="TAdd"/>
+            <Button x:Name="TeamDelete" Content="Usun" HorizontalAlignment="Left" Margin="130,60,0,0" VerticalAlignment="Top" Width="130" Click="TDelete"/>
+            <Button x:Name="TeamEdit" Content="Edytuj" HorizontalAlignment="Left" Margin="260,60,0,0" VerticalAlignment="Top" Width="130" Click="TEdit"/>
+        </Grid>
 
     </Grid>
 </Window>
