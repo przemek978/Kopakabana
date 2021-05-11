@@ -41,6 +41,7 @@ namespace Kopakabana
             Ref.Add(new Referee("Przemek","Kuczynski"));*/
             T = Tour.getTeams();
             Ref = Tour.getReferees();
+            Mat = Tour.getMatches();
             DataContext = this;
         }
 
