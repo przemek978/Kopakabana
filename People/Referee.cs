@@ -14,6 +14,9 @@ namespace People
             Name = imie;
             Surname = nazwisko;
         }
-
+        public override string ToString()
+        {
+            return Name + " " + Surname;
+        }
     }
 }

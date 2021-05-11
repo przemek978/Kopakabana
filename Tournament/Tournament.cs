@@ -65,7 +65,7 @@ namespace Kopakabana
                         nazwisko = "";
                         i = y;
                     }
-                    Teams.Add(new Team(PL[0], PL[1], PL[2], PL[3]));
+                    Teams.Add(new Team(nazwa,PL[0], PL[1], PL[2], PL[3]));
                 }
             }
             catch
