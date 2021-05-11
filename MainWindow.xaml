@@ -11,7 +11,7 @@
         <Button x:Name="Mecze" Content="Mecze" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="32.068" Click="Mecze_Click"/>
         <Button x:Name="Sedziowie" Content="Sedziowie" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="200,0,0,0" Height="32.068" Click="Sedzia"/>
         <Button x:Name="Druzyny" Content="Druzyny" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="400,0,-5,0" Height="32.068" Click="Druzyny_Click"/>
-        <ListView ItemsSource="{Binding Mat}" x:Name="Lista" HorizontalAlignment="Left" Height="339" Margin="0,80,0,0" VerticalAlignment="Top" Width="390">
+        <ListView ItemsSource="{Binding}" x:Name="Lista" HorizontalAlignment="Left" Height="339" Margin="0,80,0,0" VerticalAlignment="Top" Width="390">
             <ListView.View>
                 <GridView>
                     <!--<GridViewColumn DisplayMemberBinding="{Binding name1}"  Width="150"/>

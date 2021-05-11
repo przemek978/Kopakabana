@@ -12,9 +12,9 @@ namespace Kopakabana
 {
     class Tournament
     {
-        private List<Referee> Referees;
-        private List<Team> Teams;
-        private List<Match> Matches;
+        private List<Referee> Referees { get; set; }
+        private List<Team> Teams { get; set; }
+        private List<Match> Matches { get; set; }
         public Tournament()
         {
             Referees = new List<Referee>();
