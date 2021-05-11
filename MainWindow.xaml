@@ -7,11 +7,11 @@
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="Kopakabana.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="610">
-    <Grid Margin="0,0,2,0">
+    <Grid Margin="0,0,2,0" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Button x:Name="Mecze" Content="Mecze" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="32.068" Click="Mecze_Click"/>
         <Button x:Name="Sedziowie" Content="Sedziowie" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="200,0,0,0" Height="32.068" Click="Sedzia"/>
         <Button x:Name="Druzyny" Content="Druzyny" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="400,0,-5,0" Height="32.068" Click="Druzyny_Click"/>
-        <ListView ItemsSource="{Binding}" x:Name="Lista" HorizontalAlignment="Left" Height="339" Margin="0,80,0,0" VerticalAlignment="Top" Width="390">
+        <ListView x:Name="Lista" HorizontalAlignment="Left" Height="339" Margin="0,80,0,0" VerticalAlignment="Top" Width="390">
             <ListView.View>
                 <GridView>
                     <!--<GridViewColumn DisplayMemberBinding="{Binding name1}"  Width="150"/>
@@ -22,7 +22,7 @@
             </ListView.View>
         </ListView>
         <Grid x:Name="Match" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="600"/>
-        <Grid x:Name="Referee" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="600" d:IsHidden="True">
+        <Grid x:Name="Referee" Height="419" Width="600" d:IsHidden="True" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Button x:Name="RAdd" Content="Dodaj" HorizontalAlignment="Left" Margin="0,80,0,0" VerticalAlignment="Top" Width="130" Click="RefAdd"/>
             <Button x:Name="RDelete" Content="Usun" HorizontalAlignment="Left" Margin="130,80,0,0" VerticalAlignment="Top" Width="130" Click="RefDelete"/>
             <Button x:Name="REdit" Content="Edytuj" HorizontalAlignment="Left" Margin="260,80,0,0" VerticalAlignment="Top" Width="130" Click="RefEdit"/>

@@ -42,11 +42,18 @@ namespace Kopakabana
         private void Mecze_Click(object sender, RoutedEventArgs e)
         {
             Lista.ItemsSource = Tour.getMatches();
+            /*foreach (Match M in Tour.getMatches())
+            {
+                ListItem L=new ListItem(M);
+                ///L.Click += new RoutedEventHandler(SelectItem);
+                Lista.Items.Add(new ListItem(M));
+            }*/
             Referee.Visibility = Visibility.Hidden;
             Team.Visibility = Visibility.Hidden;
         }
         private void Sedzia(object sender, RoutedEventArgs e)
         {
+            //Lista.Items.Clear();
             Lista.ItemsSource = Tour.getReferees();
             Referee.Visibility = Visibility.Visible;
             Team.Visibility = Visibility.Hidden;
@@ -54,7 +61,7 @@ namespace Kopakabana
 
         private void Druzyny_Click(object sender, RoutedEventArgs e)
         {
-            Lista.ItemsSource = Tour.getTeams(); 
+            Lista.ItemsSource = Tour.getTeams();
             Referee.Visibility = Visibility.Hidden;
             Team.Visibility = Visibility.Visible;
         }
@@ -88,74 +95,75 @@ namespace Kopakabana
         {
 
         }
-    }
-   /* public class Match
-    {
-        public string name1 { get; set; }
-        public string name2 { get; set; }
-        Team Team1;
-        Team Team2;
-        public int wynik1;
-        public int wynik2;
-        public string wynik;
-        public Match(string n1, string n2, int w1, int w2)
-        {
-            name1 = n1;
-            name2 = n2;
-            wynik1 = w1;
-            wynik2 = w2;
-        }
-        public Match(Team t1, Team t2, int w1, int w2)
-        {
-            this.Team1 = t1;
-            this.Team2 = t2;
-            wynik1 = w1;
-            wynik2 = w2;
-        }
-        public override string ToString()
-        {
-            try
-            {
-                name1 = Team1.name;
-                name2 = Team2.name;
-                string wynik = wynik1 + " : " + wynik2;
-                return name1+" - " + name2 + "\t\t\t" + wynik;
-            }
-            catch { return ""; }
-        }
-        /*public override string ToString()
-        {
 
-            string wynik =name1+" - "+name2+"\t\t\t\t\t"+ wynik1 + " : " + wynik2;
-            return wynik;
-        }
     }
-    public class Referee
-    {
-        public string imie { get; set; }
-        public string nazwisko { get; set; }
-        public Referee(string i, string n)
-        {
-            imie = i;
-            nazwisko = n;
-        }
-        public override string ToString()
-        {
+    /* public class Match
+     {
+         public string name1 { get; set; }
+         public string name2 { get; set; }
+         Team Team1;
+         Team Team2;
+         public int wynik1;
+         public int wynik2;
+         public string wynik;
+         public Match(string n1, string n2, int w1, int w2)
+         {
+             name1 = n1;
+             name2 = n2;
+             wynik1 = w1;
+             wynik2 = w2;
+         }
+         public Match(Team t1, Team t2, int w1, int w2)
+         {
+             this.Team1 = t1;
+             this.Team2 = t2;
+             wynik1 = w1;
+             wynik2 = w2;
+         }
+         public override string ToString()
+         {
+             try
+             {
+                 name1 = Team1.name;
+                 name2 = Team2.name;
+                 string wynik = wynik1 + " : " + wynik2;
+                 return name1+" - " + name2 + "\t\t\t" + wynik;
+             }
+             catch { return ""; }
+         }
+         /*public override string ToString()
+         {
 
-            string wynik = imie + "  " + nazwisko;
-            return wynik;
-        }
-    }
-    public class Team
-    {
-        public string name { get; set; }
-        public Team(string n)
-        {
-            name = n;
-        }
-        public override string ToString()
-        {
-            return name;
-        }
-    }*/
+             string wynik =name1+" - "+name2+"\t\t\t\t\t"+ wynik1 + " : " + wynik2;
+             return wynik;
+         }
+     }
+     public class Referee
+     {
+         public string imie { get; set; }
+         public string nazwisko { get; set; }
+         public Referee(string i, string n)
+         {
+             imie = i;
+             nazwisko = n;
+         }
+         public override string ToString()
+         {
+
+             string wynik = imie + "  " + nazwisko;
+             return wynik;
+         }
+     }
+     public class Team
+     {
+         public string name { get; set; }
+         public Team(string n)
+         {
+             name = n;
+         }
+         public override string ToString()
+         {
+             return name;
+         }
+     }*/
 }
