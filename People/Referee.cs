@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace People
 {
-    class Referee
+    public class Referee:Person
     {
+
+        public Referee(string imie, string nazwisko)
+        {
+            Name = imie;
+            Surname = nazwisko;
+        }
+
     }
 }
