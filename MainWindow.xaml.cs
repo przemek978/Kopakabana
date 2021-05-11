@@ -41,19 +41,25 @@ namespace Kopakabana
 
         private void Mecze_Click(object sender, RoutedEventArgs e)
         {
-            Lista.ItemsSource = Tour.getMatches();
-            /*foreach (Match M in Tour.getMatches())
+            // Lista.ItemsSource = Tour.getMatches();
+            Lista.ItemsSource = null;
+            foreach (Match M in Tour.getMatches())
             {
-                ListItem L=new ListItem(M);
-                ///L.Click += new RoutedEventHandler(SelectItem);
-                Lista.Items.Add(new ListItem(M));
-            }*/
+                MenuItem Item = new MenuItem() { Header = M.ToString(), Width=370};
+                Item.Click +=new RoutedEventHandler(SelectMatch);
+                Lista.Items.Add(Item);
+            }
             Referee.Visibility = Visibility.Hidden;
             Team.Visibility = Visibility.Hidden;
         }
         private void Sedzia(object sender, RoutedEventArgs e)
         {
-            //Lista.Items.Clear();
+            try
+            {
+                Lista.Items.Clear();
+            }
+            catch { }
+            //Lista.Visibility = Visibility.Visible;
             Lista.ItemsSource = Tour.getReferees();
             Referee.Visibility = Visibility.Visible;
             Team.Visibility = Visibility.Hidden;
@@ -61,6 +67,13 @@ namespace Kopakabana
 
         private void Druzyny_Click(object sender, RoutedEventArgs e)
         {
+            //Lista.Visibility = Visibility.Visible;
+
+            try 
+            { 
+                Lista.Items.Clear();
+            }
+            catch { }
             Lista.ItemsSource = Tour.getTeams();
             Referee.Visibility = Visibility.Hidden;
             Team.Visibility = Visibility.Visible;
@@ -95,7 +108,10 @@ namespace Kopakabana
         {
 
         }
-
+        private void SelectMatch(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
     /* public class Match
      {
