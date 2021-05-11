@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace People
 {
-    abstract class Person
+    public abstract class Person
     {
+        protected string Name, Surname;
+
     }
 }
