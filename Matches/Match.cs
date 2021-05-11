@@ -10,8 +10,11 @@ namespace Matches
 {
     public abstract class Match
     {
-        Team T1, T2;
-        Referee Ref;
-
+       protected Team T1, T2;
+       Referee Ref;
+        public override string ToString()
+        {
+            return T1.getName() + " - " + T2.getName();
+        }
     }
 }
