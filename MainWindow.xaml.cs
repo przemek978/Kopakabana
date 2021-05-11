@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Matches;
+using People;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,23 +22,25 @@ namespace Kopakabana
     /// </summary>
     public partial class MainWindow : Window
     {
-        public List<Match> Mat { get; set; }
+        public List<Match> Mat{ get; set; }
         public List<Referee> Ref { get; set; }
         public List<Team> T { get; set; }
         public MainWindow()
         {
             InitializeComponent();
+            Tournament Tour = new Tournament();
             Referee.Visibility = Visibility.Hidden;
             Team.Visibility = Visibility.Hidden;
             /*Lista.Items.Add(new Match("Real","Barca",2,0));
-            Lista.Items.Add(new Match("Atletico","sevilla",0,0));*/
+            Lista.Items.Add(new Match("Atletico","sevilla",0,0));
             T = new List<Team>{ new Team("Real"), new Team("Sevilla"), new Team("Barca"), new Team("Atletico") };
-            //T = new List<Team>();
             Mat = new List<Match>();
             Ref = new List<Referee>();
             Mat.Add(new Match(T[0],T[1], 0, 1));
             Mat.Add(new Match(T[2], T[3], 2, 0));
-            Ref.Add(new Referee("Przemek","Kuczynski"));
+            Ref.Add(new Referee("Przemek","Kuczynski"));*/
+            T = Tour.getTeams();
+            Ref = Tour.getReferees();
             DataContext = this;
         }
 
@@ -90,7 +94,7 @@ namespace Kopakabana
 
         }
     }
-    public class Match
+   /* public class Match
     {
         public string name1 { get; set; }
         public string name2 { get; set; }
@@ -129,7 +133,7 @@ namespace Kopakabana
 
             string wynik =name1+" - "+name2+"\t\t\t\t\t"+ wynik1 + " : " + wynik2;
             return wynik;
-        }*/
+        }
     }
     public class Referee
     {
@@ -158,5 +162,5 @@ namespace Kopakabana
         {
             return name;
         }
-    }
+    }*/
 }
