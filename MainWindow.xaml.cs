@@ -42,6 +42,12 @@ namespace Kopakabana
         private void Mecze_Click(object sender, RoutedEventArgs e)
         {
             Lista.ItemsSource = Tour.getMatches();
+            /*foreach (Match M in Tour.getMatches())
+            {
+                ListItem L=new ListItem(M);
+                ///L.Click += new RoutedEventHandler(SelectItem);
+                Lista.Items.Add(new ListItem(M));
+            }*/
             Referee.Visibility = Visibility.Hidden;
             Team.Visibility = Visibility.Hidden;
         }
