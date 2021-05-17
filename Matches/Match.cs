@@ -10,7 +10,7 @@ namespace Matches
 {
     public abstract class Match
     {
-       protected Team T1, T2;
+       public Team T1, T2;
        Referee Ref;
         public override string ToString()
         {

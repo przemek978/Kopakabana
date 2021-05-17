@@ -56,7 +56,7 @@ namespace Kopakabana
                         {
                             imie += linia[x];
                         }
-                        for (y = x + 1; linia[y] != ' '; y++)
+                        for (y = x + 1; linia[y] != ' ' && linia[y] != ';' ; y++)
                         {
                             nazwisko += linia[y];
                         }

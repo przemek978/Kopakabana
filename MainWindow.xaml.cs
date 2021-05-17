@@ -28,6 +28,7 @@ namespace Kopakabana
             InitializeComponent();
             Referee.Visibility = Visibility.Hidden;
             Team.Visibility = Visibility.Hidden;
+            Match.Visibility = Visibility.Hidden;
             /*Lista.Items.Add(new Match("Real","Barca",2,0));
             Lista.Items.Add(new Match("Atletico","sevilla",0,0));
             T = new List<Team>{ new Team("Real"), new Team("Sevilla"), new Team("Barca"), new Team("Atletico") };
@@ -45,8 +46,8 @@ namespace Kopakabana
             Lista.ItemsSource = null;
             foreach (Match M in Tour.getMatches())
             {
-                MenuItem Item = new MenuItem() { Header = M.ToString(), Width=370};
-                Item.Click +=new RoutedEventHandler(SelectMatch);
+                ListBoxItem Item = new ListBoxItem() { Content = M};
+                Lista.SelectionChanged += new SelectionChangedEventHandler(SelectMatch);
                 Lista.Items.Add(Item);
             }
             Referee.Visibility = Visibility.Hidden;
@@ -69,8 +70,8 @@ namespace Kopakabana
         {
             //Lista.Visibility = Visibility.Visible;
 
-            try 
-            { 
+            try
+            {
                 Lista.Items.Clear();
             }
             catch { }
@@ -108,10 +109,51 @@ namespace Kopakabana
         {
 
         }
-        private void SelectMatch(object sender, RoutedEventArgs e)
+        private void SelectMatch(object sender, SelectionChangedEventArgs e)
         {
-            
+            try
+            {
+                var I = (Match)((ListBoxItem)(Lista.SelectedItem)).Content;
+                Main.Visibility = Visibility.Hidden;
+                Match.Visibility = Visibility.Visible;
+                Name1.Text = I.T1.getName();
+                Name2.Text = I.T2.getName();
+                if (I is VolleyBall)
+                {
+                    Res1.Text = ((VolleyBall)I).Result1.ToString();
+                    Res2.Text = ((VolleyBall)I).Result1.ToString();
+                    Type.Text = I.GetType().Name;
+                }
+                else
+                {
+
+                }
+            }
+            catch { }
+            /*ListBoxItem lbi = ((sender as ListBox).SelectedItem as ListBoxItem);
+            Match I = (Match)(lbi.Content);*/
+            // MessageBox.Show(I.T1.ToString(), "Error", MessageBoxButton.OK);
         }
+
+        private void BackMain(object sender, RoutedEventArgs e)
+        {
+            Main.Visibility = Visibility.Visible;
+            Match.Visibility = Visibility.Hidden;
+            Lista.SelectedItem = false;
+        }
+        /* private void SelectMatch(object sender, RoutedEventArgs e)
+{
+    try
+    {
+        Match Mat = Lista.SelectedItem as Match;
+        MessageBox.Show(Mat.T1.ToString(), "Error", MessageBoxButton.OK);
+    }
+    catch
+    {
+        MessageBox.Show("NULL", "NULL", MessageBoxButton.OK);
+    }
+    return;
+}*/
     }
     /* public class Match
      {
