@@ -10,19 +10,18 @@ namespace Matches
 {
     public abstract class Match
     {
-       private Team T1, T2;
-       private Team WhoWon;
-       Referee Ref;
+        public Team T1, T2;
+        protected Team WhoWon;
+        protected Referee Ref;
         public override string ToString()
         {
             return T1.getName() + " - " + T2.getName();
         }
 
-        public abstract bool Equals();
 
         public void AddWins()
         {
-            
+
         }
 
         public Team getWhoWon()
@@ -30,9 +29,7 @@ namespace Matches
             return WhoWon;
         }
 
-        public  void setWhoWon() 
-        {
-            
-        }
+        public abstract void setWhoWon(bool t1);
+        
     }
 }

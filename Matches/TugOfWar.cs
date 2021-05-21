@@ -6,10 +6,20 @@ using System.Threading.Tasks;
 
 namespace Matches
 {
-    class TugOfWar
+    class TugOfWar:Match
     {
         public TugOfWar() { }
 
-        public abstract bool Equals(TugOfWar T) { }
+        //public bool Equals(TugOfWar T) { }
+        public override void setWhoWon(bool t1)
+        {
+            if (t1 == true)
+            {
+                WhoWon = T1;
+            }
+            else WhoWon = T2;
+        }
+
     }
+
 }

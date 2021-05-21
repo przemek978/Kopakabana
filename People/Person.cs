@@ -8,7 +8,7 @@ namespace People
 {
     public abstract class Person
     {
-        protected string Name, Surname;
+        public string Name, Surname;
 
     }
 }

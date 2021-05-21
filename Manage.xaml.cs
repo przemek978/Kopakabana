@@ -15,13 +15,20 @@ using System.Windows.Shapes;
 namespace Kopakabana
 {
     /// <summary>
-    /// Logika interakcji dla klasy ADD.xaml
+    /// Logika interakcji dla klasy Manage.xaml
     /// </summary>
-    public partial class ADD : Window
+    public partial class Manage : Window
     {
-        public ADD()
+        public Manage()
         {
             InitializeComponent();
+            AddTeam.Visibility = Visibility.Hidden;
+            AddRef.Visibility = Visibility.Hidden;
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
         }
     }
 }

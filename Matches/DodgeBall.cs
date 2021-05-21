@@ -6,10 +6,18 @@ using System.Threading.Tasks;
 
 namespace Matches
 {
-    class DodgeBall
+    class DodgeBall : Match
     {
         public DodgeBall() { }
 
-        public abstract bool Equals(DodgeBall D) { }
+        //public bool Equals(DodgeBall D) { }
+        public override void setWhoWon(bool t1)
+        {
+            if (t1 == true)
+            {
+                WhoWon = T1;
+            }
+            else WhoWon = T2;
+        }
     }
 }

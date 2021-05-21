@@ -37,20 +37,31 @@ namespace Kopakabana
             Mat.Add(new Match(T[0],T[1], 0, 1));
             Mat.Add(new Match(T[2], T[3], 2, 0));
             Ref.Add(new Referee("Przemek","Kuczynski"));*/
+            Tour.Read();
+            Tour.GenerateMatches();
+            Tour.ReadScore();
+            Tour.CountWins();
             DataContext = this;
         }
-
+        public void Refresh()
+        {
+            Lista.Items.Refresh();
+            Tour.Save();
+            Tour.GenerateMatches();
+            Tour.CountWins();
+        }
         private void Mecze_Click(object sender, RoutedEventArgs e)
         {
             // Lista.ItemsSource = Tour.getMatches();
             Lista.ItemsSource = null;
+            SetScore.Visibility = Visibility.Visible;
             string poptype = " ";
             foreach (Match M in Tour.getMatches())
             {
                 if (M.GetType().Name != poptype)
                 {
                     poptype = M.GetType().Name;
-                    Lista.Items.Add(new ListBoxItem(){Content=poptype.ToUpper() ,Foreground = Brushes.Black});
+                    Lista.Items.Add(new ListBoxItem() { Content = poptype.ToUpper(), Foreground = Brushes.Black });
                 }
                 poptype = M.GetType().Name;
                 ListBoxItem Item = new ListBoxItem() { Content = M };
@@ -62,6 +73,7 @@ namespace Kopakabana
         }
         private void Sedzia(object sender, RoutedEventArgs e)
         {
+            SetScore.Visibility = Visibility.Hidden;
             Lista.SelectedItem = false;
             try
             {
@@ -77,6 +89,7 @@ namespace Kopakabana
         private void Druzyny_Click(object sender, RoutedEventArgs e)
         {
             //Lista.Visibility = Visibility.Visible;
+            SetScore.Visibility = Visibility.Hidden;
             Lista.SelectedItem = false;
             try
             {
@@ -105,9 +118,15 @@ namespace Kopakabana
 
         private void TAdd(object sender, RoutedEventArgs e)
         {
-
+            Manage Man = new Manage();
+            //Man.Show();
+            Man.AddTeam.Visibility = Visibility.Visible;
+            if (true == Man.ShowDialog())
+            {
+                Tour.Teams.Add(new Team(Man.NameT.Text, new Player(Man.NameP1.Text, Man.SurnameP1.Text), new Player(Man.NameP2.Text, Man.SurnameP2.Text), new Player(Man.NameP3.Text, Man.SurnameP3.Text), new Player(Man.NameP4.Text, Man.SurnameP4.Text)));
+                Refresh();
+            }
         }
-
         private void TDelete(object sender, RoutedEventArgs e)
         {
 
@@ -115,13 +134,25 @@ namespace Kopakabana
 
         private void TEdit(object sender, RoutedEventArgs e)
         {
-
+            Manage Man = new Manage();
+            Man.Show();
+            Man.AddTeam.Visibility = Visibility.Visible;
+            //if(Lista.SelectedItem is Team)
+            Man.NameT.Text = ((Team)(Lista.SelectedItem)).Name;
+            Man.NameP1.Text = ((Team)(Lista.SelectedItem)).P1.Name;
+            Man.SurnameP1.Text = ((Team)(Lista.SelectedItem)).P1.Surname;
+            Man.NameP2.Text = ((Team)(Lista.SelectedItem)).P2.Name;
+            Man.SurnameP2.Text = ((Team)(Lista.SelectedItem)).P2.Surname;
+            Man.NameP3.Text = ((Team)(Lista.SelectedItem)).P3.Name;
+            Man.SurnameP3.Text = ((Team)(Lista.SelectedItem)).P3.Surname;
+            Man.NameP4.Text = ((Team)(Lista.SelectedItem)).P4.Name;
+            Man.SurnameP4.Text = ((Team)(Lista.SelectedItem)).P4.Surname;
         }
         private void SelectMatch(object sender, SelectionChangedEventArgs e)
         {
             try
             {
-                if(Lista.SelectedItem==null)
+                if (Lista.SelectedItem == null)
                     throw new Exception();
                 var I = (Match)((ListBoxItem)(Lista.SelectedItem)).Content;
                 Main.Visibility = Visibility.Hidden;
@@ -131,7 +162,7 @@ namespace Kopakabana
                 if (I is VolleyBall)
                 {
                     Res1.Text = ((VolleyBall)I).Result1.ToString();
-                    Res2.Text = ((VolleyBall)I).Result1.ToString();
+                    Res2.Text = ((VolleyBall)I).Result2.ToString();
                     Type.Text = I.GetType().Name;
                 }
                 else
@@ -139,7 +170,7 @@ namespace Kopakabana
 
                 }
             }
-            catch(Exception) { }
+            catch (Exception) { }
             /*ListBoxItem lbi = ((sender as ListBox).SelectedItem as ListBoxItem);
             Match I = (Match)(lbi.Content);*/
             // MessageBox.Show(I.T1.ToString(), "Error", MessageBoxButton.OK);
@@ -151,87 +182,110 @@ namespace Kopakabana
             Match.Visibility = Visibility.Hidden;
             Lista.SelectedItem = false;
         }
-        /* private void SelectMatch(object sender, RoutedEventArgs e)
-{
+
+        private void SetScore_Click(object sender, RoutedEventArgs e)
+        {
+            Score SC = new Score();
+            Match Ob = ((Match)((ListBoxItem)Lista.SelectedItem).Content);
+            SC.Volley.Visibility = Visibility.Visible;
+            SC.Team1.Text = Ob.T1.Name;
+            SC.Team2.Text = Ob.T2.Name;
+            if (Ob is VolleyBall)
+            {
+                SC.Score1.Text = ((VolleyBall)Ob).Result1.ToString();
+                SC.Score2.Text = ((VolleyBall)Ob).Result2.ToString();
+            }
+            if (true == SC.ShowDialog())
+            {
+                Tour.setMatch(Lista.SelectedIndex - 1, int.Parse(SC.Score1.Text), int.Parse(SC.Score2.Text));
+                Res1.Text = SC.Score1.Text;
+                Res2.Text = SC.Score2.Text;
+                Type.Text = Ob.GetType().Name;
+                Ob.setWhoWon(true);
+                Refresh();
+            }
+            /* private void SelectMatch(object sender, RoutedEventArgs e)
+    {
     try
     {
-        Match Mat = Lista.SelectedItem as Match;
-        MessageBox.Show(Mat.T1.ToString(), "Error", MessageBoxButton.OK);
+    Match Mat = Lista.SelectedItem as Match;
+    MessageBox.Show(Mat.T1.ToString(), "Error", MessageBoxButton.OK);
     }
     catch
     {
-        MessageBox.Show("NULL", "NULL", MessageBoxButton.OK);
+    MessageBox.Show("NULL", "NULL", MessageBoxButton.OK);
     }
     return;
-}*/
-    }
-    /* public class Match
-     {
-         public string name1 { get; set; }
-         public string name2 { get; set; }
-         Team Team1;
-         Team Team2;
-         public int wynik1;
-         public int wynik2;
-         public string wynik;
-         public Match(string n1, string n2, int w1, int w2)
+    }*/
+        }
+        /* public class Match
          {
-             name1 = n1;
-             name2 = n2;
-             wynik1 = w1;
-             wynik2 = w2;
-         }
-         public Match(Team t1, Team t2, int w1, int w2)
-         {
-             this.Team1 = t1;
-             this.Team2 = t2;
-             wynik1 = w1;
-             wynik2 = w2;
-         }
-         public override string ToString()
-         {
-             try
+             public string name1 { get; set; }
+             public string name2 { get; set; }
+             Team Team1;
+             Team Team2;
+             public int wynik1;
+             public int wynik2;
+             public string wynik;
+             public Match(string n1, string n2, int w1, int w2)
              {
-                 name1 = Team1.name;
-                 name2 = Team2.name;
-                 string wynik = wynik1 + " : " + wynik2;
-                 return name1+" - " + name2 + "\t\t\t" + wynik;
+                 name1 = n1;
+                 name2 = n2;
+                 wynik1 = w1;
+                 wynik2 = w2;
              }
-             catch { return ""; }
-         }
-         /*public override string ToString()
-         {
+             public Match(Team t1, Team t2, int w1, int w2)
+             {
+                 this.Team1 = t1;
+                 this.Team2 = t2;
+                 wynik1 = w1;
+                 wynik2 = w2;
+             }
+             public override string ToString()
+             {
+                 try
+                 {
+                     name1 = Team1.name;
+                     name2 = Team2.name;
+                     string wynik = wynik1 + " : " + wynik2;
+                     return name1+" - " + name2 + "\t\t\t" + wynik;
+                 }
+                 catch { return ""; }
+             }
+             /*public override string ToString()
+             {
 
-             string wynik =name1+" - "+name2+"\t\t\t\t\t"+ wynik1 + " : " + wynik2;
-             return wynik;
+                 string wynik =name1+" - "+name2+"\t\t\t\t\t"+ wynik1 + " : " + wynik2;
+                 return wynik;
+             }
          }
-     }
-     public class Referee
-     {
-         public string imie { get; set; }
-         public string nazwisko { get; set; }
-         public Referee(string i, string n)
+         public class Referee
          {
-             imie = i;
-             nazwisko = n;
-         }
-         public override string ToString()
-         {
+             public string imie { get; set; }
+             public string nazwisko { get; set; }
+             public Referee(string i, string n)
+             {
+                 imie = i;
+                 nazwisko = n;
+             }
+             public override string ToString()
+             {
 
-             string wynik = imie + "  " + nazwisko;
-             return wynik;
+                 string wynik = imie + "  " + nazwisko;
+                 return wynik;
+             }
          }
-     }
-     public class Team
-     {
-         public string name { get; set; }
-         public Team(string n)
+         public class Team
          {
-             name = n;
-         }
-         public override string ToString()
-         {
-             return name;
-         }
-     }*/
+             public string name { get; set; }
+             public Team(string n)
+             {
+                 name = n;
+             }
+             public override string ToString()
+             {
+                 return name;
+             }
+         }*/
+    }
 }

@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="610">
     <Grid Margin="0,0,2,0" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Grid x:Name="Main" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="600">
+        <Grid x:Name="Main" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="600" d:IsHidden="True">
             <Button x:Name="Sedziowie" Content="Sedziowie" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="200,0,-300,0" Height="32" Click="Sedzia"/>
             <Button x:Name="Mecze" Content="Mecze" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="32" Click="Mecze_Click" Margin="0,0,-100,0"/>
             <Button x:Name="Druzyny" Content="Druzyny" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="400,0,-500,0" Height="32" Click="Druzyny_Click"/>
@@ -29,17 +29,18 @@
             <Button x:Name="REdit" Content="Edytuj" HorizontalAlignment="Left" Margin="260,80,0,0" VerticalAlignment="Top" Width="130" Click="RefEdit"/>
         </Grid>
         <Grid x:Name="Team" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="600" d:IsHidden="True">
-            <Button x:Name="TeamAdd" Content="Dodaj" HorizontalAlignment="Left" Margin="0,80,0,0" VerticalAlignment="Top" Width="130" Click="TAdd"/>
+            <Button x:Name="TeamAdd" Content="Dodaj" HorizontalAlignment="Left" Margin="0,80,0,0" VerticalAlignment="Top" Width="130" Click="TAdd" d:IsHidden="True"/>
             <Button x:Name="TeamDelete" Content="Usun" HorizontalAlignment="Left" Margin="130,80,0,0" VerticalAlignment="Top" Width="130" Click="TDelete"/>
             <Button x:Name="TeamEdit" Content="Edytuj" HorizontalAlignment="Left" Margin="260,80,0,0" VerticalAlignment="Top" Width="130" Click="TEdit"/>
         </Grid>
-        <Grid x:Name="Match" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="600" d:IsHidden="True">
+        <Grid x:Name="Match" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="600">
             <TextBlock x:Name="Name1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="160" Height="45" FontSize="24" TextAlignment="Center" Margin="0,25,0,0"/>
             <TextBlock x:Name="Name2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="160" Margin="445,25,-5,0" Height="45" FontSize="24" TextAlignment="Center"/>
             <TextBlock x:Name="Res1" HorizontalAlignment="Left" Margin="160,25,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Height="105" Width="143" Background="#FF979393" FontSize="72" TextAlignment="Center"/>
             <TextBlock x:Name="Res2" HorizontalAlignment="Left" Margin="302,25,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Height="105" Width="143" Background="#FF979393" FontSize="72" TextAlignment="Center"/>
             <Button Content="Back" HorizontalAlignment="Left" Margin="515,389,0,0" VerticalAlignment="Top" Width="75" Click="BackMain"/>
             <TextBlock x:Name="Type" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="600" Height="25" FontSize="16" TextAlignment="Center"/>
+            <Button x:Name="SetScore" Content="Zmiana wyniku" HorizontalAlignment="Left" Margin="160,130,0,0" VerticalAlignment="Top" Width="285" Click="SetScore_Click"/>
         </Grid>
 
     </Grid>

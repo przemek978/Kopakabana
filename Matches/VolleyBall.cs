@@ -16,5 +16,20 @@ namespace Matches
             T1 = t1;
             T2 = t2;
         }
+        public override void setWhoWon(bool t1)
+        {
+            if (Result1 > Result2 && Result1 == 3)
+            {
+                WhoWon = T1;
+
+            }
+            else if (Result1 < Result2 && Result2 == 3)
+            {
+                WhoWon = T2;
+            }
+            else
+                WhoWon = null;
+        }
+
     }
 }

@@ -9,9 +9,9 @@ namespace People
 {
     public class Team
     {
-        string Name;
-        int Wins;
-        Player P1, P2, P3, P4;
+        public string Name;
+        public Player P1, P2, P3, P4;
+        public int Wins;
         public Team(string name,Player p1, Player p2, Player p3, Player p4)
         {
             Name = name;
@@ -27,7 +27,11 @@ namespace People
         }
         public override string ToString()
         {
-            return Name+"\n"+P1.ToString() + "\n"+ P2.ToString() + "\n"+ P3.ToString() + "\n"+ P4.ToString() ;
+            return Name + " " + Wins;
         }
+        /*public override string ToString()
+        {
+            return Name+"\n"+P1.ToString() + "\n"+ P2.ToString() + "\n"+ P3.ToString() + "\n"+ P4.ToString() ;
+        }*/
     }
 }
