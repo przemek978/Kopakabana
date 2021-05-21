@@ -44,9 +44,16 @@ namespace Kopakabana
         {
             // Lista.ItemsSource = Tour.getMatches();
             Lista.ItemsSource = null;
+            string poptype = " ";
             foreach (Match M in Tour.getMatches())
             {
-                ListBoxItem Item = new ListBoxItem() { Content = M};
+                if (M.GetType().Name != poptype)
+                {
+                    poptype = M.GetType().Name;
+                    Lista.Items.Add(new ListBoxItem(){Content=poptype.ToUpper() ,Foreground = Brushes.Black});
+                }
+                poptype = M.GetType().Name;
+                ListBoxItem Item = new ListBoxItem() { Content = M };
                 Lista.SelectionChanged += new SelectionChangedEventHandler(SelectMatch);
                 Lista.Items.Add(Item);
             }
@@ -55,6 +62,7 @@ namespace Kopakabana
         }
         private void Sedzia(object sender, RoutedEventArgs e)
         {
+            Lista.SelectedItem = false;
             try
             {
                 Lista.Items.Clear();
@@ -69,7 +77,7 @@ namespace Kopakabana
         private void Druzyny_Click(object sender, RoutedEventArgs e)
         {
             //Lista.Visibility = Visibility.Visible;
-
+            Lista.SelectedItem = false;
             try
             {
                 Lista.Items.Clear();
@@ -113,6 +121,8 @@ namespace Kopakabana
         {
             try
             {
+                if(Lista.SelectedItem==null)
+                    throw new Exception();
                 var I = (Match)((ListBoxItem)(Lista.SelectedItem)).Content;
                 Main.Visibility = Visibility.Hidden;
                 Match.Visibility = Visibility.Visible;
@@ -129,7 +139,7 @@ namespace Kopakabana
 
                 }
             }
-            catch { }
+            catch(Exception) { }
             /*ListBoxItem lbi = ((sender as ListBox).SelectedItem as ListBoxItem);
             Match I = (Match)(lbi.Content);*/
             // MessageBox.Show(I.T1.ToString(), "Error", MessageBoxButton.OK);

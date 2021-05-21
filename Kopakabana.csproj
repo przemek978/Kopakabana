@@ -58,6 +58,9 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="ADD.xaml.cs">
+      <DependentUpon>ADD.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Matches\DodgeBall.cs" />
     <Compile Include="Matches\Match.cs" />
     <Compile Include="People\Player.cs" />
@@ -66,6 +69,10 @@
     <Compile Include="Tournament\Tournament.cs" />
     <Compile Include="Matches\VolleyBall.cs" />
     <Compile Include="Matches\TugOfWar.cs" />
+    <Page Include="ADD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -76,7 +76,7 @@ namespace Kopakabana
             int q = 0;
             foreach (Team T in Teams)
             {
-                for(int i=q+1;i<Teams.Count;i++)
+                for (int i=q+1;i<Teams.Count;i++)
                 {
                     Matches.Add(new VolleyBall(T, Teams[i]));
                 }
