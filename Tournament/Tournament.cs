@@ -10,7 +10,7 @@ using System.Windows;
 
 namespace Kopakabana
 {
-    class Tournament
+    public class Tournament
     {
         private List<Referee> Referees { get; set; }
         private List<Team> Teams { get; set; }

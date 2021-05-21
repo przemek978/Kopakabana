@@ -22,7 +22,7 @@ namespace Kopakabana
     /// </summary>
     public partial class MainWindow : Window
     {
-        Tournament Tour = new Tournament();
+        public Tournament Tour = new Tournament();
         public MainWindow()
         {
             InitializeComponent();

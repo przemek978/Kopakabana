@@ -8,5 +8,8 @@ namespace Matches
 {
     class DodgeBall
     {
+        public DodgeBall() { }
+
+        public abstract bool Equals(DodgeBall D) { }
     }
 }

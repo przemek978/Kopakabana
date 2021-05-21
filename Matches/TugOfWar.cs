@@ -8,5 +8,8 @@ namespace Matches
 {
     class TugOfWar
     {
+        public TugOfWar() { }
+
+        public abstract bool Equals(TugOfWar T) { }
     }
 }
