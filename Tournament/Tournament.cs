@@ -23,6 +23,12 @@ namespace Kopakabana
             Matches = new List<Match>();
 
         }
+        public List<Team> getTop4()
+        {
+            Teams.Sort((x, y) => x.Wins.CompareTo(y.Wins));
+            List<Team> best4 = new List<Team>(Teams.Take(4));
+            return best4;
+        }
         public void Read()
         {
             try
@@ -151,17 +157,17 @@ namespace Kopakabana
                         {
                             ((VolleyBall)M).Result1 = sc1;
                             ((VolleyBall)M).Result2 = sc2;
-                            M.setWhoWon(true);
+                            M.SetWhoWon(true);
                         }
                         if (!(M is VolleyBall) && M.T1.Name == name1 && M.T2.Name == name2)
                         {
                             if (sc1 == 1)
                             {
-                                M.setWhoWon(true);
+                                M.SetWhoWon(true);
                             }
                             if (sc2 == 1)
                             {
-                                M.setWhoWon(false);
+                                M.SetWhoWon(false);
                             }
 
 

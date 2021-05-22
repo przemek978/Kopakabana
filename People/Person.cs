@@ -10,5 +10,28 @@ namespace People
     {
         public string Name, Surname;
 
+        public string getName()
+        {
+            return this.Name;
+        }
+
+        public string getSurname()
+        {
+            return this.Surname;
+        }
+
+        public void setName(string NewName)
+        {
+            this.Name = NewName;
+        }
+        public void setSurname(string NewSurname)
+        {
+            this.Surname = NewSurname;
+        }
+
+
+
+
     }
+
 }

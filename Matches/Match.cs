@@ -12,16 +12,19 @@ namespace Matches
     {
         public Team T1, T2;
         protected Team WhoWon;
-        protected Referee Ref;
+        public Referee Ref;
         public override string ToString()
         {
             return T1.getName() + " - " + T2.getName();
         }
-
-
-        public void AddWins()
+        public void AddWins(Team addwon)
         {
+            addwon.Wins += 1;
+        }
 
+        public void SetRefree(Referee main)
+        {
+            Ref = main;
         }
 
         public Team getWhoWon()
@@ -29,7 +32,7 @@ namespace Matches
             return WhoWon;
         }
 
-        public abstract void setWhoWon(bool t1);
-        
+        public abstract void SetWhoWon(bool t1);
+
     }
 }

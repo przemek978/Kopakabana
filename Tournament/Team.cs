@@ -25,10 +25,20 @@ namespace People
         {
             return Name;
         }
+        public int getWins(Team t)
+        {
+            return t.Wins;
+        }
+
+        public void setWins(int wins)
+        {
+            this.Wins = wins;
+        }
         public override string ToString()
         {
             return Name + " " + Wins;
         }
+
         /*public override string ToString()
         {
             return Name+"\n"+P1.ToString() + "\n"+ P2.ToString() + "\n"+ P3.ToString() + "\n"+ P4.ToString() ;
