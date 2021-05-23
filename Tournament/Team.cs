@@ -12,18 +12,25 @@ namespace People
         public string Name;
         public Player P1, P2, P3, P4;
         public int Wins;
+        public int ID;
         public Team(string name,Player p1, Player p2, Player p3, Player p4)
         {
+            Random RN = new Random();
             Name = name;
             Wins = 0;
             P1 = p1;
             P2 = p2;
             P3 = p3;
             P4 = p4;
+            
         }
         public string getName()
         {
             return Name;
+        }
+        public void setName(string name)
+        {
+            Name = name;
         }
         public int getWins(Team t)
         {
