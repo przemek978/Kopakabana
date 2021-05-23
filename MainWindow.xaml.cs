@@ -32,10 +32,10 @@ namespace Kopakabana
             ///Czytanie danych, genreowanie meczy wczytywanie danych wynikow do wygenrewanych meczow i na tej podstawie zlicznaie wygranych
             Tour.Read();
             Tour.GenerateMatches();
-            //Tour.ReadScore();
             Tour.CountWins();
             DataContext = this;
         }
+         ///Metoda do aktualzacji widoku
         public void Refresh()
         {
             /*
@@ -44,13 +44,18 @@ namespace Kopakabana
              * Na podstawie ponownie wygenerwoanych meczow przypsiuje wyniki
              * zlicza wygrane
              */
-            Lista.Items.Refresh();
-            Tour.GenerateMatches();
-            Tour.Save();
-            //Tour.ReadScore();
-            Tour.CountWins();
+            Lista.Items.Refresh();//Lista
+            Tour.GenerateMatches();//Ponowne generowanie meczow
+            Tour.Save();//zapis druzyn i sedziow
+            Tour.CountWins();//ponowne oblicznie wygranych
+            Tour.getTop4();//Ponowne generowanie 4 najlepszych druzyn
+            /*
+             * Metoda wywolywana zazzwyczaj gdy pojawily sie zmiany w sedziach lub druzynach
+             */
         }
-        private void Mecze_Click(object sender, RoutedEventArgs e)
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        ////Metody wybierania konktretnej grupy//////////////////////////////////////////////////////Ready///
+        private void Mecze_Click(object sender, RoutedEventArgs e)///Ready
         {
             Lista.Items.Clear();
             SetScore.Visibility = Visibility.Visible;
@@ -69,7 +74,7 @@ namespace Kopakabana
             }
             Referee.Visibility = Visibility.Hidden;
             Team.Visibility = Visibility.Hidden;
-        }
+        }///Ready
         private void Sedzia(object sender, RoutedEventArgs e)
         {
             Lista.Items.Clear();
@@ -82,8 +87,7 @@ namespace Kopakabana
 
             Referee.Visibility = Visibility.Visible;
             Team.Visibility = Visibility.Hidden;
-        }
-
+        }///Ready
         private void Druzyny_Click(object sender, RoutedEventArgs e)
         {
             Lista.Items.Clear();
@@ -95,23 +99,23 @@ namespace Kopakabana
             }
             Referee.Visibility = Visibility.Hidden;
             Team.Visibility = Visibility.Visible;
-        }
-
+        }///Ready
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        ////Metody zarazdzania sedziami
         private void RefAdd(object sender, RoutedEventArgs e)
         {
 
         }
-
         private void RefDelete(object sender, RoutedEventArgs e)
         {
 
         }
-
         private void RefEdit(object sender, RoutedEventArgs e)
         {
 
         }
-
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        ////Matody zarzadznaia druzynami////////////////////////////////////////////////////////////Ready///
         private void TAdd(object sender, RoutedEventArgs e)
         {
             Manage Man = new Manage();
@@ -123,7 +127,7 @@ namespace Kopakabana
                 Druzyny_Click(sender, e);
                 Refresh();
             }
-        }
+        }///Ready
         private void TDelete(object sender, RoutedEventArgs e)
         {
             var I = Tour.getTeams();
@@ -131,8 +135,7 @@ namespace Kopakabana
             Tour.setTeams(I);
             Druzyny_Click(sender, e);
             Refresh();
-        }
-
+        }///Ready
         private void TEdit(object sender, RoutedEventArgs e)
         {
             Manage Man = new Manage();
@@ -149,11 +152,10 @@ namespace Kopakabana
             Man.SurnameP3.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P3.Surname;
             Man.NameP4.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P4.Name;
             Man.SurnameP4.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P4.Surname;
-            int ID = ((Team)((ListBoxItem)Lista.SelectedItem).Content).ID;
+            //int ID = ((Team)((ListBoxItem)Lista.SelectedItem).Content).ID;
             if (true == Man.ShowDialog())
             {
                 Tour.setTeams(Lista.SelectedIndex, Man.NameT.Text, new Player(Man.NameP1.Text, Man.SurnameP1.Text), new Player(Man.NameP2.Text, Man.SurnameP2.Text), new Player(Man.NameP3.Text, Man.SurnameP3.Text), new Player(Man.NameP4.Text, Man.SurnameP4.Text));
-                //Tour.writenameid(NameT.Text,ID,Lista.SelectedIndex);
                 Tour.ChangeName(pop, Man.NameT.Text);
                 Tour.SearchName(Man.NameT.Text);
                 Druzyny_Click(sender, e);
@@ -162,7 +164,7 @@ namespace Kopakabana
 
             }
 
-        }
+        }///Ready
         private void LeftDoubleClick(object sender, MouseButtonEventArgs e)
         {
             try
@@ -198,16 +200,9 @@ namespace Kopakabana
             /*ListBoxItem lbi = ((sender as ListBox).SelectedItem as ListBoxItem);
             Match I = (Match)(lbi.Content);*/
             // MessageBox.Show(I.T1.ToString(), "Error", MessageBoxButton.OK);
-        }
-
-        private void BackMain(object sender, RoutedEventArgs e)
-        {
-            Main.Visibility = Visibility.Visible;
-            Match.Visibility = Visibility.Hidden;
-            Lista.SelectedItem = false;
-            ((ListBoxItem)(Lista.SelectedItem)).IsSelected = false;
-        }
-
+        }///Ready
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        ////Metoda do zarzadzania wynikami//////////////////////////////////////////////////////////Ready///
         private void SetScore_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -248,6 +243,14 @@ namespace Kopakabana
                 MessageBox.Show("Zła wartość", "Bład", MessageBoxButton.OK);
             }
 
-        }
+        }///Ready
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        private void BackMain(object sender, RoutedEventArgs e)
+        {
+            Main.Visibility = Visibility.Visible;
+            Match.Visibility = Visibility.Hidden;
+            Lista.SelectedItem = false;
+            ((ListBoxItem)(Lista.SelectedItem)).IsSelected = false;
+        }///Ready
     }
 }

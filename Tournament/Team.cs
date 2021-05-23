@@ -7,15 +7,13 @@ using System.Threading.Tasks;
 
 namespace People
 {
-    public class Team
+    public class Team //metody dotepowe do player a dokladnie ich składowych
     {
         public string Name;
         public Player P1, P2, P3, P4;
         public int Wins;
-        public int ID;
         public Team(string name,Player p1, Player p2, Player p3, Player p4)
         {
-            Random RN = new Random();
             Name = name;
             Wins = 0;
             P1 = p1;
@@ -36,7 +34,6 @@ namespace People
         {
             return t.Wins;
         }
-
         public void setWins(int wins)
         {
             this.Wins = wins;

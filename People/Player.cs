@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace People
 {
-    public class Player : Person
+    public class Player : Person///Ready
     {
         public Player(string imie, string nazwisko)
         {
