@@ -33,6 +33,7 @@ namespace Kopakabana
             Tour.Read();
             Tour.GenerateMatches();
             Tour.CountWins();
+            Tour.getTop4();
             DataContext = this;
         }
          ///Metoda do aktualzacji widoku
@@ -144,14 +145,14 @@ namespace Kopakabana
             Man.AddTeam.Visibility = Visibility.Visible;
             //if(Lista.SelectedItem is Team)
             pop=Man.NameT.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).Name;
-            Man.NameP1.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P1.Name;
-            Man.SurnameP1.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P1.Surname;
-            Man.NameP2.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P2.Name;
-            Man.SurnameP2.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P2.Surname;
-            Man.NameP3.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P3.Name;
-            Man.SurnameP3.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P3.Surname;
-            Man.NameP4.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P4.Name;
-            Man.SurnameP4.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P4.Surname;
+            Man.NameP1.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P1.getName();
+            Man.SurnameP1.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P1.getSurname();
+            Man.NameP2.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P2.getName();
+            Man.SurnameP2.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P2.getSurname();
+            Man.NameP3.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P3.getName();
+            Man.SurnameP3.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P3.getSurname();
+            Man.NameP4.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P4.getName();
+            Man.SurnameP4.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P4.getSurname();
             //int ID = ((Team)((ListBoxItem)Lista.SelectedItem).Content).ID;
             if (true == Man.ShowDialog())
             {
@@ -169,6 +170,8 @@ namespace Kopakabana
         {
             try
             {
+                Ass1.Text = "";
+                Ass2.Text = "";
                 if (Lista.SelectedItem == null)
                     throw new Exception();
                 var I = (Match)((ListBoxItem)(Lista.SelectedItem)).Content;

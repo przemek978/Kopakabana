@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace People
 {
-    public class Team //metody dotepowe do player a dokladnie ich składowych
+    public class Team //metody dotepowe do player a dokladnie ich składowych (returnb list 4 elementowa)
     {
         public string Name;
         public Player P1, P2, P3, P4;

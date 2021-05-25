@@ -199,7 +199,7 @@ namespace Kopakabana
             StreamWriter Tea = new StreamWriter("Teams.txt");
             foreach (Team T in Teams)
             {
-                Tea.WriteLine(T.Name + " " + T.P1.Name + " " + T.P1.Surname + " " + T.P2.Name + " " + T.P2.Surname + " " + T.P3.Name + " " + T.P3.Surname + " " + T.P4.Name + " " + T.P4.Surname + ";");
+                Tea.WriteLine(T.Name + " " + T.P1.getName() + " " + T.P1.getSurname() + " " + T.P2.getName() + " " + T.P2.getSurname() + " " + T.P3.getName() + " " + T.P3.getSurname() + " " + T.P4.getName() + " " + T.P4.getSurname() + ";");
             }
             Tea.Close();
             foreach (Referee Re in Referees)
@@ -357,7 +357,7 @@ namespace Kopakabana
         }//Zmienic na metode dotepowa do result
         public List<Team> getTop4()
         {
-            Teams.Sort((x, y) => x.Wins.CompareTo(y.Wins));
+            Teams.Sort((x, y) => y.Wins.CompareTo(x.Wins));
             List<Team> best4 = new List<Team>(Teams.Take(4));
             return best4;
         }//Naprawic dzialanie
