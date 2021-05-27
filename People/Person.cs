@@ -10,6 +10,11 @@ namespace People
     {
         protected string Name, Surname;
 
+        public Person(string imie,string nazwisko)
+        {
+            Name = imie;
+            Surname = nazwisko;
+        }
         public string getName()
         {
             return this.Name;

@@ -105,6 +105,26 @@ namespace Kopakabana
         ////Metody zarazdzania sedziami
         private void RefAdd(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                Manage Man = new Manage();
+                List<Referee> RE=Tour.getReferees();
+                Man.Width = 250;
+                Man.Height = 150;
+                Man.AddRef.Visibility = Visibility.Visible;
+                if (true == Man.ShowDialog())
+                {
+                    Tour.CheckRef(Man.NameRef.Text, Man.SurnameRef.Text);
+                    RE.Add(new Referee(Man.NameRef.Text, Man.SurnameRef.Text));
+                    Tour.setReferees(RE);
+                    Sedzia(sender, e);
+                    Refresh();
+                }
+            }
+            catch (ExistNameException ex)
+            {
+                MessageBox.Show(ex.getName() + " " + ex.getSurname() + ex.Message, "Error", MessageBoxButton.OK);
+            }
 
         }
         private void RefDelete(object sender, RoutedEventArgs e)
@@ -113,7 +133,32 @@ namespace Kopakabana
         }
         private void RefEdit(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                Manage Man = new Manage();
+                List<Referee> RE = Tour.getReferees();
+                string popname, popsur;
+                Man.Width = 250;
+                Man.Height = 150;
+                Man.AddRef.Visibility = Visibility.Visible;
+                ///////////////////////////////////////////////////////////////////////////////////////////////
+                popname = Man.NameRef.Text = ((Referee)((ListBoxItem)Lista.SelectedItem).Content).getName();
+                popsur = Man.NameRef.Text = ((Referee)((ListBoxItem)Lista.SelectedItem).Content).getName();
+                Man.NameRef.Text = ((Referee)((ListBoxItem)Lista.SelectedItem).Content).getName();
+                Man.SurnameRef.Text = ((Referee)((ListBoxItem)Lista.SelectedItem).Content).getSurname();
+                if (true == Man.ShowDialog())
+                {
+                    Tour.CheckRef(Man.NameRef.Text, Man.SurnameRef.Text);
+                    Tour.setReferees(Lista.SelectedIndex,Man.NameRef.Text, Man.SurnameRef.Text);
+                    Tour.ChangeRef(popname,popsur,Man.NameRef.Text,Man.SurnameRef.Text);
+                    Sedzia(sender, e);
+                    Refresh();
+                }
+            }
+            catch(ExistNameException ex)
+            {
+                MessageBox.Show(ex.getName() +" " + ex.getSurname() + ex.Message, "Error", MessageBoxButton.OK);
+            }
         }
         ////////////////////////////////////////////////////////////////////////////////////////////
         ////Matody zarzadznaia druzynami////////////////////////////////////////////////////////////Ready///
@@ -122,12 +167,15 @@ namespace Kopakabana
             try
             {
                 Manage Man = new Manage();
-                //Man.Show();
+                List<Team> Te = Tour.getTeams();
+                Man.Width = 600;
+                Man.Height = 215;
                 Man.AddTeam.Visibility = Visibility.Visible;
                 if (true == Man.ShowDialog())
                 {
                     Tour.CheckName(Man.NameT.Text);
-                    Tour.Teams.Add(new Team(Man.NameT.Text, new Player(Man.NameP1.Text, Man.SurnameP1.Text), new Player(Man.NameP2.Text, Man.SurnameP2.Text), new Player(Man.NameP3.Text, Man.SurnameP3.Text), new Player(Man.NameP4.Text, Man.SurnameP4.Text)));
+                    Te.Add(new Team(Man.NameT.Text, new Player(Man.NameP1.Text, Man.SurnameP1.Text), new Player(Man.NameP2.Text, Man.SurnameP2.Text), new Player(Man.NameP3.Text, Man.SurnameP3.Text), new Player(Man.NameP4.Text, Man.SurnameP4.Text)));
+                    Tour.setTeams(Te);
                     Druzyny_Click(sender, e);
                     Refresh();
                 }
@@ -151,9 +199,10 @@ namespace Kopakabana
             {
                 Manage Man = new Manage();
                 string pop;
-                //Man.Show();
+                Man.Width = 600;
+                Man.Height = 215;
                 Man.AddTeam.Visibility = Visibility.Visible;
-                //if(Lista.SelectedItem is Team)
+                //////////////////////////////////////////////////////////////////////////////////////////
                 pop = Man.NameT.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).Name;
                 Man.NameP1.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P1.getName();
                 Man.SurnameP1.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P1.getSurname();
@@ -163,7 +212,7 @@ namespace Kopakabana
                 Man.SurnameP3.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P3.getSurname();
                 Man.NameP4.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P4.getName();
                 Man.SurnameP4.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P4.getSurname();
-                //int ID = ((Team)((ListBoxItem)Lista.SelectedItem).Content).ID;
+                //////////////////////////////////////////////////////////////////////////////////////////
                 if (true == Man.ShowDialog())
                 {
                     Tour.CheckName(Man.NameT.Text);
@@ -180,97 +229,97 @@ namespace Kopakabana
             {
                 MessageBox.Show(ex.getName() + ex.Message, "Error", MessageBoxButton.OK);
             }
-        
 
-    }///Ready
-    private void LeftDoubleClick(object sender, MouseButtonEventArgs e)
-    {
-        try
+
+        }//Dostep przez metody do player
+        private void LeftDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Ass1.Text = "";
-            Ass2.Text = "";
-            if (Lista.SelectedItem == null)
-                throw new Exception();
-            var I = (Match)((ListBoxItem)(Lista.SelectedItem)).Content;
-            Main.Visibility = Visibility.Hidden;
-            Match.Visibility = Visibility.Visible;
-            Name1.Text = I.T1.getName();
-            Name2.Text = I.T2.getName();
-            if (I is VolleyBall)
+            try
             {
-                ASS.Visibility = Visibility.Visible;
-                Res1.Text = ((VolleyBall)I).Result1.ToString();
-                Res2.Text = ((VolleyBall)I).Result2.ToString();
-                Type.Text = I.GetType().Name;
-                Ref.Text = ((VolleyBall)I).REF.ToString();
-                Ass1.Text = ((VolleyBall)I).AS1.ToString();
-                Ass2.Text = ((VolleyBall)I).AS2.ToString();
-            }
-            else
-            {
-                ASS.Visibility = Visibility.Hidden;
-                Res1.Text = I.Result1.ToString();
-                Res2.Text = I.Result2.ToString();
-                Type.Text = I.GetType().Name;
-                Ref.Text = I.REF.ToString();
+                Ass1.Text = "";
+                Ass2.Text = "";
+                if (Lista.SelectedItem == null)
+                    throw new Exception();
+                var I = (Match)((ListBoxItem)(Lista.SelectedItem)).Content;
+                Main.Visibility = Visibility.Hidden;
+                Match.Visibility = Visibility.Visible;
+                Name1.Text = I.T1.getName();
+                Name2.Text = I.T2.getName();
+                if (I is VolleyBall)
+                {
+                    ASS.Visibility = Visibility.Visible;
+                    Res1.Text = ((VolleyBall)I).Result1.ToString();
+                    Res2.Text = ((VolleyBall)I).Result2.ToString();
+                    Type.Text = I.GetType().Name;
+                    Ref.Text = ((VolleyBall)I).REF.ToString();
+                    Ass1.Text = ((VolleyBall)I).AS1.ToString();
+                    Ass2.Text = ((VolleyBall)I).AS2.ToString();
+                }
+                else
+                {
+                    ASS.Visibility = Visibility.Hidden;
+                    Res1.Text = I.Result1.ToString();
+                    Res2.Text = I.Result2.ToString();
+                    Type.Text = I.GetType().Name;
+                    Ref.Text = I.REF.ToString();
 
+                }
             }
-        }
-        catch (Exception) { }
-        /*ListBoxItem lbi = ((sender as ListBox).SelectedItem as ListBoxItem);
-        Match I = (Match)(lbi.Content);*/
-        // MessageBox.Show(I.T1.ToString(), "Error", MessageBoxButton.OK);
-    }///Ready
-    ////////////////////////////////////////////////////////////////////////////////////////////
-    ////Metoda do zarzadzania wynikami//////////////////////////////////////////////////////////Ready///
-    private void SetScore_Click(object sender, RoutedEventArgs e)
-    {
-        try
+            catch (Exception) { }
+            /*ListBoxItem lbi = ((sender as ListBox).SelectedItem as ListBoxItem);
+            Match I = (Match)(lbi.Content);*/
+            // MessageBox.Show(I.T1.ToString(), "Error", MessageBoxButton.OK);
+        }///Ready
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        ////Metoda do zarzadzania wynikami//////////////////////////////////////////////////////////Ready///
+        private void SetScore_Click(object sender, RoutedEventArgs e)
         {
-            Score SC = new Score();
-            Match Ob = ((Match)((ListBoxItem)Lista.SelectedItem).Content);
-            SC.Volley.Visibility = Visibility.Visible;
-            SC.Team1.Text = Ob.T1.Name;
-            SC.Team2.Text = Ob.T2.Name;
-            SC.Score1.Text = Ob.Result1.ToString();
-            SC.Score2.Text = Ob.Result2.ToString();
-            /*if (Ob is VolleyBall)
+            try
             {
-                SC.Score1.Text = ((VolleyBall)Ob).Result1.ToString();
-                SC.Score2.Text = ((VolleyBall)Ob).Result2.ToString();
-            }*/
-            if (true == SC.ShowDialog())
-            {
-                int r = 0;
-                if (Ob is VolleyBall)
-                    r = 1;
-                if (Ob is TugOfWar)
-                    r = 2;
-                if (Ob is DodgeBall)
-                    r = 3;
-                Tour.setMatch(Lista.SelectedIndex - r, int.Parse(SC.Score1.Text), int.Parse(SC.Score2.Text));
-                //Ob = getMatch(Lista.SelectedIndex - 1);
-                Ob.SetWhoWon();
-                Mecze_Click(sender, e);
-                //Refresh();
-                Tour.CountWins();
-                Tour.SaveScore(Ob, true);
+                Score SC = new Score();
+                Match Ob = ((Match)((ListBoxItem)Lista.SelectedItem).Content);
+                SC.Volley.Visibility = Visibility.Visible;
+                SC.Team1.Text = Ob.T1.Name;
+                SC.Team2.Text = Ob.T2.Name;
+                SC.Score1.Text = Ob.Result1.ToString();
+                SC.Score2.Text = Ob.Result2.ToString();
+                /*if (Ob is VolleyBall)
+                {
+                    SC.Score1.Text = ((VolleyBall)Ob).Result1.ToString();
+                    SC.Score2.Text = ((VolleyBall)Ob).Result2.ToString();
+                }*/
+                if (true == SC.ShowDialog())
+                {
+                    int r = 0;
+                    if (Ob is VolleyBall)
+                        r = 1;
+                    if (Ob is TugOfWar)
+                        r = 2;
+                    if (Ob is DodgeBall)
+                        r = 3;
+                    Tour.setMatch(Lista.SelectedIndex - r, int.Parse(SC.Score1.Text), int.Parse(SC.Score2.Text));
+                    //Ob = getMatch(Lista.SelectedIndex - 1);
+                    Ob.SetWhoWon();
+                    Mecze_Click(sender, e);
+                    //Refresh();
+                    Tour.CountWins();
+                    Tour.SaveScore(Ob, true);
 
+                }
             }
-        }
-        catch (Exception)
-        {
-            MessageBox.Show("Zła wartość", "Bład", MessageBoxButton.OK);
-        }
+            catch (Exception)
+            {
+                MessageBox.Show("Zła wartość", "Bład", MessageBoxButton.OK);
+            }
 
-    }///Ready
-    ////////////////////////////////////////////////////////////////////////////////////////////
-    private void BackMain(object sender, RoutedEventArgs e)
-    {
-        Main.Visibility = Visibility.Visible;
-        Match.Visibility = Visibility.Hidden;
-        Lista.SelectedItem = false;
-        ((ListBoxItem)(Lista.SelectedItem)).IsSelected = false;
-    }///Ready
-}
+        }///Ready
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        private void BackMain(object sender, RoutedEventArgs e)
+        {
+            Main.Visibility = Visibility.Visible;
+            Match.Visibility = Visibility.Hidden;
+            Lista.SelectedItem = false;
+            ((ListBoxItem)(Lista.SelectedItem)).IsSelected = false;
+        }///Ready
+    }
 }

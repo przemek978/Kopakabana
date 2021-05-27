@@ -8,10 +8,9 @@ namespace People
 {
     public class Player : Person///Ready
     {
-        public Player(string imie, string nazwisko)
+        public Player(string imie, string nazwisko):base(imie,nazwisko)
         {
-            Name = imie;
-            Surname = nazwisko;
+            
         }
         public override string ToString()
         {

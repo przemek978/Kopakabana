@@ -9,10 +9,9 @@ namespace People
     public class Referee:Person
     {
 
-        public Referee(string imie, string nazwisko)
+        public Referee(string imie, string nazwisko):base(imie,nazwisko)
         {
-            Name = imie;
-            Surname = nazwisko;
+            
         }
         public override string ToString()
         {
