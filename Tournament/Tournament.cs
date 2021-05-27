@@ -31,69 +31,69 @@ namespace Kopakabana
             {
                 string linia, imie = "", nazwisko = "";
                 int i = 0, j, x, y, z, q, Id;
-                StreamReader Ref = new StreamReader(R);
-                while ((linia = Ref.ReadLine()) != null)
+                if (File.Exists(R))
                 {
-                    for (i = 0; linia[i] != ' '; i++)
-                    {
-                        imie += linia[i];
-                    }
-                    for (j = i + 1; linia[j] != ' '; j++)
-                    {
-                        nazwisko += linia[j];
-                    }
-                    Referees.Add(new Referee(imie, nazwisko));
-                    imie = "";
-                    nazwisko = "";
+                    StreamReader Ref = new StreamReader(R);
 
-                }
-                Ref.Close();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(Path.GetFullPath(R), "Error", MessageBoxButton.OK);
-
-            }
-            try
-            {
-                StreamReader T = new StreamReader(Te);
-                string linia, imie = "", nazwisko = "";
-                int i = 0, j, x, y, z, q, Id;
-                string nazwa = "", id = "";
-                while ((linia = T.ReadLine()) != null)
-                {
-                    List<Player> PL = new List<Player>();
-                    for (i = 0; linia[i] != ' '; i++)
+                    while ((linia = Ref.ReadLine()) != null)
                     {
-                        nazwa += linia[i];
-                    }
-                    for (j = 0; j < 4; j++)
-                    {
-                        z = i;
-                        for (x = z + 1; linia[x] != ' '; x++)
+                        for (i = 0; linia[i] != ' '; i++)
                         {
-                            imie += linia[x];
+                            imie += linia[i];
                         }
-                        for (y = x + 1; linia[y] != ' ' && linia[y] != ';'; y++)
+                        for (j = i + 1; linia[j] != ' '; j++)
                         {
-                            nazwisko += linia[y];
+                            nazwisko += linia[j];
                         }
-                        PL.Add(new Player(imie, nazwisko));
+                        Referees.Add(new Referee(imie, nazwisko));
                         imie = "";
                         nazwisko = "";
-                        i = y;
+
                     }
-                    Teams.Add(new Team(nazwa, PL[0], PL[1], PL[2], PL[3]));
-                    nazwa = "";
-                    //throw new Exception(Path.GetFullPath(Te));
+                    Ref.Close();
                 }
-                T.Close();
+                else throw new FileException("Nie odnaleziono okreslonej ściezki\n", Path.GetFullPath(R));
+
+                if (File.Exists(Te))
+                {
+                    StreamReader T = new StreamReader(Te);
+                    string nazwa = "", id = "";
+                    while ((linia = T.ReadLine()) != null)
+                    {
+                        List<Player> PL = new List<Player>();
+                        for (i = 0; linia[i] != ' '; i++)
+                        {
+                            nazwa += linia[i];
+                        }
+                        for (j = 0; j < 4; j++)
+                        {
+                            z = i;
+                            for (x = z + 1; linia[x] != ' '; x++)
+                            {
+                                imie += linia[x];
+                            }
+                            for (y = x + 1; linia[y] != ' ' && linia[y] != ';'; y++)
+                            {
+                                nazwisko += linia[y];
+                            }
+                            PL.Add(new Player(imie, nazwisko));
+                            imie = "";
+                            nazwisko = "";
+                            i = y;
+                        }
+                        Teams.Add(new Team(nazwa, PL[0], PL[1], PL[2], PL[3]));
+                        nazwa = "";
+                        //throw new Exception(Path.GetFullPath(Te));
+                    }
+                    T.Close();
+                }
+                else throw new FileException("Nie odnaleziono okreslonej ściezki\n", Path.GetFullPath(Te));
             }
 
-            catch
+            catch(FileException ex)
             {
 
-                MessageBox.Show(Path.GetFullPath(Te), "Error", MessageBoxButton.OK);
+                MessageBox.Show(ex.Message + ex.getName(), "Error", MessageBoxButton.OK);
             }
 
 
@@ -181,7 +181,7 @@ namespace Kopakabana
                             M.Result2 = sc1;
                             M.SetWhoWon();
                         }
-                        
+
                     }
 
                 }
@@ -205,7 +205,7 @@ namespace Kopakabana
             foreach (Referee Re in Referees)
             {
                 //Ref.WriteLine(Re.Name + " " + Re.Surname);
-                Ref.WriteLine(Re.ToString()+" ");
+                Ref.WriteLine(Re.ToString() + " ");
             }
             Ref.Close();
 
@@ -330,6 +330,17 @@ namespace Kopakabana
                 }
             }
         }///Ready
+        //Sprawdzanie istnienai nazwy druzyny
+        public void CheckName(string name)
+        {
+            foreach (Team T in Teams)
+            {
+                if (T.getName() == name)
+                    throw new ExistNameException(" juz istnieje", name);
+            }
+        }
+
+
         ///Gettery i settery//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //Ustawia dane druzyny po edycji
         public void setTeams(int index, string name, Player p1, Player p2, Player p3, Player p4)
@@ -361,7 +372,7 @@ namespace Kopakabana
             List<Team> best4 = new List<Team>(Teams.Take(4));
             return best4;
         }//Naprawic dzialanie
-        //Zwraca liste druzyn
+         //Zwraca liste druzyn
         public List<Team> getTeams()
         {
             return Teams;
