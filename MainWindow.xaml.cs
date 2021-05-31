@@ -167,7 +167,7 @@ namespace Kopakabana
                     Tour.CheckRef(Man.NameRef.Text, Man.SurnameRef.Text);
                     Tour.setReferees(Lista.SelectedIndex, Man.NameRef.Text, Man.SurnameRef.Text);
                     Tour.ChangeRef(popname, popsur, Man.NameRef.Text, Man.SurnameRef.Text);
-                    Refresh();
+                    //Refresh();
                     Sedzia(sender, e);
                 }
             }

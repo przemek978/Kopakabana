@@ -224,7 +224,7 @@ namespace Kopakabana
             }
             catch (TourException ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK);
+                
             }
             catch
             {
@@ -422,7 +422,7 @@ namespace Kopakabana
                     return Referees.IndexOf(R);
                 }
             }
-            throw new TourException("Brak sedziego");
+            throw new TourException();
         }//.Zastapic equals
         public void CheckRef(string name, string surname)
         {
