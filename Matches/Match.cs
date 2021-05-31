@@ -10,15 +10,24 @@ namespace Matches
 {
     public abstract class Match //Dodac metode eabstrakycjna equals bool i overide w klasasach dziedzicacych porownjaca nazwy  i dostepowe do team i ref
     {
-        public Team T1, T2;
+        protected Team T1, T2;
         protected Team WhoWon;
-        private Referee REF;
-        public int Result1, Result2;
+        protected Referee REF;
+        protected int Result1, Result2;
        
         public void AddWins(Team addwon)
         {
             addwon.Wins += 1;
         }
+        public Team getTeam1()
+        {
+            return T1;
+        }
+        public Team getTeam2()
+        {
+            return T2;
+        }
+        public void setTeam1(Team name, Player p1, Player p2, Player p3);
 
         public override string ToString()
         {
@@ -35,7 +44,7 @@ namespace Matches
             return REF;
         }
 
-        public void SetRefree(Referee main)
+        public void SetReferee(Referee main)
         {
             REF = main;
         }

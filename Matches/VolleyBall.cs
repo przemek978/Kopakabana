@@ -14,7 +14,7 @@ namespace Matches
         {
             T1 = t1;
             T2 = t2;
-            REF = R;
+            SetReferee(R);
             AS1 = as1;
             AS2 = as2;
         }
@@ -23,6 +23,14 @@ namespace Matches
         {
             AS1 = ref2;
             AS2 = ref3;
+        }
+        public Referee GetAssistant1()
+        {
+            return AS1;
+        }
+        public Referee GetAssistant2()
+        {
+            return AS2;
         }
         public override void SetWhoWon()
         {
