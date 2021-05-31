@@ -8,7 +8,7 @@ namespace Kopakabana
 {
     class FileException:TourException
     {
-        public FileException(string name) : base(name) { }
+        public FileException(string mes) : base(mes) { }
         public FileException(string mes,string name) : base(mes,name) { }
         
     }

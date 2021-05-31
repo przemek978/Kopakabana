@@ -246,49 +246,61 @@ namespace Kopakabana
         //Generowanie meczow ora ustalnie ilosci wygranych
         public void GenerateMatches()
         {
-            int q = 0, Ref, AS1, AS2;
-            Matches = new List<Match>();
-            Random Rn = new Random();
-            ///Generowanie dla siatkowki
-            foreach (Team T in Teams)
+            try
             {
-                for (int i = q + 1; i < Teams.Count;)
+                if (Referees.Count < 3)
+                    throw new Exception();
+                int q = 0, Ref, AS1, AS2;
+                Matches = new List<Match>();
+                Random Rn = new Random();
+                ///Generowanie dla siatkowki
+                foreach (Team T in Teams)
                 {
-                    Ref = Rn.Next(0, Referees.Count);
-                    AS1 = Rn.Next(0, Referees.Count);
-                    AS2 = Rn.Next(0, Referees.Count);
-                    if (Ref != AS1 && Ref != AS2 && AS1 != AS2)
+                    for (int i = q + 1; i < Teams.Count;)
                     {
-                        Matches.Add(new VolleyBall(T, Teams[i], Referees[Ref], Referees[AS1], Referees[AS2]));
-                        i++;
+                        Ref = Rn.Next(0, Referees.Count);
+                        AS1 = Rn.Next(0, Referees.Count);
+                        AS2 = Rn.Next(0, Referees.Count);
+                        if (Ref != AS1 && Ref != AS2 && AS1 != AS2)
+                        {
+                            Matches.Add(new VolleyBall(T, Teams[i], Referees[Ref], Referees[AS1], Referees[AS2]));
+                            i++;
+                        }
                     }
-
+                    q++;
                 }
-                q++;
-            }
-            ///Genereownaie dla Przeciagania liny
-            q = 0;
-            foreach (Team T in Teams)
-            {
-                for (int i = q + 1; i < Teams.Count; i++)
+                ///Genereownaie dla Przeciagania liny
+                q = 0;
+                if (Referees.Count < 1)
+                    throw new Exception();
+                foreach (Team T in Teams)
                 {
-                    Ref = Rn.Next(0, Referees.Count);
-                    Matches.Add(new TugOfWar(T, Teams[i], Referees[Ref]));
+                    for (int i = q + 1; i < Teams.Count; i++)
+                    {
+                        Ref = Rn.Next(0, Referees.Count);
+                        Matches.Add(new TugOfWar(T, Teams[i], Referees[Ref]));
+                    }
+                    q++;
                 }
-                q++;
-            }
-            ///Generwoanie dla Dwoch ogni
-            q = 0;
-            foreach (Team T in Teams)
-            {
-                for (int i = q + 1; i < Teams.Count; i++)
+                ///Generwoanie dla Dwoch ogni
+                q = 0;
+                if (Referees.Count < 1)
+                    throw new Exception();
+                foreach (Team T in Teams)
                 {
-                    Ref = Rn.Next(0, Referees.Count);
-                    Matches.Add(new DodgeBall(T, Teams[i], Referees[Ref]));
+                    for (int i = q + 1; i < Teams.Count; i++)
+                    {
+                        Ref = Rn.Next(0, Referees.Count);
+                        Matches.Add(new DodgeBall(T, Teams[i], Referees[Ref]));
+                    }
+                    q++;
                 }
-                q++;
+                ReadScore();
             }
-            ReadScore();
+            catch
+            {
+                
+            }
         }///Ready
         public void CountWins()
         {

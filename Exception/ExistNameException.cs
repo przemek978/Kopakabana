@@ -9,7 +9,7 @@ namespace Kopakabana
     class ExistNameException:TourException
     {
         string Surname;
-        public ExistNameException(string name):base(name) { }
+        public ExistNameException(string mes):base(mes) { }
         public ExistNameException(string mes,string name) : base(mes, name) { }
         public ExistNameException(string mes, string name,string surname) : base(mes, name)
         {

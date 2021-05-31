@@ -33,7 +33,7 @@ namespace Kopakabana
             Tour.Read();
             Tour.GenerateMatches();
             Tour.CountWins();
-            Tour.getTop4();
+            //Tour.getTop4();
             DataContext = this;
         }
         ///Metoda do aktualzacji widoku
@@ -129,12 +129,27 @@ namespace Kopakabana
         }
         private void RefDelete(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                if (Lista.SelectedItem == null)
+                    throw new NotSelectedException("Nie wybrano sędziego do usunięcia");
+                var I = Tour.getReferees();
+                I.RemoveAt(Lista.SelectedIndex);
+                Tour.setReferees(I);
+                Sedzia(sender, e);
+                Refresh();
+            }
+            catch (NotSelectedException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK);
+            }
         }
         private void RefEdit(object sender, RoutedEventArgs e)
         {
             try
             {
+                if (Lista.SelectedItem == null)
+                    throw new NotSelectedException("Nie wybrano sędziego do edycji");
                 Manage Man = new Manage();
                 List<Referee> RE = Tour.getReferees();
                 string popname, popsur;
@@ -159,9 +174,13 @@ namespace Kopakabana
             {
                 MessageBox.Show(ex.getName() +" " + ex.getSurname() + ex.Message, "Error", MessageBoxButton.OK);
             }
+            catch (NotSelectedException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK);
+            }
         }
         ////////////////////////////////////////////////////////////////////////////////////////////
-        ////Matody zarzadznaia druzynami////////////////////////////////////////////////////////////Ready///
+        ////Metody zarzadznaia druzynami////////////////////////////////////////////////////////////Ready///
         private void TAdd(object sender, RoutedEventArgs e)
         {
             try
@@ -187,16 +206,27 @@ namespace Kopakabana
         }///Ready
         private void TDelete(object sender, RoutedEventArgs e)
         {
-            var I = Tour.getTeams();
-            I.RemoveAt(Lista.SelectedIndex);
-            Tour.setTeams(I);
-            Druzyny_Click(sender, e);
-            Refresh();
+            try
+            {
+                if (Lista.SelectedItem == null)
+                    throw new NotSelectedException("Nie wybrano drużyny do usunięcia");
+                var I = Tour.getTeams();
+                I.RemoveAt(Lista.SelectedIndex);
+                Tour.setTeams(I);
+                Druzyny_Click(sender, e);
+                Refresh();
+            }
+            catch (NotSelectedException ex)
+            {
+                MessageBox.Show(ex.Message,"Error", MessageBoxButton.OK);
+            }
         }///Ready
         private void TEdit(object sender, RoutedEventArgs e)
         {
             try
             {
+                if (Lista.SelectedItem == null)
+                    throw new NotSelectedException("Nie wybrano drużyny do edycji");
                 Manage Man = new Manage();
                 string pop;
                 Man.Width = 615;
@@ -216,7 +246,7 @@ namespace Kopakabana
                 if (true == Man.ShowDialog())
                 {
                     Tour.CheckName(Man.NameT.Text);
-                    Tour.getTop4();
+                    //Tour.getTop4();
                     Tour.setTeams(Lista.SelectedIndex, Man.NameT.Text, new Player(Man.NameP1.Text, Man.SurnameP1.Text), new Player(Man.NameP2.Text, Man.SurnameP2.Text), new Player(Man.NameP3.Text, Man.SurnameP3.Text), new Player(Man.NameP4.Text, Man.SurnameP4.Text));
                     Tour.ChangeName(pop, Man.NameT.Text);
                     Tour.SearchName(Man.NameT.Text);
@@ -229,6 +259,10 @@ namespace Kopakabana
             catch (ExistNameException ex)
             {
                 MessageBox.Show(ex.getName() + ex.Message, "Error", MessageBoxButton.OK);
+            }
+            catch (NotSelectedException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK);
             }
 
 

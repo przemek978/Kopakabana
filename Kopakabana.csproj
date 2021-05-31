@@ -60,6 +60,7 @@
     </ApplicationDefinition>
     <Compile Include="Exception\ExistNameException.cs" />
     <Compile Include="Exception\FileException.cs" />
+    <Compile Include="Exception\NotSelectedException.cs" />
     <Compile Include="Exception\TourException.cs" />
     <Compile Include="Manage.xaml.cs">
       <DependentUpon>Manage.xaml</DependentUpon>
