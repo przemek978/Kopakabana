@@ -17,5 +17,12 @@ namespace People
         {
             return Name + " " + Surname;
         }
+        public bool Equals(Referee sedzia)
+        {
+            if (sedzia.Name == Name && sedzia.Surname == Surname)
+                return true;
+            else
+                return false;
+        }
     }
 }
