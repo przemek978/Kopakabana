@@ -14,7 +14,7 @@ namespace Matches
         {
             T1 = t1;
             T2 = t2;
-            SetReferee(R);
+            REF = R;
             AS1 = as1;
             AS2 = as2;
         }
@@ -58,7 +58,6 @@ namespace Matches
         }
         public override string ToString()
         {
-            //return T1.getName() + " - " + T2.getName()+"\t\t\t\t\t\t"+getResult1()+" : "+getResult2();
             return T1.getName() + " - " + T2.getName()+" "+getResult1()+" : "+getResult2();
         }
     }

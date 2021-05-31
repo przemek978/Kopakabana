@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Matches
 {
-    public abstract class Match //Dodac metode eabstrakycjna equals bool i overide w klasasach dziedzicacych porownjaca nazwy  i dostepowe do team i ref
+    public abstract class Match //Dodac metode eabstrakycjna equals bool i overide w klasasach dziedzicacych porownjaca nazwy 
     {
         protected Team T1, T2;
         protected Team WhoWon;
@@ -17,7 +17,7 @@ namespace Matches
        
         public void AddWins(Team addwon)
         {
-            addwon.Wins += 1;
+            addwon.setWins(addwon.getWins() + 1);
         }
         public Team getTeam1()
         {
@@ -29,20 +29,14 @@ namespace Matches
         }
         public void setTeam1(string name1, Player p1, Player p2, Player p3, Player p4)
         {
-            T1.Name = name1;
-            T1.P1 = p1;
-            T1.P2 = p2;
-            T1.P3 = p3;
-            T1.P4 = p4;
+            T1.setName(name1);
+            T1.setPlayers(p1, p2, p3, p4);
         }
         public void setTeam2(string name2, Player p1, Player p2, Player p3, Player p4)
         {
-            T2.Name = name2;
-            T2.P1 = p1;
-            T2.P2 = p2;
-            T2.P3 = p3;
-            T2.P4 = p4;
-        }
+            T2.setName(name2);
+            T2.setPlayers(p1, p2, p3, p4);
+        }          
 
         public override string ToString()
         {

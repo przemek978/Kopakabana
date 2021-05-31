@@ -15,8 +15,6 @@ namespace Matches
             T2 = t2;
             REF = Ref;
         }
-
-        //public bool Equals(TugOfWar T) { }
         public override void SetWhoWon()
         {
             if (Result1 > Result2 && Result1 == 1)
@@ -35,7 +33,6 @@ namespace Matches
 
         public override string ToString()
         {
-            // return T1.getName() + " - " + T2.getName() + "\t\t\t\t\t\t" + getResult1() + " : " + getResult2();
             return T1.getName() + " - " + T2.getName() + " " + getResult1() + " : " + getResult2();
         }
     }
