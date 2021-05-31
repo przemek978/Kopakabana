@@ -167,6 +167,7 @@ namespace Kopakabana
                     Tour.CheckRef(Man.NameRef.Text, Man.SurnameRef.Text);
                     Tour.setReferees(Lista.SelectedIndex, Man.NameRef.Text, Man.SurnameRef.Text);
                     Tour.ChangeRef(popname, popsur, Man.NameRef.Text, Man.SurnameRef.Text);
+                    Tour.UpdateMatch(popname, popsur, Man.NameRef.Text, Man.SurnameRef.Text, Lista.SelectedIndex);
                     //Refresh();
                     Sedzia(sender, e);
                 }
@@ -286,7 +287,7 @@ namespace Kopakabana
                     ASS.Visibility = Visibility.Visible;
                     Res1.Text = ((VolleyBall)I).Result1.ToString();
                     Res2.Text = ((VolleyBall)I).Result2.ToString();
-                    Ref.Text = ((VolleyBall)I).REF.ToString();
+                    Ref.Text = ((VolleyBall)I).GetReferee().ToString();
                     Type.Text = I.GetType().Name;
                     Ass1.Text = ((VolleyBall)I).AS1.ToString();
                     Ass2.Text = ((VolleyBall)I).AS2.ToString();
@@ -297,7 +298,7 @@ namespace Kopakabana
                     Res1.Text = I.Result1.ToString();
                     Res2.Text = I.Result2.ToString();
                     Type.Text = I.GetType().Name;
-                    Ref.Text = I.REF.ToString();
+                    Ref.Text = I.GetReferee().ToString();
 
                 }
             }
