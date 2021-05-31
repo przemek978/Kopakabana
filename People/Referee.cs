@@ -19,7 +19,7 @@ namespace People
         }
         public bool Equals(Referee sedzia)
         {
-            if (sedzia.Name == Name && sedzia.Surname == Surname)
+            if (sedzia.getName() == Name && sedzia.getSurname() == Surname)
                 return true;
             else
                 return false;

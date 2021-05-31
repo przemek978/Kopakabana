@@ -12,7 +12,7 @@ namespace Matches
     {
         public Team T1, T2;
         protected Team WhoWon;
-        private Referee REF;
+        protected Referee REF;
         public int Result1, Result2;
        
         public void AddWins(Team addwon)
@@ -35,7 +35,7 @@ namespace Matches
             return REF;
         }
 
-        public void SetRefree(Referee main)
+        public void SetReferee(Referee main)
         {
             REF = main;
         }

@@ -170,7 +170,7 @@ namespace Kopakabana
                         sc2 = int.Parse(score2);
                         foreach (Match M in Matches)
                         {
-                        
+
                             if (M is VolleyBall && type == 'V' && M.T1.Name == name1 && M.T2.Name == name2)
                             {
                                 M.Result1 = sc1;
@@ -218,13 +218,13 @@ namespace Kopakabana
 
                         }
                     }
-                        Mat.Close();
+                    Mat.Close();
                 }
                 else throw new FileException("Nie odnaleziono okreslonej ściezki\n", Path.GetFullPath(Ma));
             }
             catch (TourException ex)
             {
-                
+
             }
             catch
             {
@@ -263,7 +263,7 @@ namespace Kopakabana
             if (M.Result1 > 0 || M.Result2 > 0)
             {
                 //Linia += M.T1.getName() + " " + M.T2.getName() + " " + M.Result1 + " " + M.Result2 + ";";
-                Linia += M.ToString() + " " + M.REF.ToString();
+                Linia += M.ToString() + " " + M.GetReferee().ToString();
                 if (M is VolleyBall)
                 {
                     Linia += " " + ((VolleyBall)M).AS1.ToString() + " " + ((VolleyBall)M).AS2.ToString();
@@ -273,7 +273,7 @@ namespace Kopakabana
             }
             else if (Whatchange == true)
             {
-                Linia += M.ToString() + " " + M.REF.ToString();
+                Linia += M.ToString() + " " + M.GetReferee().ToString();
                 if (M is VolleyBall)
                 {
                     Linia += " " + ((VolleyBall)M).AS1.ToString() + " " + ((VolleyBall)M).AS2.ToString();
@@ -281,7 +281,7 @@ namespace Kopakabana
                 Linia += ";";
                 Sc.WriteLine(Linia);
             }
-                
+
             Sc.Close();
         }//Dodac zapis sedziow
         //Generowanie meczow ora ustalnie ilosci wygranych
@@ -417,9 +417,14 @@ namespace Kopakabana
         {
             foreach (Referee R in Referees)
             {
-                if (R.getName() == name && R.getSurname() == surname)
+                /*if (R.getName() == name && R.getSurname() == surname)
+                 {
+                     return Referees.IndexOf(R);
+                 }*/
+                if (R.Equals(new Referee(name, surname)))
                 {
                     return Referees.IndexOf(R);
+
                 }
             }
             throw new TourException();
@@ -445,6 +450,24 @@ namespace Kopakabana
         public void setReferees(int index, string name, string surname)
         {
             Referees[index] = new Referee(name, surname);
+        }
+        public void UpdateMatch(string popname,string popsur,string name, string surname,int index)
+        {
+            foreach (Match M in Matches)
+            {
+                if (M.GetReferee().Equals(new Referee(popname, popsur)))
+                {
+                    M.SetReferee(Referees[index]);
+                }
+                /*if (M.GetReferee().Equals(new Referee(popname, popsur)))
+                {
+                    M.SetReferee(Referees[index]);
+                }
+                if (M.GetReferee().Equals(new Referee(popname, popsur)))
+                {
+                    M.SetReferee(Referees[index]);
+                }*/
+            }
         }
         //Kopjuja dane do list głownych
         public void setTeams(List<Team> T)
