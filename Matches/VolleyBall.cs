@@ -30,6 +30,7 @@ namespace Matches
             {
                 WhoWon = T1;
                 AddWins(T1);
+               
             }
             else if (Result1 < Result2 && Result2 == 3)
             {

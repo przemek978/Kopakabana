@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Kopakabana"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="Kopakabana.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="610">
+        Title="Kopakabana" Height="450" Width="619">
     <Grid Background="Black" Margin="0,0,2,0">
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -85,9 +85,21 @@
             <Button x:Name="TeamDelete" Content="Usun" Click="TDelete" Foreground="White" Background="Black" Grid.Column="1" Height="20" VerticalAlignment="Top" Grid.Row="1"/>
             <Button x:Name="TeamEdit" Content="Edytuj" Click="TEdit" Foreground="White" Background="Black" Grid.Column="2" Height="20" VerticalAlignment="Top" Grid.Row="1"/>
         </Grid>
-        <Grid x:Name="Match" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="600" d:IsHidden="True">
+        <Grid x:Name="Match" d:IsHidden="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="115*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="165*"/>
+                <RowDefinition Height="29*"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="170*"/>
+                <ColumnDefinition Width="135*"/>
+                <ColumnDefinition Width="134*"/>
+                <ColumnDefinition Width="170*"/>
             </Grid.ColumnDefinitions>
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -95,17 +107,17 @@
                     <GradientStop Color="#FF0F2E4D" Offset="1"/>
                 </LinearGradientBrush>
             </Grid.Background>
-            <TextBlock x:Name="Name1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="45" FontSize="24" TextAlignment="Center" Margin="0,25,0,0" Foreground="White" HorizontalAlignment="Left" Width="160"/>
-            <TextBlock x:Name="Name2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="160" Margin="446.367,25,-6.367,0" Height="45" FontSize="24" TextAlignment="Center" Foreground="White"/>
-            <TextBlock x:Name="Res1" HorizontalAlignment="Left" Margin="161.367,25,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Height="105" Width="143" Background="#FF0F1447" FontSize="72" TextAlignment="Center" Foreground="White"/>
-            <TextBlock x:Name="Res2" HorizontalAlignment="Left" Margin="303.367,25,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Height="105" Width="143" Background="#FF0F1447" FontSize="72" TextAlignment="Center" Foreground="White"/>
-            <Button Content="Back" HorizontalAlignment="Left" Margin="516.367,389,0,0" VerticalAlignment="Top" Width="75" Click="BackMain" Background="Black" Foreground="White" Height="19.96"/>
-            <TextBlock x:Name="Type" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="600" Height="25" FontSize="16" TextAlignment="Center"/>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Sedzia Główny" VerticalAlignment="Top" Margin="162.367,130,0,0" Width="284" Height="30" FontSize="20" TextAlignment="Center" FontWeight="Bold" Foreground="White"/>
-            <TextBlock x:Name="Ref" HorizontalAlignment="Left" Margin="162.367,160,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="284" Height="25" TextAlignment="Center" Foreground="White"/>
-            <TextBlock x:Name="ASS" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Asystenci" VerticalAlignment="Top" Margin="161.367,185,0,0" Width="284" Height="25" FontSize="16" TextAlignment="Center" FontWeight="Bold" Foreground="White"/>
-            <TextBlock x:Name="Ass1" HorizontalAlignment="Left" Margin="162.367,210,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="142" Height="25" TextAlignment="Center" Foreground="White"/>
-            <TextBlock x:Name="Ass2" HorizontalAlignment="Left" Margin="304.367,210,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="142" Height="25" TextAlignment="Center" Foreground="White"/>
+            <TextBlock x:Name="Name1" TextWrapping="Wrap" Text="Team1" FontSize="24" TextAlignment="Center" Margin="1,0,0,55" Foreground="White" FontWeight="Medium" Grid.Row="1"/>
+            <TextBlock x:Name="Name2" Text="Team2" Margin="0,0,-5,55" FontSize="24" TextAlignment="Center" Foreground="White" Grid.Column="3" FontWeight="Medium" TextWrapping="Wrap" Grid.Row="1"/>
+            <TextBlock x:Name="Res1" Margin="1,0,0,0" TextWrapping="Wrap" Text="1" Background="#FF0F1447" FontSize="72" TextAlignment="Center" Foreground="White" Grid.Column="1" Grid.Row="1"/>
+            <TextBlock x:Name="Res2" Margin="0,0,1,0" TextWrapping="Wrap" Text="1" Background="#FF0F1447" FontSize="72" TextAlignment="Center" Foreground="White" Grid.Column="2" Grid.Row="1"/>
+            <Button Content="Back" HorizontalAlignment="Left" Margin="61,0,0,9" VerticalAlignment="Bottom" Width="75" Click="BackMain" Background="Black" Foreground="White" Height="20" Grid.Column="3" Grid.Row="6"/>
+            <TextBlock x:Name="Type" TextWrapping="Wrap" Text="" FontSize="16" TextAlignment="Center" Grid.ColumnSpan="4" Foreground="White" Margin="0,5,0,0"/>
+            <TextBlock TextWrapping="Wrap" Text="Sedzia Główny" FontSize="20" TextAlignment="Center" FontWeight="Bold" Foreground="White" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2"/>
+            <TextBlock x:Name="Ref" Margin="1,0" TextWrapping="Wrap" Text="" TextAlignment="Center" Foreground="White" Grid.ColumnSpan="2" Grid.Row="3" Grid.Column="1"/>
+            <TextBlock x:Name="ASS" TextWrapping="Wrap" Text="Asystenci" Margin="0,0,1,0" FontSize="16" TextAlignment="Center" FontWeight="Bold" Foreground="White" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4"/>
+            <TextBlock x:Name="Ass1" Margin="0,0,1,140" TextWrapping="Wrap" Text="" TextAlignment="Center" Foreground="White" Grid.Column="1" Grid.Row="5"/>
+            <TextBlock x:Name="Ass2" Margin="0,0,0,140" TextWrapping="Wrap" Text="" TextAlignment="Center" Foreground="White" Grid.Column="2" Grid.Row="5"/>
         </Grid>
 
     </Grid>

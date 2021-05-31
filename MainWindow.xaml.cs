@@ -33,7 +33,7 @@ namespace Kopakabana
             Tour.Read();
             Tour.GenerateMatches();
             Tour.CountWins();
-            //Tour.getTop4();
+            Tour.getTop4();
             DataContext = this;
         }
         ///Metoda do aktualzacji widoku
@@ -92,6 +92,7 @@ namespace Kopakabana
         private void Druzyny_Click(object sender, RoutedEventArgs e)
         {
             Lista.Items.Clear();
+            Tour.getTop4();
             SetScore.Visibility = Visibility.Hidden;
             foreach (Team T in Tour.getTeams())
             {
@@ -108,7 +109,7 @@ namespace Kopakabana
             try
             {
                 Manage Man = new Manage();
-                List<Referee> RE=Tour.getReferees();
+                List<Referee> RE = Tour.getReferees();
                 Man.Width = 252;
                 Man.Height = 150;
                 Man.AddRef.Visibility = Visibility.Visible;
@@ -117,8 +118,8 @@ namespace Kopakabana
                     Tour.CheckRef(Man.NameRef.Text, Man.SurnameRef.Text);
                     RE.Add(new Referee(Man.NameRef.Text, Man.SurnameRef.Text));
                     Tour.setReferees(RE);
-                    Sedzia(sender, e);
                     Refresh();
+                    Sedzia(sender, e);
                 }
             }
             catch (ExistNameException ex)
@@ -136,8 +137,8 @@ namespace Kopakabana
                 var I = Tour.getReferees();
                 I.RemoveAt(Lista.SelectedIndex);
                 Tour.setReferees(I);
-                Sedzia(sender, e);
                 Refresh();
+                Sedzia(sender, e);
             }
             catch (NotSelectedException ex)
             {
@@ -164,15 +165,15 @@ namespace Kopakabana
                 if (true == Man.ShowDialog())
                 {
                     Tour.CheckRef(Man.NameRef.Text, Man.SurnameRef.Text);
-                    Tour.setReferees(Lista.SelectedIndex,Man.NameRef.Text, Man.SurnameRef.Text);
-                    Tour.ChangeRef(popname,popsur,Man.NameRef.Text,Man.SurnameRef.Text);
-                    Sedzia(sender, e);
+                    Tour.setReferees(Lista.SelectedIndex, Man.NameRef.Text, Man.SurnameRef.Text);
+                    Tour.ChangeRef(popname, popsur, Man.NameRef.Text, Man.SurnameRef.Text);
                     Refresh();
+                    Sedzia(sender, e);
                 }
             }
-            catch(ExistNameException ex)
+            catch (ExistNameException ex)
             {
-                MessageBox.Show(ex.getName() +" " + ex.getSurname() + ex.Message, "Error", MessageBoxButton.OK);
+                MessageBox.Show(ex.getName() + " " + ex.getSurname() + ex.Message, "Error", MessageBoxButton.OK);
             }
             catch (NotSelectedException ex)
             {
@@ -195,8 +196,8 @@ namespace Kopakabana
                     Tour.CheckName(Man.NameT.Text);
                     Te.Add(new Team(Man.NameT.Text, new Player(Man.NameP1.Text, Man.SurnameP1.Text), new Player(Man.NameP2.Text, Man.SurnameP2.Text), new Player(Man.NameP3.Text, Man.SurnameP3.Text), new Player(Man.NameP4.Text, Man.SurnameP4.Text)));
                     Tour.setTeams(Te);
-                    Druzyny_Click(sender, e);
                     Refresh();
+                    Druzyny_Click(sender, e);
                 }
             }
             catch (ExistNameException ex)
@@ -213,12 +214,12 @@ namespace Kopakabana
                 var I = Tour.getTeams();
                 I.RemoveAt(Lista.SelectedIndex);
                 Tour.setTeams(I);
-                Druzyny_Click(sender, e);
                 Refresh();
+                Druzyny_Click(sender, e);
             }
             catch (NotSelectedException ex)
             {
-                MessageBox.Show(ex.Message,"Error", MessageBoxButton.OK);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK);
             }
         }///Ready
         private void TEdit(object sender, RoutedEventArgs e)
@@ -250,8 +251,8 @@ namespace Kopakabana
                     Tour.setTeams(Lista.SelectedIndex, Man.NameT.Text, new Player(Man.NameP1.Text, Man.SurnameP1.Text), new Player(Man.NameP2.Text, Man.SurnameP2.Text), new Player(Man.NameP3.Text, Man.SurnameP3.Text), new Player(Man.NameP4.Text, Man.SurnameP4.Text));
                     Tour.ChangeName(pop, Man.NameT.Text);
                     Tour.SearchName(Man.NameT.Text);
-                    Druzyny_Click(sender, e);
                     Refresh();
+                    Druzyny_Click(sender, e);
                     //Refresh();
 
                 }
@@ -285,8 +286,8 @@ namespace Kopakabana
                     ASS.Visibility = Visibility.Visible;
                     Res1.Text = ((VolleyBall)I).Result1.ToString();
                     Res2.Text = ((VolleyBall)I).Result2.ToString();
-                    Type.Text = I.GetType().Name;
                     Ref.Text = ((VolleyBall)I).REF.ToString();
+                    Type.Text = I.GetType().Name;
                     Ass1.Text = ((VolleyBall)I).AS1.ToString();
                     Ass2.Text = ((VolleyBall)I).AS2.ToString();
                 }

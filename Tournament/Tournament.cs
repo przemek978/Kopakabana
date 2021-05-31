@@ -28,7 +28,7 @@ namespace Kopakabana
             Teams.Sort((x, y) => y.Wins.CompareTo(x.Wins));
             List<Team> best4 = new List<Team>(Teams.Take(4));
             return best4;
-        }//Zmienic sposob wykonania na sortowanie rozniesz listy teams bo wystpeuje problem z indexami
+        }///Ready
         //Odczyt z plików////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public void Read()
         {
@@ -95,7 +95,7 @@ namespace Kopakabana
                 else throw new FileException("Nie odnaleziono okreslonej ściezki\n", Path.GetFullPath(Te));
             }
 
-            catch(FileException ex)
+            catch (FileException ex)
             {
 
                 MessageBox.Show(ex.Message + ex.getName(), "Error", MessageBoxButton.OK);
@@ -107,15 +107,16 @@ namespace Kopakabana
         {
             try
             {
-               string Ma = "Matches.txt";
+                string Ma = "Matches.txt";
                 if (File.Exists(Ma))
                 {
                     StreamReader Mat = new StreamReader(Ma);
-                    int i, j, z, t, q, g, sc1 = 0, sc2 = 0;
+                    int i, j, k, l, q, sc1 = 0, sc2 = 0;
                     char type;
                     string linia, name1, name2, score1, score2;
                     while ((linia = Mat.ReadLine()) != null)
                     {
+                        string mainname = "", mainsur = "", as1name = "", as1sur = "", as2name = "", as2sur = "";
                         type = linia[0];
                         name1 = ""; name2 = ""; score1 = ""; score2 = "";
 
@@ -123,84 +124,113 @@ namespace Kopakabana
                         {
                             name1 += linia[i];
                         }
-                        for (q = i + 1; linia[q] != '-'; q++)
-                        {
-
-
-                        }
-                        for (j = q + 2; linia[j] != ' '; j++)
+                        for (j = i + 3; linia[j] != ' '; j++)
                         {
                             name2 += linia[j];
 
                         }
-                        for (z = j + 1; linia[z] != ' '; z++)
+                        j++;
+                        score1 += linia[j];
+                        j = j + 4;
+                        score2 += linia[j];
+                        for (k = j + 2; linia[k] != ' '; k++)
                         {
-                            score1 += linia[z];
+                            mainname += linia[k];
                         }
-                        for (g = z + 1; linia[g] != ':'; g++)
+                        for (l = k + 1; linia[l] != ' '; l++)
                         {
-
-
+                            if (linia[l] != ';')
+                                mainsur += linia[l];
+                            else break;
                         }
-                        for (t = g + 2; linia[t] != ';'; t++)
+                        if (type == 'V')
                         {
-                            score2 += linia[t];
+                            for (q = l + 1; linia[q] != ' '; q++)
+                            {
+                                as1name += linia[q];
 
+                            }
+                            for (i = q + 1; linia[i] != ' '; i++)
+                            {
+                                as1sur += linia[i];
+
+                            }
+                            for (q = i + 1; linia[q] != ' '; q++)
+                            {
+                                as2name += linia[q];
+
+                            }
+                            for (i = q + 1; linia[i] != ';'; i++)
+                            {
+                                as2sur += linia[i];
+
+                            }
                         }
                         sc1 = int.Parse(score1);
                         sc2 = int.Parse(score2);
-
                         foreach (Match M in Matches)
                         {
+                        
                             if (M is VolleyBall && type == 'V' && M.T1.Name == name1 && M.T2.Name == name2)
                             {
                                 M.Result1 = sc1;
                                 M.Result2 = sc2;
+                                M.SetRefree(getReferees()[SearchRef(mainname, mainsur)]);
+                                ((VolleyBall)M).SetAssistants(getReferees()[SearchRef(as1name, as1sur)], getReferees()[SearchRef(as2name, as2sur)]);
                                 M.SetWhoWon();
                             }
                             else if (M is VolleyBall && type == 'V' && M.T1.Name == name2 && M.T2.Name == name1)
                             {
                                 M.Result1 = sc2;
                                 M.Result2 = sc1;
+                                M.SetRefree(getReferees()[SearchRef(mainname, mainsur)]);
+                                ((VolleyBall)M).SetAssistants(getReferees()[SearchRef(as1name, as1sur)], getReferees()[SearchRef(as2name, as2sur)]);
                                 M.SetWhoWon();
                             }
                             if (M is DodgeBall && type == 'D' && M.T1.Name == name1 && M.T2.Name == name2)
                             {
                                 M.Result1 = sc1;
                                 M.Result2 = sc2;
+                                M.SetRefree(getReferees()[SearchRef(mainname, mainsur)]);
                                 M.SetWhoWon();
                             }
                             else if (M is DodgeBall && type == 'D' && M.T1.Name == name2 && M.T2.Name == name1)
                             {
                                 M.Result1 = sc2;
                                 M.Result2 = sc1;
+                                M.SetRefree(getReferees()[SearchRef(mainname, mainsur)]);
                                 M.SetWhoWon();
                             }
                             if (M is TugOfWar && type == 'T' && M.T1.Name == name1 && M.T2.Name == name2)
                             {
                                 M.Result1 = sc1;
                                 M.Result2 = sc2;
+                                M.SetRefree(getReferees()[SearchRef(mainname, mainsur)]);
                                 M.SetWhoWon();
                             }
                             else if (M is TugOfWar && type == 'T' && M.T1.Name == name2 && M.T2.Name == name1)
                             {
                                 M.Result1 = sc2;
                                 M.Result2 = sc1;
+                                M.SetRefree(getReferees()[SearchRef(mainname, mainsur)]);
                                 M.SetWhoWon();
                             }
 
                         }
-
                     }
-                    Mat.Close();
+                        Mat.Close();
                 }
                 else throw new FileException("Nie odnaleziono okreslonej ściezki\n", Path.GetFullPath(Ma));
+            }
+            catch (TourException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK);
             }
             catch
             {
                 MessageBox.Show("Nie znaleziono pliku z wynikami", "Error", MessageBoxButton.OK);
             }
-        }//Dostep do skaldowych zamienc na metody dostepowe
+        }//Dostep do skaldowych zamienc na metody dostepowe dodac czytanie sedziow
         //Zapis do plików////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public void Save()
         {
@@ -233,16 +263,27 @@ namespace Kopakabana
             if (M.Result1 > 0 || M.Result2 > 0)
             {
                 //Linia += M.T1.getName() + " " + M.T2.getName() + " " + M.Result1 + " " + M.Result2 + ";";
-                Linia += M.ToString() + ";";
+                Linia += M.ToString() + " " + M.REF.ToString();
+                if (M is VolleyBall)
+                {
+                    Linia += " " + ((VolleyBall)M).AS1.ToString() + " " + ((VolleyBall)M).AS2.ToString();
+                }
+                Linia += ";";
                 Sc.WriteLine(Linia);
             }
             else if (Whatchange == true)
             {
-                Linia += M.ToString() + ";";
+                Linia += M.ToString() + " " + M.REF.ToString();
+                if (M is VolleyBall)
+                {
+                    Linia += " " + ((VolleyBall)M).AS1.ToString() + " " + ((VolleyBall)M).AS2.ToString();
+                }
+                Linia += ";";
                 Sc.WriteLine(Linia);
             }
+                
             Sc.Close();
-        }///Ready
+        }//Dodac zapis sedziow
         //Generowanie meczow ora ustalnie ilosci wygranych
         public void GenerateMatches()
         {
@@ -299,7 +340,7 @@ namespace Kopakabana
             }
             catch
             {
-                
+
             }
         }///Ready
         public void CountWins()
@@ -323,7 +364,7 @@ namespace Kopakabana
             }
         }///Ready
         //Metody zarzadzania//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            //Druzynami
+        //Druzynami
         public void ChangeName(string pop, string nast)
         {
             foreach (Match M in Matches)
@@ -361,22 +402,33 @@ namespace Kopakabana
             }
         }///Ready
             //Sedziami
-        public void ChangeRef(string popname,string popsur,string name,string surname)
+        public void ChangeRef(string popname, string popsur, string name, string surname)
         {
-            foreach(Referee R in Referees)
+            foreach (Referee R in Referees)
             {
-                if(R.getName()==popname && R.getSurname()==popsur)
+                if (R.getName() == popname && R.getSurname() == popsur)
                 {
                     R.setName(name);
                     R.setSurname(surname);
                 }
             }
         }
-        public void CheckRef(string name,string surname)
+        public int SearchRef(string name, string surname)
         {
-            foreach(Referee R in Referees)
+            foreach (Referee R in Referees)
             {
-                if (R.getName() == name && R.getSurname()==surname)
+                if (R.getName() == name && R.getSurname() == surname)
+                {
+                    return Referees.IndexOf(R);
+                }
+            }
+            throw new TourException("Brak sedziego");
+        }//.Zastapic equals
+        public void CheckRef(string name, string surname)
+        {
+            foreach (Referee R in Referees)
+            {
+                if (R.getName() == name && R.getSurname() == surname)
                 {
                     throw new ExistNameException(" jest zarejetorwanym sedzią", name, surname);
                 }
@@ -385,16 +437,16 @@ namespace Kopakabana
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///Gettery i settery/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //Ustawianie list////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            //Ustawia dane druzyny po edycji
+        //Ustawia dane druzyny po edycji
         public void setTeams(int index, string name, Player p1, Player p2, Player p3, Player p4)
         {
             Teams[index] = new Team(name, p1, p2, p3, p4);
         }///Ready
-        public void setReferees(int index,string name,string surname)
+        public void setReferees(int index, string name, string surname)
         {
             Referees[index] = new Referee(name, surname);
         }
-            //Kopjuja dane do list głownych
+        //Kopjuja dane do list głownych
         public void setTeams(List<Team> T)
         {
             Teams = T;
