@@ -168,51 +168,63 @@ namespace Kopakabana
                         }
                         sc1 = int.Parse(score1);
                         sc2 = int.Parse(score2);
+                        var Mecze = getMatches();
                         foreach (Match M in Matches)
                         {
-
                             if (M is VolleyBall && type == 'V' && M.getTeam1().Name == name1 && M.getTeam2().Name == name2)
                             {
                                 M.setResult1(sc1);
                                 M.setResult2(sc2);
-                                M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
-                                ((VolleyBall)M).SetAssistants(getReferees()[SearchRef(as1name, as1sur)], getReferees()[SearchRef(as2name, as2sur)]);
+                                if (WhatExistRef(mainname, mainsur))
+                                    M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
+                                if (WhatExistRef(as1name, as1sur))
+                                    ((VolleyBall)M).SetAssistant1(getReferees()[SearchRef(as1name, as1sur)]);
+                                if (WhatExistRef(as2name, as2sur))
+                                    ((VolleyBall)M).SetAssistant2(getReferees()[SearchRef(as2name, as2sur)]);
                                 M.SetWhoWon();
                             }
                             else if (M is VolleyBall && type == 'V' && M.getTeam1().Name == name2 && M.getTeam2().Name == name1)
                             {
                                 M.setResult1(sc2);
                                 M.setResult2(sc1);
-                                M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
-                                ((VolleyBall)M).SetAssistants(getReferees()[SearchRef(as1name, as1sur)], getReferees()[SearchRef(as2name, as2sur)]);
+                                if (WhatExistRef(mainname, mainsur))
+                                    M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
+                                if (WhatExistRef(as1name, as1sur))
+                                    ((VolleyBall)M).SetAssistant1(getReferees()[SearchRef(as1name, as1sur)]);
+                                if (WhatExistRef(as2name, as2sur))
+                                    ((VolleyBall)M).SetAssistant2(getReferees()[SearchRef(as2name, as2sur)]);
                                 M.SetWhoWon();
                             }
                             if (M is DodgeBall && type == 'D' && M.getTeam1().Name == name1 && M.getTeam2().Name == name2)
                             {
                                 M.setResult1(sc1);
                                 M.setResult2(sc2);
-                                M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
+                                if (WhatExistRef(mainname, mainsur))
+                                    M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
                                 M.SetWhoWon();
                             }
                             else if (M is DodgeBall && type == 'D' && M.getTeam1().Name == name2 && M.getTeam2().Name == name1)
                             {
                                 M.setResult1(sc2);
                                 M.setResult2(sc1);
-                                M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
+                                if (WhatExistRef(mainname, mainsur))
+                                    M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
                                 M.SetWhoWon();
                             }
                             if (M is TugOfWar && type == 'T' && M.getTeam1().Name == name1 && M.getTeam2().Name == name2)
                             {
                                 M.setResult1(sc1);
                                 M.setResult2(sc2);
-                                M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
+                                if (WhatExistRef(mainname, mainsur))
+                                    M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
                                 M.SetWhoWon();
                             }
                             else if (M is TugOfWar && type == 'T' && M.getTeam1().Name == name2 && M.getTeam2().Name == name1)
                             {
                                 M.setResult1(sc2);
                                 M.setResult2(sc1);
-                                M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
+                                if (WhatExistRef(mainname, mainsur))
+                                    M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
                                 M.SetWhoWon();
                             }
 
@@ -224,6 +236,7 @@ namespace Kopakabana
             }
             catch (TourException ex)
             {
+                MessageBox.Show("Nie znaleziono pliku z wynikami", "Error", MessageBoxButton.OK);
 
             }
             catch
@@ -427,7 +440,8 @@ namespace Kopakabana
 
                 }
             }
-            throw new TourException();
+            return 0;
+            //throw new TourException();
         }//.Zastapic equals
         public void CheckRef(string name, string surname)
         {
@@ -438,6 +452,18 @@ namespace Kopakabana
                     throw new ExistNameException(" jest zarejetorwanym sedzią", name, surname);
                 }
             }
+        }
+        public bool WhatExistRef(string name, string surname)
+        {
+            foreach (Referee R in Referees)
+            {
+                if (R.Equals(new Referee(name, surname)))
+                {
+                    return true;
+
+                }
+            }
+            return false;
         }
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///Gettery i settery/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -451,25 +477,31 @@ namespace Kopakabana
         {
             Referees[index] = new Referee(name, surname);
         }
-        public void UpdateMatch(string popname,string popsur,string name, string surname,int index)
+        public void UpdateMatch(string popname, string popsur, string name, string surname, int index)
         {
             foreach (Match M in Matches)
             {
+                bool whatchange = false;
                 if (M.GetReferee().Equals(new Referee(popname, popsur)))
                 {
                     M.SetReferee(Referees[index]);
+                    whatchange = true;
                 }
                 if (M is VolleyBall)
-                { 
-                    if(((VolleyBall)M).GetAssistant1().Equals(new Referee(popname, popsur)))
+                {
+                    if (((VolleyBall)M).GetAssistant1().Equals(new Referee(popname, popsur)))
                     {
-                        M.SetReferee(Referees[index]);
+                        ((VolleyBall)M).SetAssistant1(Referees[index]);
+                        whatchange = true;
                     }
                     if (((VolleyBall)M).GetAssistant2().Equals(new Referee(popname, popsur)))
                     {
-                        M.SetReferee(Referees[index]);
-                    } 
+                        ((VolleyBall)M).SetAssistant2(Referees[index]);
+                        whatchange = true;
+                    }
                 }
+                if (whatchange)
+                    SaveScore(M);
             }
         }
         //Kopjuja dane do list głownych
@@ -485,8 +517,8 @@ namespace Kopakabana
         public void setMatch(int index, int res1, int res2)
         {
             var M = Matches[index];
-            Matches[index].ResulgetTeam1() = res1;
-            Matches[index].ResulgetTeam2() = res2;
+            Matches[index].setResult1(res1);
+            Matches[index].setResult2(res2);
             /*if (M is VolleyBall)
             {
                 ((VolleyBall)Matches[index]).ResulgetTeam1() = res1;

@@ -159,7 +159,7 @@ namespace Kopakabana
                 Man.AddRef.Visibility = Visibility.Visible;
                 ///////////////////////////////////////////////////////////////////////////////////////////////
                 popname = Man.NameRef.Text = ((Referee)((ListBoxItem)Lista.SelectedItem).Content).getName();
-                popsur = Man.NameRef.Text = ((Referee)((ListBoxItem)Lista.SelectedItem).Content).getName();
+                popsur = Man.NameRef.Text = ((Referee)((ListBoxItem)Lista.SelectedItem).Content).getSurname();
                 Man.NameRef.Text = ((Referee)((ListBoxItem)Lista.SelectedItem).Content).getName();
                 Man.SurnameRef.Text = ((Referee)((ListBoxItem)Lista.SelectedItem).Content).getSurname();
                 if (true == Man.ShowDialog())
@@ -168,7 +168,7 @@ namespace Kopakabana
                     Tour.setReferees(Lista.SelectedIndex, Man.NameRef.Text, Man.SurnameRef.Text);
                     Tour.ChangeRef(popname, popsur, Man.NameRef.Text, Man.SurnameRef.Text);
                     Tour.UpdateMatch(popname, popsur, Man.NameRef.Text, Man.SurnameRef.Text, Lista.SelectedIndex);
-                    //Refresh();
+                    Refresh();
                     Sedzia(sender, e);
                 }
             }
@@ -280,23 +280,23 @@ namespace Kopakabana
                 var I = (Match)((ListBoxItem)(Lista.SelectedItem)).Content;
                 Main.Visibility = Visibility.Hidden;
                 Match.Visibility = Visibility.Visible;
-                Name1.Text = I.T1.getName();
-                Name2.Text = I.T2.getName();
+                Name1.Text = I.getTeam1().getName();
+                Name2.Text = I.getTeam2().getName();
                 if (I is VolleyBall)
                 {
                     ASS.Visibility = Visibility.Visible;
-                    Res1.Text = ((VolleyBall)I).Result1.ToString();
-                    Res2.Text = ((VolleyBall)I).Result2.ToString();
+                    Res1.Text = ((VolleyBall)I).getResult1().ToString();
+                    Res2.Text = ((VolleyBall)I).getResult2().ToString();
                     Ref.Text = ((VolleyBall)I).GetReferee().ToString();
                     Type.Text = I.GetType().Name;
-                    Ass1.Text = ((VolleyBall)I).AS1.ToString();
-                    Ass2.Text = ((VolleyBall)I).AS2.ToString();
+                    Ass1.Text = ((VolleyBall)I).GetAssistant1().ToString();
+                    Ass2.Text = ((VolleyBall)I).GetAssistant2().ToString();
                 }
                 else
                 {
                     ASS.Visibility = Visibility.Hidden;
-                    Res1.Text = I.Result1.ToString();
-                    Res2.Text = I.Result2.ToString();
+                    Res1.Text = I.getResult1().ToString();
+                    Res2.Text = I.getResult2().ToString();
                     Type.Text = I.GetType().Name;
                     Ref.Text = I.GetReferee().ToString();
 
@@ -316,10 +316,10 @@ namespace Kopakabana
                 Score SC = new Score();
                 Match Ob = ((Match)((ListBoxItem)Lista.SelectedItem).Content);
                 //SC.Volley.Visibility = Visibility.Visible;
-                SC.Team1.Text = Ob.T1.Name;
-                SC.Team2.Text = Ob.T2.Name;
-                SC.Score1.Text = Ob.Result1.ToString();
-                SC.Score2.Text = Ob.Result2.ToString();
+                SC.Team1.Text = Ob.getTeam1().Name;
+                SC.Team2.Text = Ob.getTeam2().Name;
+                SC.Score1.Text = Ob.getResult1().ToString();
+                SC.Score2.Text = Ob.getResult2().ToString();
                 /*if (Ob is VolleyBall)
                 {
                     SC.Score1.Text = ((VolleyBall)Ob).Result1.ToString();
