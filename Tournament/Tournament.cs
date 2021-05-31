@@ -171,48 +171,48 @@ namespace Kopakabana
                         foreach (Match M in Matches)
                         {
 
-                            if (M is VolleyBall && type == 'V' && M.T1.Name == name1 && M.T2.Name == name2)
+                            if (M is VolleyBall && type == 'V' && M.getTeam1().Name == name1 && M.getTeam2().Name == name2)
                             {
-                                M.Result1 = sc1;
-                                M.Result2 = sc2;
-                                M.SetRefree(getReferees()[SearchRef(mainname, mainsur)]);
+                                M.setResult1(sc1);
+                                M.setResult2(sc2);
+                                M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
                                 ((VolleyBall)M).SetAssistants(getReferees()[SearchRef(as1name, as1sur)], getReferees()[SearchRef(as2name, as2sur)]);
                                 M.SetWhoWon();
                             }
-                            else if (M is VolleyBall && type == 'V' && M.T1.Name == name2 && M.T2.Name == name1)
+                            else if (M is VolleyBall && type == 'V' && M.getTeam1().Name == name2 && M.getTeam2().Name == name1)
                             {
-                                M.Result1 = sc2;
-                                M.Result2 = sc1;
-                                M.SetRefree(getReferees()[SearchRef(mainname, mainsur)]);
+                                M.setResult1(sc2);
+                                M.setResult2(sc1);
+                                M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
                                 ((VolleyBall)M).SetAssistants(getReferees()[SearchRef(as1name, as1sur)], getReferees()[SearchRef(as2name, as2sur)]);
                                 M.SetWhoWon();
                             }
-                            if (M is DodgeBall && type == 'D' && M.T1.Name == name1 && M.T2.Name == name2)
+                            if (M is DodgeBall && type == 'D' && M.getTeam1().Name == name1 && M.getTeam2().Name == name2)
                             {
-                                M.Result1 = sc1;
-                                M.Result2 = sc2;
-                                M.SetRefree(getReferees()[SearchRef(mainname, mainsur)]);
+                                M.setResult1(sc1);
+                                M.setResult2(sc2);
+                                M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
                                 M.SetWhoWon();
                             }
-                            else if (M is DodgeBall && type == 'D' && M.T1.Name == name2 && M.T2.Name == name1)
+                            else if (M is DodgeBall && type == 'D' && M.getTeam1().Name == name2 && M.getTeam2().Name == name1)
                             {
-                                M.Result1 = sc2;
-                                M.Result2 = sc1;
-                                M.SetRefree(getReferees()[SearchRef(mainname, mainsur)]);
+                                M.setResult1(sc2);
+                                M.setResult2(sc1);
+                                M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
                                 M.SetWhoWon();
                             }
-                            if (M is TugOfWar && type == 'T' && M.T1.Name == name1 && M.T2.Name == name2)
+                            if (M is TugOfWar && type == 'T' && M.getTeam1().Name == name1 && M.getTeam2().Name == name2)
                             {
-                                M.Result1 = sc1;
-                                M.Result2 = sc2;
-                                M.SetRefree(getReferees()[SearchRef(mainname, mainsur)]);
+                                M.setResult1(sc1);
+                                M.setResult2(sc2);
+                                M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
                                 M.SetWhoWon();
                             }
-                            else if (M is TugOfWar && type == 'T' && M.T1.Name == name2 && M.T2.Name == name1)
+                            else if (M is TugOfWar && type == 'T' && M.getTeam1().Name == name2 && M.getTeam2().Name == name1)
                             {
-                                M.Result1 = sc2;
-                                M.Result2 = sc1;
-                                M.SetRefree(getReferees()[SearchRef(mainname, mainsur)]);
+                                M.setResult1(sc2);
+                                M.setResult2(sc1);
+                                M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
                                 M.SetWhoWon();
                             }
 
@@ -260,13 +260,13 @@ namespace Kopakabana
                 Linia = "D ";
             if (M is TugOfWar)
                 Linia = "T ";
-            if (M.Result1 > 0 || M.Result2 > 0)
+            if (M.getResult1() > 0 || M.getResult2() > 0)
             {
-                //Linia += M.T1.getName() + " " + M.T2.getName() + " " + M.Result1 + " " + M.Result2 + ";";
+                //Linia += M.getTeam1().getName() + " " + M.getTeam2().getName() + " " + M.ResulgetTeam1() + " " + M.ResulgetTeam2() + ";";
                 Linia += M.ToString() + " " + M.GetReferee().ToString();
                 if (M is VolleyBall)
                 {
-                    Linia += " " + ((VolleyBall)M).AS1.ToString() + " " + ((VolleyBall)M).AS2.ToString();
+                    Linia += " " + ((VolleyBall)M).GetAssistant1().ToString() + " " + ((VolleyBall)M).GetAssistant2().ToString();
                 }
                 Linia += ";";
                 Sc.WriteLine(Linia);
@@ -276,7 +276,7 @@ namespace Kopakabana
                 Linia += M.ToString() + " " + M.GetReferee().ToString();
                 if (M is VolleyBall)
                 {
-                    Linia += " " + ((VolleyBall)M).AS1.ToString() + " " + ((VolleyBall)M).AS2.ToString();
+                    Linia += " " + ((VolleyBall)M).GetAssistant1().ToString() + " " + ((VolleyBall)M).GetAssistant2().ToString();
                 }
                 Linia += ";";
                 Sc.WriteLine(Linia);
@@ -369,13 +369,13 @@ namespace Kopakabana
         {
             foreach (Match M in Matches)
             {
-                if (M.T1.getName() == pop)
+                if (M.getTeam1().getName() == pop)
                 {
-                    M.T1.setName(nast);
+                    M.getTeam1().setName(nast);
                 }
-                if (M.T2.getName() == pop)
+                if (M.getTeam2().getName() == pop)
                 {
-                    M.T2.setName(nast);
+                    M.getTeam2().setName(nast);
                 }
             }
         }///Ready
@@ -383,11 +383,11 @@ namespace Kopakabana
         {
             foreach (Match M in Matches)
             {
-                if (M.T1.getName() == akt)
+                if (M.getTeam1().getName() == akt)
                 {
                     SaveScore(M);
                 }
-                if (M.T2.getName() == akt)
+                if (M.getTeam2().getName() == akt)
                 {
                     SaveScore(M);
                 }
@@ -485,12 +485,12 @@ namespace Kopakabana
         public void setMatch(int index, int res1, int res2)
         {
             var M = Matches[index];
-            Matches[index].Result1 = res1;
-            Matches[index].Result2 = res2;
+            Matches[index].ResulgetTeam1() = res1;
+            Matches[index].ResulgetTeam2() = res2;
             /*if (M is VolleyBall)
             {
-                ((VolleyBall)Matches[index]).Result1 = res1;
-                ((VolleyBall)Matches[index]).Result2 = res2;
+                ((VolleyBall)Matches[index]).ResulgetTeam1() = res1;
+                ((VolleyBall)Matches[index]).ResulgetTeam2() = res2;
             }*/
 
         }//Zmienic na metode dotepowa do result
