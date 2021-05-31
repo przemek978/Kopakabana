@@ -27,7 +27,11 @@ namespace Matches
         {
             return T2;
         }
-        public void setTeam1(Team name, Player p1, Player p2, Player p3);
+        public void setTeam1(string name1, Player p1, Player p2, Player p3)
+        {
+            T1.Name = name1;
+
+        }
 
         public override string ToString()
         {
