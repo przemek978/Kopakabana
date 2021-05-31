@@ -166,6 +166,8 @@ namespace Kopakabana
                 {
                     Tour.CheckRef(Man.NameRef.Text, Man.SurnameRef.Text);
                     Tour.setReferees(Lista.SelectedIndex, Man.NameRef.Text, Man.SurnameRef.Text);
+                    /*Tour.setName(Man.NameRef.Text);
+                    Tour.setSurname(Man.SurnameRef.Text);*/
                     Tour.ChangeRef(popname, popsur, Man.NameRef.Text, Man.SurnameRef.Text);
                     Tour.UpdateMatch(popname, popsur, Man.NameRef.Text, Man.SurnameRef.Text, Lista.SelectedIndex);
                     Refresh();
@@ -235,21 +237,23 @@ namespace Kopakabana
                 Man.Height = 215;
                 Man.AddTeam.Visibility = Visibility.Visible;
                 //////////////////////////////////////////////////////////////////////////////////////////
-                pop = Man.NameT.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).Name;
-                Man.NameP1.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P1.getName();
-                Man.SurnameP1.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P1.getSurname();
-                Man.NameP2.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P2.getName();
-                Man.SurnameP2.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P2.getSurname();
-                Man.NameP3.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P3.getName();
-                Man.SurnameP3.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P3.getSurname();
-                Man.NameP4.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P4.getName();
-                Man.SurnameP4.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).P4.getSurname();
+                pop = Man.NameT.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).getName();
+                Man.NameP1.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).GetPlayers()[0].getName();
+                Man.SurnameP1.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).GetPlayers()[0].getSurname();
+                Man.NameP2.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).GetPlayers()[1].getName();
+                Man.SurnameP2.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).GetPlayers()[1].getSurname();
+                Man.NameP3.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).GetPlayers()[2].getName();
+                Man.SurnameP3.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).GetPlayers()[2].getSurname();
+                Man.NameP4.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).GetPlayers()[3].getName();
+                Man.SurnameP4.Text = ((Team)((ListBoxItem)Lista.SelectedItem).Content).GetPlayers()[3].getSurname();
                 //////////////////////////////////////////////////////////////////////////////////////////
                 if (true == Man.ShowDialog())
                 {
                     Tour.CheckName(Man.NameT.Text);
                     //Tour.getTop4();
-                    Tour.setTeams(Lista.SelectedIndex, Man.NameT.Text, new Player(Man.NameP1.Text, Man.SurnameP1.Text), new Player(Man.NameP2.Text, Man.SurnameP2.Text), new Player(Man.NameP3.Text, Man.SurnameP3.Text), new Player(Man.NameP4.Text, Man.SurnameP4.Text));
+                    //Tour.setTeams(Lista.SelectedIndex, Man.NameT.Text, new Player(Man.NameP1.Text, Man.SurnameP1.Text), new Player(Man.NameP2.Text, Man.SurnameP2.Text), new Player(Man.NameP3.Text, Man.SurnameP3.Text), new Player(Man.NameP4.Text, Man.SurnameP4.Text));
+                    Tour.getTeams()[Lista.SelectedIndex].setPlayers(new Player(Man.NameP1.Text, Man.SurnameP1.Text), new Player(Man.NameP2.Text, Man.SurnameP2.Text), new Player(Man.NameP3.Text, Man.SurnameP3.Text), new Player(Man.NameP4.Text, Man.SurnameP4.Text));
+                    Tour.getTeams()[Lista.SelectedIndex].setName(Man.NameT.Text);
                     Tour.ChangeName(pop, Man.NameT.Text);
                     Tour.SearchName(Man.NameT.Text);
                     Refresh();
@@ -316,8 +320,8 @@ namespace Kopakabana
                 Score SC = new Score();
                 Match Ob = ((Match)((ListBoxItem)Lista.SelectedItem).Content);
                 //SC.Volley.Visibility = Visibility.Visible;
-                SC.Team1.Text = Ob.getTeam1().Name;
-                SC.Team2.Text = Ob.getTeam2().Name;
+                SC.Team1.Text = Ob.getTeam1().getName();
+                SC.Team2.Text = Ob.getTeam2().getName();
                 SC.Score1.Text = Ob.getResult1().ToString();
                 SC.Score2.Text = Ob.getResult2().ToString();
                 /*if (Ob is VolleyBall)

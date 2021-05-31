@@ -57,6 +57,10 @@ namespace People
         {
             this.Wins = wins;
         }
+        public void setWins()
+        {
+            Wins++;
+        }
         public override string ToString()
         {
             return Name + " " + Wins;

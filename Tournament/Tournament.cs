@@ -25,10 +25,258 @@ namespace Kopakabana
         }///Ready
         public List<Team> getTop4()
         {
-            Teams.Sort((x, y) => y.Wins.CompareTo(x.Wins));
+            Teams.Sort((x, y) => y.getWins().CompareTo(x.getWins()));
             List<Team> best4 = new List<Team>(Teams.Take(4));
             return best4;
         }///Ready
+        //Generowanie meczow ora ustalnie ilosci wygranych
+        public void GenerateMatches()
+        {
+            try
+            {
+                if (Referees.Count < 3)
+                    throw new Exception();
+                int q = 0, Ref, AS1, AS2;
+                Matches = new List<Match>();
+                Random Rn = new Random();
+                ///Generowanie dla siatkowki
+                foreach (Team T in Teams)
+                {
+                    for (int i = q + 1; i < Teams.Count;)
+                    {
+                        Ref = Rn.Next(0, Referees.Count);
+                        AS1 = Rn.Next(0, Referees.Count);
+                        AS2 = Rn.Next(0, Referees.Count);
+                        if (Ref != AS1 && Ref != AS2 && AS1 != AS2)
+                        {
+                            Matches.Add(new VolleyBall(T, Teams[i], Referees[Ref], Referees[AS1], Referees[AS2]));
+                            i++;
+                        }
+                    }
+                    q++;
+                }
+                ///Genereownaie dla Przeciagania liny
+                q = 0;
+                if (Referees.Count < 1)
+                    throw new Exception();
+                foreach (Team T in Teams)
+                {
+                    for (int i = q + 1; i < Teams.Count; i++)
+                    {
+                        Ref = Rn.Next(0, Referees.Count);
+                        Matches.Add(new TugOfWar(T, Teams[i], Referees[Ref]));
+                    }
+                    q++;
+                }
+                ///Generwoanie dla Dwoch ogni
+                q = 0;
+                if (Referees.Count < 1)
+                    throw new Exception();
+                foreach (Team T in Teams)
+                {
+                    for (int i = q + 1; i < Teams.Count; i++)
+                    {
+                        Ref = Rn.Next(0, Referees.Count);
+                        Matches.Add(new DodgeBall(T, Teams[i], Referees[Ref]));
+                    }
+                    q++;
+                }
+                ReadScore();
+            }
+            catch
+            {
+
+            }
+        }///Ready
+        public void CountWins()
+        {
+            //Ustawianie wygranych na zero aby przy ponowym liczeniu liczylo od zera
+            foreach (Team T in Teams)
+            {
+                T.setWins(0);
+            }
+            //Liczenie wygranych 
+            foreach (Match M in Matches)
+            {
+                foreach (Team T in Teams)
+                {
+                    if (M.getWhoWon() != null)
+                        if (M.getWhoWon().getName() == T.getName())
+                        {
+                            T.setWins();
+                        }
+                }
+            }
+        }///Ready
+        //Metody zarzadzania//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+             //Druzynami
+        public void ChangeName(string pop, string nast)
+        {
+            foreach (Match M in Matches)
+            {
+                if (M.getTeam1().getName() == pop)
+                {
+                    M.getTeam1().setName(nast);
+                }
+                if (M.getTeam2().getName() == pop)
+                {
+                    M.getTeam2().setName(nast);
+                }
+            }
+        }///Ready
+        public void SearchName(string akt)
+        {
+            foreach (Match M in Matches)
+            {
+                if (M.getTeam1().getName() == akt)
+                {
+                    SaveScore(M);
+                }
+                if (M.getTeam2().getName() == akt)
+                {
+                    SaveScore(M);
+                }
+            }
+        }///Ready
+        public void CheckName(string name)
+        {
+            foreach (Team T in Teams)
+            {
+                if (T.getName() == name)
+                    throw new ExistNameException(" juz istnieje", name);
+            }
+        }///Ready
+            //Sedziami
+        public void ChangeRef(string popname, string popsur, string name, string surname)
+        {
+            foreach (Referee R in Referees)
+            {
+                if (R.getName() == popname && R.getSurname() == popsur)
+                {
+                    R.setName(name);
+                    R.setSurname(surname);
+                }
+            }
+        }
+        public int SearchRef(string name, string surname)
+        {
+            foreach (Referee R in Referees)
+            {
+                /*if (R.getName() == name && R.getSurname() == surname)
+                 {
+                     return Referees.IndexOf(R);
+                 }*/
+        
+                if (R.Equals(new Referee(name, surname)))
+                {
+                    return Referees.IndexOf(R);
+
+                }
+            }
+            return 0;
+           
+        }///Ready
+        public void CheckRef(string name, string surname)
+        {
+            foreach (Referee R in Referees)
+            {
+                if (R.getName() == name && R.getSurname() == surname)
+                {
+                    throw new ExistNameException(" jest zarejetorwanym sedzią", name, surname);
+                }
+            }
+        }///Ready
+        public bool WhatExistRef(string name, string surname)
+        {
+            foreach (Referee R in Referees)
+            {
+                if (R.Equals(new Referee(name, surname)))
+                {
+                    return true;
+
+                }
+            }
+            return false;
+        }///Ready
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///Gettery i settery/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //Ustawianie list////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //Ustawia dane druzyny po edycji
+        /*public void setTeams(int index, string name, Player p1, Player p2, Player p3, Player p4)
+        {
+            Teams[index] = new Team(name, p1, p2, p3, p4);
+        }///Ready*/
+        public void UpdateMatch(string popname, string popsur, string name, string surname, int index)
+        {
+            foreach (Match M in Matches)
+            {
+                bool whatchange = false;
+                if (M.GetReferee().Equals(new Referee(popname, popsur)))
+                {
+                    M.SetReferee(Referees[index]);
+                    whatchange = true;
+                }
+                if (M is VolleyBall)
+                {
+                    if (((VolleyBall)M).GetAssistant1().Equals(new Referee(popname, popsur)))
+                    {
+                        ((VolleyBall)M).SetAssistant1(Referees[index]);
+                        whatchange = true;
+                    }
+                    if (((VolleyBall)M).GetAssistant2().Equals(new Referee(popname, popsur)))
+                    {
+                        ((VolleyBall)M).SetAssistant2(Referees[index]);
+                        whatchange = true;
+                    }
+                }
+                if (whatchange)
+                    SaveScore(M);
+            }
+        }
+        public void setReferees(int index, string name, string surname)
+        {
+            Referees[index] = new Referee(name, surname);
+        }
+        public void setMatch(int index, int res1, int res2)
+        {
+            var M = Matches[index];
+            Matches[index].setResult1(res1);
+            Matches[index].setResult2(res2);
+            /*if (M is VolleyBall)
+            {
+                ((VolleyBall)Matches[index]).ResulgetTeam1() = res1;
+                ((VolleyBall)Matches[index]).ResulgetTeam2() = res2;
+            }*/
+
+        }//Zmienic na metode dotepowa do result
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///
+        //Dostepy do list////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //Dostep do listy druzyn
+        public List<Team> getTeams()
+        {
+            return Teams;
+        }///Ready
+        public void setTeams(List<Team> T)
+        {
+            Teams = T;
+        }///Ready
+            //Dostep do listy sedziow
+        public List<Referee> getReferees()
+        {
+            return Referees;
+        }///Ready
+        public void setReferees(List<Referee> R)
+        {
+            Referees = R;
+        }///Ready
+            //Dostep do listy meczow
+        public List<Match> getMatches()
+        {
+            return Matches;
+        }///Ready
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///
         //Odczyt z plików////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public void Read()
         {
@@ -171,7 +419,7 @@ namespace Kopakabana
                         var Mecze = getMatches();
                         foreach (Match M in Matches)
                         {
-                            if (M is VolleyBall && type == 'V' && M.getTeam1().Name == name1 && M.getTeam2().Name == name2)
+                            if (M is VolleyBall && type == 'V' && M.getTeam1().getName() == name1 && M.getTeam2().getName() == name2)
                             {
                                 M.setResult1(sc1);
                                 M.setResult2(sc2);
@@ -183,7 +431,7 @@ namespace Kopakabana
                                     ((VolleyBall)M).SetAssistant2(getReferees()[SearchRef(as2name, as2sur)]);
                                 M.SetWhoWon();
                             }
-                            else if (M is VolleyBall && type == 'V' && M.getTeam1().Name == name2 && M.getTeam2().Name == name1)
+                            else if (M is VolleyBall && type == 'V' && M.getTeam1().getName() == name2 && M.getTeam2().getName() == name1)
                             {
                                 M.setResult1(sc2);
                                 M.setResult2(sc1);
@@ -195,7 +443,7 @@ namespace Kopakabana
                                     ((VolleyBall)M).SetAssistant2(getReferees()[SearchRef(as2name, as2sur)]);
                                 M.SetWhoWon();
                             }
-                            if (M is DodgeBall && type == 'D' && M.getTeam1().Name == name1 && M.getTeam2().Name == name2)
+                            if (M is DodgeBall && type == 'D' && M.getTeam1().getName() == name1 && M.getTeam2().getName() == name2)
                             {
                                 M.setResult1(sc1);
                                 M.setResult2(sc2);
@@ -203,7 +451,7 @@ namespace Kopakabana
                                     M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
                                 M.SetWhoWon();
                             }
-                            else if (M is DodgeBall && type == 'D' && M.getTeam1().Name == name2 && M.getTeam2().Name == name1)
+                            else if (M is DodgeBall && type == 'D' && M.getTeam1().getName() == name2 && M.getTeam2().getName() == name1)
                             {
                                 M.setResult1(sc2);
                                 M.setResult2(sc1);
@@ -211,7 +459,7 @@ namespace Kopakabana
                                     M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
                                 M.SetWhoWon();
                             }
-                            if (M is TugOfWar && type == 'T' && M.getTeam1().Name == name1 && M.getTeam2().Name == name2)
+                            if (M is TugOfWar && type == 'T' && M.getTeam1().getName() == name1 && M.getTeam2().getName() == name2)
                             {
                                 M.setResult1(sc1);
                                 M.setResult2(sc2);
@@ -219,7 +467,7 @@ namespace Kopakabana
                                     M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
                                 M.SetWhoWon();
                             }
-                            else if (M is TugOfWar && type == 'T' && M.getTeam1().Name == name2 && M.getTeam2().Name == name1)
+                            else if (M is TugOfWar && type == 'T' && M.getTeam1().getName() == name2 && M.getTeam2().getName() == name1)
                             {
                                 M.setResult1(sc2);
                                 M.setResult2(sc1);
@@ -251,7 +499,7 @@ namespace Kopakabana
             StreamWriter Tea = new StreamWriter("Teams.txt");
             foreach (Team T in Teams)
             {
-                Tea.WriteLine(T.Name + " " + T.P1.getName() + " " + T.P1.getSurname() + " " + T.P2.getName() + " " + T.P2.getSurname() + " " + T.P3.getName() + " " + T.P3.getSurname() + " " + T.P4.getName() + " " + T.P4.getSurname() + ";");
+                Tea.WriteLine(T.getName() + " " + T.GetPlayers()[0].getName() + " " + T.GetPlayers()[0].getSurname() + " " + T.GetPlayers()[1].getName() + " " + T.GetPlayers()[1].getSurname() + " " + T.GetPlayers()[2].getName() + " " + T.GetPlayers()[2].getSurname() + " " + T.GetPlayers()[3].getName() + " " + T.GetPlayers()[3].getSurname() + ";");
             }
             Tea.Close();
             foreach (Referee Re in Referees)
@@ -297,251 +545,6 @@ namespace Kopakabana
 
             Sc.Close();
         }//Dodac zapis sedziow
-        //Generowanie meczow ora ustalnie ilosci wygranych
-        public void GenerateMatches()
-        {
-            try
-            {
-                if (Referees.Count < 3)
-                    throw new Exception();
-                int q = 0, Ref, AS1, AS2;
-                Matches = new List<Match>();
-                Random Rn = new Random();
-                ///Generowanie dla siatkowki
-                foreach (Team T in Teams)
-                {
-                    for (int i = q + 1; i < Teams.Count;)
-                    {
-                        Ref = Rn.Next(0, Referees.Count);
-                        AS1 = Rn.Next(0, Referees.Count);
-                        AS2 = Rn.Next(0, Referees.Count);
-                        if (Ref != AS1 && Ref != AS2 && AS1 != AS2)
-                        {
-                            Matches.Add(new VolleyBall(T, Teams[i], Referees[Ref], Referees[AS1], Referees[AS2]));
-                            i++;
-                        }
-                    }
-                    q++;
-                }
-                ///Genereownaie dla Przeciagania liny
-                q = 0;
-                if (Referees.Count < 1)
-                    throw new Exception();
-                foreach (Team T in Teams)
-                {
-                    for (int i = q + 1; i < Teams.Count; i++)
-                    {
-                        Ref = Rn.Next(0, Referees.Count);
-                        Matches.Add(new TugOfWar(T, Teams[i], Referees[Ref]));
-                    }
-                    q++;
-                }
-                ///Generwoanie dla Dwoch ogni
-                q = 0;
-                if (Referees.Count < 1)
-                    throw new Exception();
-                foreach (Team T in Teams)
-                {
-                    for (int i = q + 1; i < Teams.Count; i++)
-                    {
-                        Ref = Rn.Next(0, Referees.Count);
-                        Matches.Add(new DodgeBall(T, Teams[i], Referees[Ref]));
-                    }
-                    q++;
-                }
-                ReadScore();
-            }
-            catch
-            {
-
-            }
-        }///Ready
-        public void CountWins()
-        {
-            //Ustawianie wygranych na zero aby przy ponowym liczeniu liczylo od zera
-            foreach (Team T in Teams)
-            {
-                T.Wins = 0;
-            }
-            //Liczenie wygranych 
-            foreach (Match M in Matches)
-            {
-                foreach (Team T in Teams)
-                {
-                    if (M.getWhoWon() != null)
-                        if (M.getWhoWon().getName() == T.getName())
-                        {
-                            T.Wins++;
-                        }
-                }
-            }
-        }///Ready
-        //Metody zarzadzania//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //Druzynami
-        public void ChangeName(string pop, string nast)
-        {
-            foreach (Match M in Matches)
-            {
-                if (M.getTeam1().getName() == pop)
-                {
-                    M.getTeam1().setName(nast);
-                }
-                if (M.getTeam2().getName() == pop)
-                {
-                    M.getTeam2().setName(nast);
-                }
-            }
-        }///Ready
-        public void SearchName(string akt)
-        {
-            foreach (Match M in Matches)
-            {
-                if (M.getTeam1().getName() == akt)
-                {
-                    SaveScore(M);
-                }
-                if (M.getTeam2().getName() == akt)
-                {
-                    SaveScore(M);
-                }
-            }
-        }///Ready
-        public void CheckName(string name)
-        {
-            foreach (Team T in Teams)
-            {
-                if (T.getName() == name)
-                    throw new ExistNameException(" juz istnieje", name);
-            }
-        }///Ready
-            //Sedziami
-        public void ChangeRef(string popname, string popsur, string name, string surname)
-        {
-            foreach (Referee R in Referees)
-            {
-                if (R.getName() == popname && R.getSurname() == popsur)
-                {
-                    R.setName(name);
-                    R.setSurname(surname);
-                }
-            }
-        }
-        public int SearchRef(string name, string surname)
-        {
-            foreach (Referee R in Referees)
-            {
-                /*if (R.getName() == name && R.getSurname() == surname)
-                 {
-                     return Referees.IndexOf(R);
-                 }*/
-                if (R.Equals(new Referee(name, surname)))
-                {
-                    return Referees.IndexOf(R);
-
-                }
-            }
-            return 0;
-            //throw new TourException();
-        }//.Zastapic equals
-        public void CheckRef(string name, string surname)
-        {
-            foreach (Referee R in Referees)
-            {
-                if (R.getName() == name && R.getSurname() == surname)
-                {
-                    throw new ExistNameException(" jest zarejetorwanym sedzią", name, surname);
-                }
-            }
-        }
-        public bool WhatExistRef(string name, string surname)
-        {
-            foreach (Referee R in Referees)
-            {
-                if (R.Equals(new Referee(name, surname)))
-                {
-                    return true;
-
-                }
-            }
-            return false;
-        }
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ///Gettery i settery/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //Ustawianie list////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //Ustawia dane druzyny po edycji
-        public void setTeams(int index, string name, Player p1, Player p2, Player p3, Player p4)
-        {
-            Teams[index] = new Team(name, p1, p2, p3, p4);
-        }///Ready
-        public void setReferees(int index, string name, string surname)
-        {
-            Referees[index] = new Referee(name, surname);
-        }
-        public void UpdateMatch(string popname, string popsur, string name, string surname, int index)
-        {
-            foreach (Match M in Matches)
-            {
-                bool whatchange = false;
-                if (M.GetReferee().Equals(new Referee(popname, popsur)))
-                {
-                    M.SetReferee(Referees[index]);
-                    whatchange = true;
-                }
-                if (M is VolleyBall)
-                {
-                    if (((VolleyBall)M).GetAssistant1().Equals(new Referee(popname, popsur)))
-                    {
-                        ((VolleyBall)M).SetAssistant1(Referees[index]);
-                        whatchange = true;
-                    }
-                    if (((VolleyBall)M).GetAssistant2().Equals(new Referee(popname, popsur)))
-                    {
-                        ((VolleyBall)M).SetAssistant2(Referees[index]);
-                        whatchange = true;
-                    }
-                }
-                if (whatchange)
-                    SaveScore(M);
-            }
-        }
-        //Kopjuja dane do list głownych
-        public void setTeams(List<Team> T)
-        {
-            Teams = T;
-        }///Ready
-        public void setReferees(List<Referee> R)
-        {
-            Referees = R;
-        }///Ready
-            //Ustawiawie wynikow w liscie metchow
-        public void setMatch(int index, int res1, int res2)
-        {
-            var M = Matches[index];
-            Matches[index].setResult1(res1);
-            Matches[index].setResult2(res2);
-            /*if (M is VolleyBall)
-            {
-                ((VolleyBall)Matches[index]).ResulgetTeam1() = res1;
-                ((VolleyBall)Matches[index]).ResulgetTeam2() = res2;
-            }*/
-
-        }//Zmienic na metode dotepowa do result
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //Zwraca liste druzyn////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public List<Team> getTeams()
-        {
-            return Teams;
-        }///Ready
-        //Zwraca liste sedziow
-        public List<Referee> getReferees()
-        {
-            return Referees;
-        }///Ready
-        //Zwraca liste maeczow
-        public List<Match> getMatches()
-        {
-            return Matches;
-        }///Ready
     }
 }
 
