@@ -459,14 +459,17 @@ namespace Kopakabana
                 {
                     M.SetReferee(Referees[index]);
                 }
-                /*if (M.GetReferee().Equals(new Referee(popname, popsur)))
-                {
-                    M.SetReferee(Referees[index]);
+                if (M is VolleyBall)
+                { 
+                    if(((VolleyBall)M).GetAssistant1().Equals(new Referee(popname, popsur)))
+                    {
+                        M.SetReferee(Referees[index]);
+                    }
+                    if (((VolleyBall)M).GetAssistant2().Equals(new Referee(popname, popsur)))
+                    {
+                        M.SetReferee(Referees[index]);
+                    } 
                 }
-                if (M.GetReferee().Equals(new Referee(popname, popsur)))
-                {
-                    M.SetReferee(Referees[index]);
-                }*/
             }
         }
         //Kopjuja dane do list głownych
