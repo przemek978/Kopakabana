@@ -22,13 +22,13 @@ namespace Kopakabana
             Teams = new List<Team>();
             Matches = new List<Match>();
 
-        }
+        }///Ready
         public List<Team> getTop4()
         {
             Teams.Sort((x, y) => y.Wins.CompareTo(x.Wins));
             List<Team> best4 = new List<Team>(Teams.Take(4));
             return best4;
-        }//Naprawic dzialanie
+        }//Zmienic sposob wykonania na sortowanie rozniesz listy teams bo wystpeuje problem z indexami
         //Odczyt z plików////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public void Read()
         {
@@ -36,7 +36,7 @@ namespace Kopakabana
             try
             {
                 string linia, imie = "", nazwisko = "";
-                int i = 0, j, x, y, z, q, Id;
+                int i = 0, j, x, y, z;
                 if (File.Exists(R))
                 {
                     StreamReader Ref = new StreamReader(R);
@@ -63,7 +63,7 @@ namespace Kopakabana
                 if (File.Exists(Te))
                 {
                     StreamReader T = new StreamReader(Te);
-                    string nazwa = "", id = "";
+                    string nazwa = "";
                     while ((linia = T.ReadLine()) != null)
                     {
                         List<Player> PL = new List<Player>();
@@ -89,7 +89,6 @@ namespace Kopakabana
                         }
                         Teams.Add(new Team(nazwa, PL[0], PL[1], PL[2], PL[3]));
                         nazwa = "";
-                        //throw new Exception(Path.GetFullPath(Te));
                     }
                     T.Close();
                 }

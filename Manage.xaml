@@ -5,15 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kopakabana"
         mc:Ignorable="d"
-        Title="Manage" Height="215" Width="600">
+        Title="Manage" Height="215" Width="610">
     <Grid>
-        <Grid x:Name="AddTeam" HorizontalAlignment="Left" Height="185" VerticalAlignment="Top" Width="600" Margin="0,0,-8,0" d:IsHidden="True">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black" Offset="0"/>
+                <GradientStop Color="#FF2C6306" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid x:Name="AddTeam" HorizontalAlignment="Left" Height="185" VerticalAlignment="Top" Width="600" Margin="0,0,-8,0">
             <TextBox x:Name="NameT" HorizontalAlignment="Left" Height="23" Margin="190.32,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="380.68"/>
-            <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Nazwa Drużyny" VerticalAlignment="Top" Width="162.29" Height="23"/>
-            <TextBlock HorizontalAlignment="Left" Margin="90,64,0,0" TextWrapping="Wrap" Text="ZAWODNIK1" VerticalAlignment="Top" Width="125" TextAlignment="Center" Height="20.96"/>
-            <TextBlock HorizontalAlignment="Left" Margin="215,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="125" TextAlignment="Center" Text="ZAWODNIK2" Height="20.96"/>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="ZAWODNIK3" VerticalAlignment="Top" Width="125" TextAlignment="Center" Margin="340,64,0,0" Height="20.96"/>
-            <TextBlock HorizontalAlignment="Left" Margin="465,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="125" TextAlignment="Center" Height="20.96"><Run Text="ZAWODNIK4"/></TextBlock>
+            <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Nazwa Drużyny" VerticalAlignment="Top" Width="162.29" Height="23" Foreground="White"/>
+            <TextBlock HorizontalAlignment="Left" Margin="90,64,0,0" TextWrapping="Wrap" Text="ZAWODNIK1" VerticalAlignment="Top" Width="125" TextAlignment="Center" Height="20.96" Foreground="White"/>
+            <TextBlock HorizontalAlignment="Left" Margin="215,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="125" TextAlignment="Center" Text="ZAWODNIK2" Height="20.96" Foreground="White"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="ZAWODNIK3" VerticalAlignment="Top" Width="125" TextAlignment="Center" Margin="340,64,0,0" Height="20.96" Foreground="White"/>
+            <TextBlock HorizontalAlignment="Left" Margin="465,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="125" TextAlignment="Center" Height="20.96" Foreground="White"><Run Text="ZAWODNIK4"/></TextBlock>
             <TextBox x:Name="NameP1" HorizontalAlignment="Left" Height="23" Margin="90,86.97,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="125"/>
             <TextBox x:Name="SurnameP1" HorizontalAlignment="Left" Height="23" Margin="90,119.92,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="125"/>
             <TextBox x:Name="NameP2" HorizontalAlignment="Left" Height="23" Margin="215,86.97,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="125"/>
@@ -22,16 +28,16 @@
             <TextBox x:Name="SurnameP3" HorizontalAlignment="Left" Height="23" Margin="340,119.92,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="125"/>
             <TextBox x:Name="NameP4" HorizontalAlignment="Left" Height="23" Margin="465,86.97,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="125"/>
             <TextBox x:Name="SurnameP4" HorizontalAlignment="Left" Height="23" Margin="465,119.92,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="125"/>
-            <TextBlock TextWrapping="Wrap" Text="IMIE" Margin="-5,89,515,74" FontSize="16" TextAlignment="Center" Width="90" Height="22"/>
-            <TextBlock TextWrapping="Wrap" Text="NAZWISKO" Margin="0,121,510,42" FontSize="16" TextAlignment="Center" Width="90" Height="22" RenderTransformOrigin="-0.633,1.743"/>
-            <Button x:Name="Save" Content="Zapisz" HorizontalAlignment="Left" Margin="0,155.04,0,0" VerticalAlignment="Top" Width="590" Click="Save_Click"/>
+            <TextBlock TextWrapping="Wrap" Text="IMIE" Margin="-5,89,515,74" FontSize="16" TextAlignment="Center" Width="90" Height="22" Foreground="White"/>
+            <TextBlock TextWrapping="Wrap" Text="NAZWISKO" Margin="0,121,510,42" FontSize="16" TextAlignment="Center" Width="90" Height="22" RenderTransformOrigin="-0.633,1.743" Foreground="White"/>
+            <Button x:Name="Save" Content="Zapisz" HorizontalAlignment="Left" Margin="5,155.04,0,0" VerticalAlignment="Top" Width="590" Click="Save_Click" Background="Black" Foreground="White" BorderBrush="Black"/>
         </Grid>
         <Grid x:Name="AddRef" HorizontalAlignment="Left" Height="185" VerticalAlignment="Top" Width="600" Margin="0,0,-8,0" d:IsHidden="True">
             <TextBox x:Name="NameRef" HorizontalAlignment="Left" Height="23" Margin="100,17,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="125"/>
             <TextBox x:Name="SurnameRef" HorizontalAlignment="Left" Height="23" Margin="100,49,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="125"/>
-            <TextBlock TextWrapping="Wrap" Text="IMIE" Margin="5,18,505,145" FontSize="16" TextAlignment="Center" Width="90" Height="22"/>
-            <TextBlock TextWrapping="Wrap" Text="NAZWISKO" Margin="10,50,500,113" FontSize="16" TextAlignment="Center" Width="90" Height="22" RenderTransformOrigin="-0.633,1.743"/>
-            <Button x:Name="SaveRef" Content="Zapisz" HorizontalAlignment="Left" Margin="0,86,0,0" VerticalAlignment="Top" Width="225" Click="Save_Click"/>
+            <TextBlock TextWrapping="Wrap" Text="IMIE" Margin="5,18,505,145" FontSize="16" TextAlignment="Center" Width="90" Height="22" Foreground="White"/>
+            <TextBlock TextWrapping="Wrap" Text="NAZWISKO" Margin="10,50,500,113" FontSize="16" TextAlignment="Center" Width="90" Height="22" RenderTransformOrigin="-0.633,1.743" Foreground="White"/>
+            <Button x:Name="SaveRef" Content="Zapisz" HorizontalAlignment="Left" Margin="5,86,0,0" VerticalAlignment="Top" Width="225" Click="Save_Click" Foreground="White" Background="Black"/>
         </Grid>
 
     </Grid>

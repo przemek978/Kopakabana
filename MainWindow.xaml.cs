@@ -49,7 +49,7 @@ namespace Kopakabana
             Tour.GenerateMatches();//Ponowne generowanie meczow
             Tour.Save();//zapis druzyn i sedziow
             Tour.CountWins();//ponowne oblicznie wygranych
-            Tour.getTop4();//Ponowne generowanie 4 najlepszych druzyn
+            //Tour.getTop4();//Ponowne generowanie 4 najlepszych druzyn
             /*
              * Metoda wywolywana zazzwyczaj gdy pojawily sie zmiany w sedziach lub druzynach
              */
@@ -66,7 +66,7 @@ namespace Kopakabana
                 if (M.GetType().Name != poptype)
                 {
                     poptype = M.GetType().Name;
-                    Lista.Items.Add(new ListBoxItem() { Content = poptype.ToUpper(), Foreground = Brushes.Black });
+                    Lista.Items.Add(new ListBoxItem() { Content = poptype.ToUpper(), Foreground = Brushes.White });
                 }
                 poptype = M.GetType().Name;
                 ListBoxItem Item = new ListBoxItem() { Content = M };
@@ -109,7 +109,7 @@ namespace Kopakabana
             {
                 Manage Man = new Manage();
                 List<Referee> RE=Tour.getReferees();
-                Man.Width = 250;
+                Man.Width = 252;
                 Man.Height = 150;
                 Man.AddRef.Visibility = Visibility.Visible;
                 if (true == Man.ShowDialog())
@@ -138,7 +138,7 @@ namespace Kopakabana
                 Manage Man = new Manage();
                 List<Referee> RE = Tour.getReferees();
                 string popname, popsur;
-                Man.Width = 250;
+                Man.Width = 252;
                 Man.Height = 150;
                 Man.AddRef.Visibility = Visibility.Visible;
                 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -168,7 +168,7 @@ namespace Kopakabana
             {
                 Manage Man = new Manage();
                 List<Team> Te = Tour.getTeams();
-                Man.Width = 600;
+                Man.Width = 615;
                 Man.Height = 215;
                 Man.AddTeam.Visibility = Visibility.Visible;
                 if (true == Man.ShowDialog())
@@ -199,7 +199,7 @@ namespace Kopakabana
             {
                 Manage Man = new Manage();
                 string pop;
-                Man.Width = 600;
+                Man.Width = 615;
                 Man.Height = 215;
                 Man.AddTeam.Visibility = Visibility.Visible;
                 //////////////////////////////////////////////////////////////////////////////////////////
@@ -216,6 +216,7 @@ namespace Kopakabana
                 if (true == Man.ShowDialog())
                 {
                     Tour.CheckName(Man.NameT.Text);
+                    Tour.getTop4();
                     Tour.setTeams(Lista.SelectedIndex, Man.NameT.Text, new Player(Man.NameP1.Text, Man.SurnameP1.Text), new Player(Man.NameP2.Text, Man.SurnameP2.Text), new Player(Man.NameP3.Text, Man.SurnameP3.Text), new Player(Man.NameP4.Text, Man.SurnameP4.Text));
                     Tour.ChangeName(pop, Man.NameT.Text);
                     Tour.SearchName(Man.NameT.Text);
@@ -278,7 +279,7 @@ namespace Kopakabana
             {
                 Score SC = new Score();
                 Match Ob = ((Match)((ListBoxItem)Lista.SelectedItem).Content);
-                SC.Volley.Visibility = Visibility.Visible;
+                //SC.Volley.Visibility = Visibility.Visible;
                 SC.Team1.Text = Ob.T1.Name;
                 SC.Team2.Text = Ob.T2.Name;
                 SC.Score1.Text = Ob.Result1.ToString();
