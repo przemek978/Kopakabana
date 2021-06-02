@@ -24,6 +24,12 @@ namespace Kopakabana
 
         }///Ready
 
+        public List<Team> getTop4()
+        {
+            Teams.Sort((x, y) => y.getWins().CompareTo(x.getWins()));
+            List<Team> best4 = new List<Team>(Teams.Take(4));
+            return best4;
+        }///Ready
         public void GenerateSemifinals()
         {
 
@@ -91,12 +97,6 @@ namespace Kopakabana
             catch { }
         }
 
-        public List<Team> getTop4()
-        {
-            Teams.Sort((x, y) => y.getWins().CompareTo(x.getWins()));
-            List<Team> best4 = new List<Team>(Teams.Take(4));
-            return best4;
-        }///Ready
 
         //Generowanie meczow ora ustalnie ilosci wygranych
         public void GenerateMatches()
@@ -150,9 +150,9 @@ namespace Kopakabana
                     }
                     q++;
                 }
+                ReadScore();
                 GenerateSemifinals();
                 GenerateFinal();
-                ReadScore();
             }
             catch
             {
