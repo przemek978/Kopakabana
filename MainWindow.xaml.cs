@@ -31,6 +31,7 @@ namespace Kopakabana
             Match.Visibility = Visibility.Hidden;
             ///Czytanie danych, genreowanie meczy wczytywanie danych wynikow do wygenrewanych meczow i na tej podstawie zlicznaie wygranych
             Tour.Read();
+            //Tour.getTop4();
             Tour.GenerateMatches();
             Tour.CountWins();
             Tour.getTop4();
@@ -166,6 +167,8 @@ namespace Kopakabana
                 {
                     Tour.CheckRef(Man.NameRef.Text, Man.SurnameRef.Text);
                     Tour.setReferees(Lista.SelectedIndex, Man.NameRef.Text, Man.SurnameRef.Text);
+                    /*Tour.getReferees()[Lista.SelectedIndex].setName(Man.NameRef.Text);
+                    Tour.getReferees()[Lista.SelectedIndex].setSurname(Man.SurnameRef.Text);*/
                     /*Tour.setName(Man.NameRef.Text);
                     Tour.setSurname(Man.SurnameRef.Text);*/
                     Tour.ChangeRef(popname, popsur, Man.NameRef.Text, Man.SurnameRef.Text);
