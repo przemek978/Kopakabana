@@ -15,7 +15,7 @@ namespace Kopakabana
         private List<Referee> Referees { get; set; }
         private List<Team> Teams { get; set; }
         private List<Match> Matches { get; set; }
-        private VolleyBall Semifinal1, Semifinal2, Final;
+        public VolleyBall Semifinal1, Semifinal2, Final;
         public Tournament()
         {
             Referees = new List<Referee>();
@@ -44,7 +44,7 @@ namespace Kopakabana
                 if (AS2 != AS1 && AS2 != Ref)
                     break;
             }
-            VolleyBall Semifinal1 = new VolleyBall(top4[0], top4[2], Referees[Ref], Referees[AS1], Referees[AS2]);
+            Semifinal1 = new VolleyBall(top4[0], top4[2], Referees[Ref], Referees[AS1], Referees[AS2]);
 
 
             Ref = Rn.Next(0, Referees.Count);
@@ -61,13 +61,15 @@ namespace Kopakabana
                     break;
             }
 
-            VolleyBall Semifinal2 = new VolleyBall(top4[1], top4[3], Referees[Ref], Referees[AS1], Referees[AS2]);
+            Semifinal2 = new VolleyBall(top4[1], top4[3], Referees[Ref], Referees[AS1], Referees[AS2]);
         }
 
         public void GenerateFinal()
         {
             try
             {
+                if (Semifinal1.getWhoWon() == null || Semifinal2.getWhoWon() == null)
+                    throw new Exception();
                 int z = 0, Ref, AS1, AS2;
                 Random Rn = new Random();
                 Ref = Rn.Next(0, Referees.Count);
@@ -307,10 +309,6 @@ namespace Kopakabana
                     SaveScore(M);
             }
         }
-        public void setReferees(int index, string name, string surname)
-        {
-            Referees[index] = new Referee(name, surname);
-        }
         public void setMatch(int index, int res1, int res2)
         {
             var M = Matches[index];
@@ -495,6 +493,10 @@ namespace Kopakabana
                                 if (WhatExistRef(mainname, mainsur))
                                     M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
                                 if (WhatExistRef(as1name, as1sur))
+                                    ((VolleyBall)M).SetAssistant1(getReferees()[SearchRef(as1name, as1sur)]);
+                                if (WhatExistRef(as2name, as2sur))
+                                    ((VolleyBall)M).SetAssistant2(getReferees()[SearchRef(as2name, as2sur)]);
+                                M.SetWhoWon();
                                 if (M.GetReferee().Equals(((VolleyBall)M).GetAssistant1()) || M.GetReferee().Equals(((VolleyBall)M).GetAssistant2()) || ((VolleyBall)M).GetAssistant1().Equals(((VolleyBall)M).GetAssistant2()))
                                 {
                                     int z = 0, Ref, AS1, AS2;
@@ -520,10 +522,9 @@ namespace Kopakabana
 
                                 }
                             }
-                                if (WhatExistRef(as2name, as2sur))
-                                    ((VolleyBall)M).SetAssistant2(getReferees()[SearchRef(as2name, as2sur)]);
-                                M.SetWhoWon();
-                            }
+
+
+
                             else if (M is VolleyBall && type == 'V' && M.getTeam1().getName() == name2 && M.getTeam2().getName() == name1)
                             {
                                 M.setResult1(sc2);
@@ -531,34 +532,34 @@ namespace Kopakabana
                                 if (WhatExistRef(mainname, mainsur))
                                     M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
                                 if (WhatExistRef(as1name, as1sur))
-                                if (M.GetReferee().Equals(((VolleyBall)M).GetAssistant1()) || M.GetReferee().Equals(((VolleyBall)M).GetAssistant2()) || ((VolleyBall)M).GetAssistant1().Equals(((VolleyBall)M).GetAssistant2()))
-                                {
-                                    int z = 0, Ref, AS1, AS2;
-                                    Random Rn = new Random();
-
-                                    Ref = Rn.Next(0, Referees.Count);
-                                    while (true)
+                                    if (M.GetReferee().Equals(((VolleyBall)M).GetAssistant1()) || M.GetReferee().Equals(((VolleyBall)M).GetAssistant2()) || ((VolleyBall)M).GetAssistant1().Equals(((VolleyBall)M).GetAssistant2()))
                                     {
-                                        AS1 = Rn.Next(0, Referees.Count);
-                                        if (AS1 != Ref)
-                                            break;
+                                        int z = 0, Ref, AS1, AS2;
+                                        Random Rn = new Random();
+
+                                        Ref = Rn.Next(0, Referees.Count);
+                                        while (true)
+                                        {
+                                            AS1 = Rn.Next(0, Referees.Count);
+                                            if (AS1 != Ref)
+                                                break;
+                                        }
+                                        while (true)
+                                        {
+                                            AS2 = Rn.Next(0, Referees.Count);
+                                            if (AS2 != AS1 && AS2 != Ref)
+                                                break;
+                                        }
+
+
+                                        M.SetReferee(getReferees()[Ref]);
+                                        ((VolleyBall)M).SetAssistant1(getReferees()[AS1]);
+                                        ((VolleyBall)M).SetAssistant2(getReferees()[AS2]);
+
+
+
+
                                     }
-                                    while (true)
-                                    {
-                                        AS2 = Rn.Next(0, Referees.Count);
-                                        if (AS2 != AS1 && AS2 != Ref)
-                                            break;
-                                    }
-
-
-                                    M.SetReferee(getReferees()[Ref]);
-                                    ((VolleyBall)M).SetAssistant1(getReferees()[AS1]);
-                                    ((VolleyBall)M).SetAssistant2(getReferees()[AS2]);
-
-
-
-
-                                }
                                     ((VolleyBall)M).SetAssistant1(getReferees()[SearchRef(as1name, as1sur)]);
                                 if (WhatExistRef(as2name, as2sur))
                                     ((VolleyBall)M).SetAssistant2(getReferees()[SearchRef(as2name, as2sur)]);

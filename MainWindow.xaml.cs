@@ -74,6 +74,14 @@ namespace Kopakabana
                 // Lista.SelectionChanged += new SelectionChangedEventHandler(SelectMatch);
                 Lista.Items.Add(Item);
             }
+            Lista.Items.Add(new ListBoxItem() { Content = "Półfinały".ToUpper(), Foreground = Brushes.White });
+            Lista.Items.Add(new ListBoxItem() { Content = Tour.Semifinal1 });
+            Lista.Items.Add(new ListBoxItem() { Content = Tour.Semifinal2 });
+            if (Tour.Final != null)
+            {
+                Lista.Items.Add(new ListBoxItem() { Content = "Finał".ToUpper(), Foreground = Brushes.White });
+                Lista.Items.Add(new ListBoxItem() { Content = Tour.Final });
+            }
             Referee.Visibility = Visibility.Hidden;
             Team.Visibility = Visibility.Hidden;
         }///Ready

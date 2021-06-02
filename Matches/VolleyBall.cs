@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Matches
 {
-    class VolleyBall : Match
+    public class VolleyBall : Match
     {
         protected Referee AS1, AS2;
-        public VolleyBall(Team t1, Team t2,Referee R,Referee as1,Referee as2)
+        public VolleyBall(Team t1, Team t2, Referee R, Referee as1, Referee as2)
         {
             T1 = t1;
             T2 = t2;
@@ -46,7 +46,7 @@ namespace Matches
             {
                 WhoWon = T1;
                 AddWins(T1);
-               
+
             }
             else if (Result1 < Result2 && Result2 == 3)
             {
@@ -58,7 +58,7 @@ namespace Matches
         }
         public override string ToString()
         {
-            return T1.getName() + " - " + T2.getName()+" "+getResult1()+" : "+getResult2();
+            return T1.getName() + " - " + T2.getName() + " " + getResult1() + " : " + getResult2();
         }
     }
 }
