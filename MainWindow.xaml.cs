@@ -370,9 +370,7 @@ namespace Kopakabana
                      Tour.setMatch(Lista.SelectedIndex - r, int.Parse(SC.Score1.Text), int.Parse(SC.Score2.Text));
                     //Ob = getMatch(Lista.SelectedIndex - 1);
                     Ob.SetWhoWon();
-                    Tour.GenerateSemifinals();
                     Tour.GenerateFinal();
-
                     //Lista.Items.Refresh();
                     Mecze_Click(sender, e);
                     //Refresh();
