@@ -10,6 +10,7 @@ namespace Matches
     public class VolleyBall : Match
     {
         protected Referee AS1, AS2;
+        public bool WhatSemi=false,WhatFinal=false;
         public VolleyBall(Team t1, Team t2, Referee R, Referee as1, Referee as2)
         {
             T1 = t1;

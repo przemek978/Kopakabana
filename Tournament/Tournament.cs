@@ -23,14 +23,13 @@ namespace Kopakabana
             Matches = new List<Match>();
 
         }///Ready
-
         public List<Team> getTop4()
         {
             Teams.Sort((x, y) => y.getWins().CompareTo(x.getWins()));
             List<Team> best4 = new List<Team>(Teams.Take(4));
             return best4;
         }///Ready
-        public void GenerateSemifinals()
+        public List<Referee> Get3Referees()
         {
             int Ref, AS1, AS2;
             Random Rn = new Random();
@@ -56,21 +55,49 @@ namespace Kopakabana
 
         public void GenerateSemifinals()
         {
-
+            bool whatis = false;
             var top4 = getTop4();
             var RefThree = Get3Referees();
-            Semifinal1 = new VolleyBall(top4[0], top4[2], RefThree[0], RefThree[1], RefThree[2]);
-
+            Semifinal1 = new VolleyBall(top4[0], top4[2], RefThree[0], RefThree[1], RefThree[2]) { WhatSemi = true };
             RefThree = Get3Referees();
-            Semifinal2 = new VolleyBall(top4[1], top4[3], RefThree[0], RefThree[1], RefThree[2]);
+            Semifinal2 = new VolleyBall(top4[1], top4[3], RefThree[0], RefThree[1], RefThree[2]) { WhatSemi = true };
+            int i = 0;
+            foreach (Match M in Matches)
+            {
+                if (M is VolleyBall)
+                {
+                    if (((VolleyBall)M).WhatSemi == true)
+                    {
+                        Matches[i] = Semifinal1;
+                        Matches[i+1] = Semifinal2;
+                        whatis = true;
+                        break;
+                    }
+                    
+                }
+                i++;
+            }
+            if (whatis == false)
+            {
+                if (Semifinal1 != null)
+                    Matches.Add(Semifinal1);
+                if (Semifinal2 != null)
+                    Matches.Add(Semifinal2);
+            }
         }
 
         public void GenerateFinal()
         {
             try
             {
-                var RefThree = Get3Referees();
-                Final = new VolleyBall(Semifinal1.getWhoWon(), Semifinal2.getWhoWon(), RefThree[0], RefThree[1], RefThree[2]);
+                if (Semifinal1.getWhoWon() != null && Semifinal2.getWhoWon() != null)
+                {
+                    var RefThree = Get3Referees();
+                    Final = new VolleyBall(Semifinal1.getWhoWon(), Semifinal2.getWhoWon(), RefThree[0], RefThree[1], RefThree[2]) { WhatFinal = true };
+                }
+                else throw new Exception();
+                if (Final != null)
+                    Matches.Add(Final);
             }
             catch { }
         }
@@ -130,7 +157,11 @@ namespace Kopakabana
                 }
                 ReadScore();
                 GenerateSemifinals();
-                GenerateFinal();
+                //GenerateFinal();
+                /*if (Semifinal1 != null)
+                    Matches.Add(Semifinal1);
+                if (Semifinal2 != null)
+                    Matches.Add(Semifinal2);*/
             }
             catch
             {

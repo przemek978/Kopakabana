@@ -33,6 +33,8 @@ namespace Kopakabana
             Tour.Read();
             //Tour.getTop4();
             Tour.GenerateMatches();
+            Tour.GenerateSemifinals();
+
             Tour.CountWins();
             Tour.getTop4();
             DataContext = this;
@@ -62,26 +64,40 @@ namespace Kopakabana
             Lista.Items.Clear();
             SetScore.Visibility = Visibility.Visible;
             string poptype = " ";
+            //bool WhatwasVolley = false;
             foreach (Match M in Tour.getMatches())
             {
                 if (M.GetType().Name != poptype)
                 {
-                    poptype = M.GetType().Name;
-                    Lista.Items.Add(new ListBoxItem() { Content = poptype.ToUpper(), Foreground = Brushes.White });
+                    if (M is VolleyBall && ((VolleyBall)M).WhatSemi == true)
+                    {
+                        poptype = M.GetType().Name;
+                        Lista.Items.Add(new ListBoxItem() { Content = "Semifinal".ToUpper(), Foreground = Brushes.White });
+                    }
+                    else if (M is VolleyBall && ((VolleyBall)M).WhatFinal == true)
+                    {
+                        poptype = "VolleyBall";
+                        Lista.Items.Add(new ListBoxItem() { Content = "Final".ToUpper(), Foreground = Brushes.White });
+                    }
+                    else
+                    {
+                        poptype = M.GetType().Name;
+                        Lista.Items.Add(new ListBoxItem() { Content = poptype.ToUpper(), Foreground = Brushes.White });
+                    }
                 }
                 poptype = M.GetType().Name;
                 ListBoxItem Item = new ListBoxItem() { Content = M };
                 // Lista.SelectionChanged += new SelectionChangedEventHandler(SelectMatch);
                 Lista.Items.Add(Item);
             }
-            Lista.Items.Add(new ListBoxItem() { Content = "Półfinały".ToUpper(), Foreground = Brushes.White });
+            /*Lista.Items.Add(new ListBoxItem() { Content = "Półfinały".ToUpper(), Foreground = Brushes.White });
             Lista.Items.Add(new ListBoxItem() { Content = Tour.Semifinal1 });
             Lista.Items.Add(new ListBoxItem() { Content = Tour.Semifinal2 });
             if (Tour.Final != null)
             {
                 Lista.Items.Add(new ListBoxItem() { Content = "Finał".ToUpper(), Foreground = Brushes.White });
                 Lista.Items.Add(new ListBoxItem() { Content = Tour.Final });
-            }
+            }*/
             Referee.Visibility = Visibility.Hidden;
             Team.Visibility = Visibility.Hidden;
         }///Ready
@@ -349,11 +365,15 @@ namespace Kopakabana
                         r = 2;
                     if (Ob is DodgeBall)
                         r = 3;
-                    Tour.setMatch(Lista.SelectedIndex - r, int.Parse(SC.Score1.Text), int.Parse(SC.Score2.Text));
+                    if (Ob is VolleyBall && ((VolleyBall)Ob).WhatSemi == true)
+                        r = 4;
+                     Tour.setMatch(Lista.SelectedIndex - r, int.Parse(SC.Score1.Text), int.Parse(SC.Score2.Text));
                     //Ob = getMatch(Lista.SelectedIndex - 1);
                     Ob.SetWhoWon();
                     Tour.GenerateSemifinals();
                     Tour.GenerateFinal();
+
+                    //Lista.Items.Refresh();
                     Mecze_Click(sender, e);
                     //Refresh();
                     Tour.CountWins();
