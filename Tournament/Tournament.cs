@@ -29,6 +29,7 @@ namespace Kopakabana
             List<Team> best4 = new List<Team>(Teams.Take(4));
             return best4;
         }///Ready
+
         //Generowanie meczow ora ustalnie ilosci wygranych
         public void GenerateMatches()
         {
@@ -108,8 +109,9 @@ namespace Kopakabana
                 }
             }
         }///Ready
+
         //Metody zarzadzania//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-             //Druzynami
+        //Druzynami
         public void ChangeName(string pop, string nast)
         {
             foreach (Match M in Matches)
@@ -166,7 +168,7 @@ namespace Kopakabana
                  {
                      return Referees.IndexOf(R);
                  }*/
-        
+
                 if (R.Equals(new Referee(name, surname)))
                 {
                     return Referees.IndexOf(R);
@@ -174,7 +176,7 @@ namespace Kopakabana
                 }
             }
             return 0;
-           
+
         }///Ready
         public void CheckRef(string name, string surname)
         {
@@ -199,13 +201,17 @@ namespace Kopakabana
             return false;
         }///Ready
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///
         ///Gettery i settery/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //Ustawianie list////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //Ustawia dane druzyny po edycji
         /*public void setTeams(int index, string name, Player p1, Player p2, Player p3, Player p4)
         {
             Teams[index] = new Team(name, p1, p2, p3, p4);
         }///Ready*/
+        public void setReferees(int index, string name, string surname)
+        {
+            Referees[index] = new Referee(name, surname);
+        }
         public void UpdateMatch(string popname, string popsur, string name, string surname, int index)
         {
             foreach (Match M in Matches)
@@ -233,26 +239,17 @@ namespace Kopakabana
                     SaveScore(M);
             }
         }
-        public void setReferees(int index, string name, string surname)
-        {
-            Referees[index] = new Referee(name, surname);
-        }
         public void setMatch(int index, int res1, int res2)
         {
             var M = Matches[index];
             Matches[index].setResult1(res1);
             Matches[index].setResult2(res2);
-            /*if (M is VolleyBall)
-            {
-                ((VolleyBall)Matches[index]).ResulgetTeam1() = res1;
-                ((VolleyBall)Matches[index]).ResulgetTeam2() = res2;
-            }*/
 
-        }//Zmienic na metode dotepowa do result
+        }///Ready
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///
         //Dostepy do list////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            //Dostep do listy druzyn
+        //Dostep do listy druzyn
         public List<Team> getTeams()
         {
             return Teams;
@@ -430,6 +427,30 @@ namespace Kopakabana
                                 if (WhatExistRef(as2name, as2sur))
                                     ((VolleyBall)M).SetAssistant2(getReferees()[SearchRef(as2name, as2sur)]);
                                 M.SetWhoWon();
+                                if (M.GetReferee().Equals(((VolleyBall)M).GetAssistant1()) || M.GetReferee().Equals(((VolleyBall)M).GetAssistant2()) || ((VolleyBall)M).GetAssistant1().Equals(((VolleyBall)M).GetAssistant2()))
+                                {
+                                    int z = 0, Ref, AS1, AS2;
+                                    Random Rn = new Random();
+
+                                    Ref = Rn.Next(0, Referees.Count);
+                                    while (true)
+                                    {
+                                        AS1 = Rn.Next(0, Referees.Count);
+                                        if (AS1 != Ref)
+                                            break;
+                                    }
+                                    while (true)
+                                    {
+                                        AS2 = Rn.Next(0, Referees.Count);
+                                        if (AS2 != AS1 && AS2 != Ref)
+                                            break;
+                                    }
+
+                                    M.SetReferee(getReferees()[Ref]);
+                                    ((VolleyBall)M).SetAssistant1(getReferees()[AS1]);
+                                    ((VolleyBall)M).SetAssistant2(getReferees()[AS2]);
+
+                                }
                             }
                             else if (M is VolleyBall && type == 'V' && M.getTeam1().getName() == name2 && M.getTeam2().getName() == name1)
                             {
@@ -442,6 +463,34 @@ namespace Kopakabana
                                 if (WhatExistRef(as2name, as2sur))
                                     ((VolleyBall)M).SetAssistant2(getReferees()[SearchRef(as2name, as2sur)]);
                                 M.SetWhoWon();
+                                if (M.GetReferee().Equals(((VolleyBall)M).GetAssistant1()) || M.GetReferee().Equals(((VolleyBall)M).GetAssistant2()) || ((VolleyBall)M).GetAssistant1().Equals(((VolleyBall)M).GetAssistant2()))
+                                {
+                                    int z = 0, Ref, AS1, AS2;
+                                    Random Rn = new Random();
+
+                                    Ref = Rn.Next(0, Referees.Count);
+                                    while (true)
+                                    {
+                                        AS1 = Rn.Next(0, Referees.Count);
+                                        if (AS1 != Ref)
+                                            break;
+                                    }
+                                    while (true)
+                                    {
+                                        AS2 = Rn.Next(0, Referees.Count);
+                                        if (AS2 != AS1 && AS2 != Ref)
+                                            break;
+                                    }
+
+
+                                    M.SetReferee(getReferees()[Ref]);
+                                    ((VolleyBall)M).SetAssistant1(getReferees()[AS1]);
+                                    ((VolleyBall)M).SetAssistant2(getReferees()[AS2]);
+                                    
+
+
+
+                                }
                             }
                             if (M is DodgeBall && type == 'D' && M.getTeam1().getName() == name1 && M.getTeam2().getName() == name2)
                             {
