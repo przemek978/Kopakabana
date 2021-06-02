@@ -307,6 +307,10 @@ namespace Kopakabana
                     SaveScore(M);
             }
         }
+        public void setReferees(int index, string name, string surname)
+        {
+            Referees[index] = new Referee(name, surname);
+        }
         public void setMatch(int index, int res1, int res2)
         {
             var M = Matches[index];
@@ -491,10 +495,6 @@ namespace Kopakabana
                                 if (WhatExistRef(mainname, mainsur))
                                     M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
                                 if (WhatExistRef(as1name, as1sur))
-                                    ((VolleyBall)M).SetAssistant1(getReferees()[SearchRef(as1name, as1sur)]);
-                                if (WhatExistRef(as2name, as2sur))
-                                    ((VolleyBall)M).SetAssistant2(getReferees()[SearchRef(as2name, as2sur)]);
-                                M.SetWhoWon();
                                 if (M.GetReferee().Equals(((VolleyBall)M).GetAssistant1()) || M.GetReferee().Equals(((VolleyBall)M).GetAssistant2()) || ((VolleyBall)M).GetAssistant1().Equals(((VolleyBall)M).GetAssistant2()))
                                 {
                                     int z = 0, Ref, AS1, AS2;
@@ -520,6 +520,10 @@ namespace Kopakabana
 
                                 }
                             }
+                                if (WhatExistRef(as2name, as2sur))
+                                    ((VolleyBall)M).SetAssistant2(getReferees()[SearchRef(as2name, as2sur)]);
+                                M.SetWhoWon();
+                            }
                             else if (M is VolleyBall && type == 'V' && M.getTeam1().getName() == name2 && M.getTeam2().getName() == name1)
                             {
                                 M.setResult1(sc2);
@@ -527,10 +531,6 @@ namespace Kopakabana
                                 if (WhatExistRef(mainname, mainsur))
                                     M.SetReferee(getReferees()[SearchRef(mainname, mainsur)]);
                                 if (WhatExistRef(as1name, as1sur))
-                                    ((VolleyBall)M).SetAssistant1(getReferees()[SearchRef(as1name, as1sur)]);
-                                if (WhatExistRef(as2name, as2sur))
-                                    ((VolleyBall)M).SetAssistant2(getReferees()[SearchRef(as2name, as2sur)]);
-                                M.SetWhoWon();
                                 if (M.GetReferee().Equals(((VolleyBall)M).GetAssistant1()) || M.GetReferee().Equals(((VolleyBall)M).GetAssistant2()) || ((VolleyBall)M).GetAssistant1().Equals(((VolleyBall)M).GetAssistant2()))
                                 {
                                     int z = 0, Ref, AS1, AS2;
@@ -559,6 +559,10 @@ namespace Kopakabana
 
 
                                 }
+                                    ((VolleyBall)M).SetAssistant1(getReferees()[SearchRef(as1name, as1sur)]);
+                                if (WhatExistRef(as2name, as2sur))
+                                    ((VolleyBall)M).SetAssistant2(getReferees()[SearchRef(as2name, as2sur)]);
+                                M.SetWhoWon();
                             }
                             if (M is DodgeBall && type == 'D' && M.getTeam1().getName() == name1 && M.getTeam2().getName() == name2)
                             {
