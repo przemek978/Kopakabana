@@ -32,10 +32,7 @@ namespace Kopakabana
         }///Ready
         public void GenerateSemifinals()
         {
-
-            var top4 = getTop4();
-
-            int z = 0, Ref, AS1, AS2;
+            int Ref, AS1, AS2;
             Random Rn = new Random();
             Ref = Rn.Next(0, Referees.Count);
             while (true)
@@ -50,49 +47,30 @@ namespace Kopakabana
                 if (AS2 != AS1 && AS2 != Ref)
                     break;
             }
-            Semifinal1 = new VolleyBall(top4[0], top4[2], Referees[Ref], Referees[AS1], Referees[AS2]);
+            List<Referee> Trojka = new List<Referee>();
+            Trojka.Add(Referees[Ref]);
+            Trojka.Add(Referees[AS1]);
+            Trojka.Add(Referees[AS2]);
+            return Trojka;
+        }
 
+        public void GenerateSemifinals()
+        {
 
-            Ref = Rn.Next(0, Referees.Count);
-            while (true)
-            {
-                AS1 = Rn.Next(0, Referees.Count);
-                if (AS1 != Ref)
-                    break;
-            }
-            while (true)
-            {
-                AS2 = Rn.Next(0, Referees.Count);
-                if (AS2 != AS1 && AS2 != Ref)
-                    break;
-            }
+            var top4 = getTop4();
+            var RefThree = Get3Referees();
+            Semifinal1 = new VolleyBall(top4[0], top4[2], RefThree[0], RefThree[1], RefThree[2]);
 
-            Semifinal2 = new VolleyBall(top4[1], top4[3], Referees[Ref], Referees[AS1], Referees[AS2]);
+            RefThree = Get3Referees();
+            Semifinal2 = new VolleyBall(top4[1], top4[3], RefThree[0], RefThree[1], RefThree[2]);
         }
 
         public void GenerateFinal()
         {
             try
             {
-                if (Semifinal1.getWhoWon() == null || Semifinal2.getWhoWon() == null)
-                    throw new Exception();
-                int z = 0, Ref, AS1, AS2;
-                Random Rn = new Random();
-                Ref = Rn.Next(0, Referees.Count);
-                while (true)
-                {
-                    AS1 = Rn.Next(0, Referees.Count);
-                    if (AS1 != Ref)
-                        break;
-                }
-                while (true)
-                {
-                    AS2 = Rn.Next(0, Referees.Count);
-                    if (AS2 != AS1 && AS2 != Ref)
-                        break;
-                }
-
-                Final = new VolleyBall(Semifinal1.getWhoWon(), Semifinal2.getWhoWon(), Referees[Ref], Referees[AS1], Referees[AS2]);
+                var RefThree = Get3Referees();
+                Final = new VolleyBall(Semifinal1.getWhoWon(), Semifinal2.getWhoWon(), RefThree[0], RefThree[1], RefThree[2]);
             }
             catch { }
         }
