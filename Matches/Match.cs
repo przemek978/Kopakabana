@@ -8,17 +8,25 @@ using System.Threading.Tasks;
 
 namespace Matches
 {
-    public abstract class Match //Dodac metode eabstrakycjna equals bool i overide w klasasach dziedzicacych porownjaca nazwy 
+    public abstract class Match //Ready 
     {
         protected Team T1, T2;
         protected Team WhoWon;
         protected Referee REF;
+        public bool WhatSemi = false, WhatFinal = false;
         protected int Result1, Result2;
        
         public void AddWins(Team addwon)
         {
             addwon.setWins(addwon.getWins() + 1);
         }
+
+        public abstract void SetWhoWon();
+        public Team getWhoWon()
+        {
+            return WhoWon;
+        }
+
         public Team getTeam1()
         {
             return T1;
@@ -37,22 +45,11 @@ namespace Matches
             T2.setName(name2);
             T2.setPlayers(p1, p2, p3, p4);
         }          
-
-        public override string ToString()
-        {
-            return T1.getName() + " - " + T2.getName();
-        }
-        public Team getWhoWon()
-        {
-            return WhoWon;
-        }
-        public abstract void SetWhoWon();
            
         public Referee GetReferee()
         {
             return REF;
         }
-
         public void SetReferee(Referee main)
         {
             REF = main;
@@ -73,6 +70,11 @@ namespace Matches
         public void setResult2(int score2)
         {
             Result2 = score2;
+        }
+
+        public override string ToString()
+        {
+            return T1.getName() + " - " + T2.getName();
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace People
 {
-    public class Referee:Person
+    public class Referee:Person//Ready
     {
 
         public Referee(string imie, string nazwisko):base(imie,nazwisko)

@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace Matches
 {
-    public class VolleyBall : Match
+    public class VolleyBall : Match//Ready
     {
         protected Referee AS1, AS2;
-        public bool WhatSemi=false,WhatFinal=false;
         public VolleyBall(Team t1, Team t2, Referee R, Referee as1, Referee as2)
         {
             T1 = t1;
@@ -20,11 +19,11 @@ namespace Matches
             AS2 = as2;
         }
 
-        public void SetAssistants(Referee ref2, Referee ref3)
+        /*public void SetAssistants(Referee ref2, Referee ref3)
         {
             AS1 = ref2;
             AS2 = ref3;
-        }
+        }*/
         public void SetAssistant1(Referee ref2)
         {
             AS1 = ref2;
@@ -46,13 +45,15 @@ namespace Matches
             if (Result1 > Result2 && Result1 == 3)
             {
                 WhoWon = T1;
-                AddWins(T1);
+                if (WhatFinal != true && WhatSemi != true)
+                    AddWins(T1);
 
             }
             else if (Result1 < Result2 && Result2 == 3)
             {
                 WhoWon = T2;
-                AddWins(T2);
+                if (WhatFinal != true && WhatSemi != true)
+                    AddWins(T2);
             }
             else
                 WhoWon = null;

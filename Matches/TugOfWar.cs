@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Matches
 {
-    class TugOfWar : Match
+    class TugOfWar : Match//Ready
     {
         public TugOfWar(Team t1, Team t2, Referee Ref)
         {
@@ -20,12 +20,14 @@ namespace Matches
             if (Result1 > Result2 && Result1 == 1)
             {
                 WhoWon = T1;
-                AddWins(T1);
+                if (WhatFinal != true && WhatSemi != true)
+                    AddWins(T1);
             }
             else if (Result1 < Result2 && Result2 == 1)
             {
                 WhoWon = T2;
-                AddWins(T2);
+                if (WhatFinal != true && WhatSemi != true)
+                    AddWins(T2);
             }
             else
                 WhoWon = null;

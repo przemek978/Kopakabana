@@ -33,13 +33,11 @@ namespace Kopakabana
             Tour.Read();
             //Tour.getTop4();
             Tour.GenerateMatches();
-            Tour.GenerateSemifinals();
-
             Tour.CountWins();
             Tour.getTop4();
             DataContext = this;
         }
-        ///Metoda do aktualzacji widoku
+        ////AKTUALZACJA WIDOKU DANYCH//////////////////////////////////////////////////////////////////////
         public void Refresh()
         {
             /*
@@ -58,34 +56,35 @@ namespace Kopakabana
              */
         }
         /////////////////////////////////////////////////////////////////////////////////////////////
-        ////Metody wybierania konktretnej grupy//////////////////////////////////////////////////////Ready///
+        ///
+        ////WYBOR GRUP///////////////////////////////////////////////////////////////////////////////
         private void Mecze_Click(object sender, RoutedEventArgs e)///Ready
         {
+            Tour.getTop4();
             Lista.Items.Clear();
             SetScore.Visibility = Visibility.Visible;
             string poptype = " ";
-            //bool WhatwasVolley = false;
             foreach (Match M in Tour.getMatches())
             {
-                if (M.GetType().Name != poptype)
+                if (M.GetType().Name != poptype )
                 {
-                    if (M is VolleyBall && ((VolleyBall)M).WhatSemi == true)
+                    if (M is VolleyBall && ((VolleyBall)M).WhatSemi == true && poptype!="Semifinal")
                     {
-                        poptype = M.GetType().Name;
+                        poptype = "Semifinal";
                         Lista.Items.Add(new ListBoxItem() { Content = "Semifinal".ToUpper(), Foreground = Brushes.White });
                     }
-                    else if (M is VolleyBall && ((VolleyBall)M).WhatFinal == true)
+                    else if (M is VolleyBall && M.WhatFinal == true)
                     {
-                        poptype = "VolleyBall";
+                        poptype = M.GetType().Name;
                         Lista.Items.Add(new ListBoxItem() { Content = "Final".ToUpper(), Foreground = Brushes.White });
                     }
-                    else
+                    else if(M.WhatSemi==false && M.WhatFinal==false)
                     {
                         poptype = M.GetType().Name;
                         Lista.Items.Add(new ListBoxItem() { Content = poptype.ToUpper(), Foreground = Brushes.White });
                     }
                 }
-                poptype = M.GetType().Name;
+                //poptype = M.GetType().Name;
                 ListBoxItem Item = new ListBoxItem() { Content = M };
                 // Lista.SelectionChanged += new SelectionChangedEventHandler(SelectMatch);
                 Lista.Items.Add(Item);
@@ -128,7 +127,8 @@ namespace Kopakabana
             Team.Visibility = Visibility.Visible;
         }///Ready
         /////////////////////////////////////////////////////////////////////////////////////////////
-        ////Metody zarazdzania sedziami
+        ///
+        ////ZARZĄDZANIE SĘDZIAMI////////////////////////////////////////////////////////////////////
         private void RefAdd(object sender, RoutedEventArgs e)
         {
             try
@@ -193,8 +193,6 @@ namespace Kopakabana
                     Tour.setReferees(Lista.SelectedIndex, Man.NameRef.Text, Man.SurnameRef.Text);
                     /*Tour.getReferees()[Lista.SelectedIndex].setName(Man.NameRef.Text);
                     Tour.getReferees()[Lista.SelectedIndex].setSurname(Man.SurnameRef.Text);*/
-                    /*Tour.setName(Man.NameRef.Text);
-                    Tour.setSurname(Man.SurnameRef.Text);*/
                     Tour.ChangeRef(popname, popsur, Man.NameRef.Text, Man.SurnameRef.Text);
                     Tour.UpdateMatch(popname, popsur, Man.NameRef.Text, Man.SurnameRef.Text, Lista.SelectedIndex);
                     Refresh();
@@ -211,7 +209,8 @@ namespace Kopakabana
             }
         }
         ////////////////////////////////////////////////////////////////////////////////////////////
-        ////Metody zarzadznaia druzynami////////////////////////////////////////////////////////////Ready///
+        ///
+        ////ZARZĄDZANIE DRUZYNAMI//////////////////////////////////////////////////////////////////
         private void TAdd(object sender, RoutedEventArgs e)
         {
             try
@@ -277,7 +276,6 @@ namespace Kopakabana
                 if (true == Man.ShowDialog())
                 {
                     Tour.CheckName(Man.NameT.Text);
-                    //Tour.getTop4();
                     //Tour.setTeams(Lista.SelectedIndex, Man.NameT.Text, new Player(Man.NameP1.Text, Man.SurnameP1.Text), new Player(Man.NameP2.Text, Man.SurnameP2.Text), new Player(Man.NameP3.Text, Man.SurnameP3.Text), new Player(Man.NameP4.Text, Man.SurnameP4.Text));
                     Tour.getTeams()[Lista.SelectedIndex].setPlayers(new Player(Man.NameP1.Text, Man.SurnameP1.Text), new Player(Man.NameP2.Text, Man.SurnameP2.Text), new Player(Man.NameP3.Text, Man.SurnameP3.Text), new Player(Man.NameP4.Text, Man.SurnameP4.Text));
                     Tour.getTeams()[Lista.SelectedIndex].setName(Man.NameT.Text);
@@ -299,7 +297,10 @@ namespace Kopakabana
             }
 
 
-        }//Dostep przez metody do player
+        }///Ready
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        ///
+        //WYBOR MECZU PRZEZ DWUKROTNE KLIKNIECIE///////////////////////////////////////////////////////////////////////////////
         private void LeftDoubleClick(object sender, MouseButtonEventArgs e)
         {
             try
@@ -339,7 +340,8 @@ namespace Kopakabana
             // MessageBox.Show(I.T1.ToString(), "Error", MessageBoxButton.OK);
         }///Ready
         ////////////////////////////////////////////////////////////////////////////////////////////
-        ////Metoda do zarzadzania wynikami//////////////////////////////////////////////////////////Ready///
+        ///
+        ////USTAWIANIE WYNIKOW//////////////////////////////////////////////////////////
         private void SetScore_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -367,15 +369,18 @@ namespace Kopakabana
                         r = 3;
                     if (Ob is VolleyBall && ((VolleyBall)Ob).WhatSemi == true)
                         r = 4;
-                     Tour.setMatch(Lista.SelectedIndex - r, int.Parse(SC.Score1.Text), int.Parse(SC.Score2.Text));
+                     Tour.setResult(Lista.SelectedIndex - r, int.Parse(SC.Score1.Text), int.Parse(SC.Score2.Text));
                     //Ob = getMatch(Lista.SelectedIndex - 1);
                     Ob.SetWhoWon();
+                    Tour.SaveScore(Ob,true);
+                    Tour.GenerateSemifinals();
+                    Tour.ReadScore();
                     Tour.GenerateFinal();
-                    //Lista.Items.Refresh();
+
                     Mecze_Click(sender, e);
                     //Refresh();
                     Tour.CountWins();
-                    Tour.SaveScore(Ob, true);
+                    //Tour.SaveScore(Ob, true);
 
                 }
             }
@@ -385,6 +390,8 @@ namespace Kopakabana
             }
 
         }///Ready
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        ///
         ////////////////////////////////////////////////////////////////////////////////////////////
         private void BackMain(object sender, RoutedEventArgs e)
         {

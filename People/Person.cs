@@ -15,11 +15,11 @@ namespace People
             Name = imie;
             Surname = nazwisko;
         }
+
         public string getName()
         {
             return this.Name;
         }
-
         public string getSurname()
         {
             return this.Surname;

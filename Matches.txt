@@ -1,2 +1,5 @@
 ﻿V Real - Barca 3 : 1 Michal Leonczuk Rafal Kurzyna Przemek Kuczynski;
 V Real - Atletico 1 : 3 Michal Leonczuk Rafal Kurzyna Przemek Kuczynski;
+D Sevilla - Atletico 1 : 0 Przemek Kuczynski;
+T Atletico - Sevilla 1 : 0 Rafal Kurzyna;
+S Real - Sevilla 3 : 0 Michal Leonczuk Przemek Kuczynski Rafal Kurzyna;
