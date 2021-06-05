@@ -15,21 +15,21 @@ namespace People
             Name = imie;
             Surname = nazwisko;
         }
-
-        public string getName()
+        //Dostep do imienia
+        public string GetName()
         {
             return this.Name;
         }
-        public string getSurname()
-        {
-            return this.Surname;
-        }
-
-        public void setName(string NewName)
+        public void SetName(string NewName)
         {
             this.Name = NewName;
         }
-        public void setSurname(string NewSurname)
+        //Dostep do nazwiska
+        public string GetSurname()
+        {
+            return this.Surname;
+        }
+        public void SetSurname(string NewSurname)
         {
             this.Surname = NewSurname;
         }

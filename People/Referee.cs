@@ -8,21 +8,20 @@ namespace People
 {
     public class Referee:Person//Ready
     {
-
         public Referee(string imie, string nazwisko):base(imie,nazwisko)
         {
             
         }
-        public override string ToString()
-        {
-            return Name + " " + Surname;
-        }
         public bool Equals(Referee sedzia)
         {
-            if (sedzia.getName() == Name && sedzia.getSurname() == Surname)
+            if (sedzia.GetName() == Name && sedzia.GetSurname() == Surname)
                 return true;
             else
                 return false;
+        }
+        public override string ToString()
+        {
+            return Name + " " + Surname;
         }
     }
 }

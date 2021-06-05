@@ -16,36 +16,37 @@ namespace Matches
         public bool WhatSemi = false, WhatFinal = false;
         protected int Result1, Result2;
        
-        public void AddWins(Team addwon)
+        /*public void AddWins(Team addwon)
         {
-            addwon.setWins(addwon.getWins() + 1);
-        }
-
+            addwon.SetWins(addwon.GetWins() + 1);
+        }*/
+        public abstract bool Equals(Match M);
+        //Dostep do Whowon
         public abstract void SetWhoWon();
-        public Team getWhoWon()
+        public Team GetWhoWon()
         {
             return WhoWon;
         }
-
-        public Team getTeam1()
+        //Dostep do druzyn
+        public Team GetTeam1()
         {
             return T1;
         }
-        public Team getTeam2()
+        public Team GetTeam2()
         {
             return T2;
         }
-        public void setTeam1(string name1, Player p1, Player p2, Player p3, Player p4)
+        public void SetTeam1(string name1, Player p1, Player p2, Player p3, Player p4)
         {
-            T1.setName(name1);
-            T1.setPlayers(p1, p2, p3, p4);
+            T1.SetName(name1);
+            T1.SetPlayers(p1, p2, p3, p4);
         }
-        public void setTeam2(string name2, Player p1, Player p2, Player p3, Player p4)
+        public void SetTeam2(string name2, Player p1, Player p2, Player p3, Player p4)
         {
-            T2.setName(name2);
-            T2.setPlayers(p1, p2, p3, p4);
+            T2.SetName(name2);
+            T2.SetPlayers(p1, p2, p3, p4);
         }          
-           
+        //Dostep do sedziego  
         public Referee GetReferee()
         {
             return REF;
@@ -54,27 +55,27 @@ namespace Matches
         {
             REF = main;
         }
-
-        public int getResult1()
+        //Dostep do wyniku
+        public int GetResult1()
         {
             return Result1;
         }
-        public int getResult2()
+        public int GetResult2()
         {
             return Result2;
         }
-        public void setResult1(int score1)
+        public void SetResult1(int score1)
         {
             Result1 = score1;
         }
-        public void setResult2(int score2)
+        public void SetResult2(int score2)
         {
             Result2 = score2;
         }
-
+        /////////////////////////////////////////////////////////////////////////////////////////
         public override string ToString()
         {
-            return T1.getName() + " - " + T2.getName();
+            return T1.GetName() + " - " + T2.GetName();
         }
     }
 }

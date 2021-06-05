@@ -13,7 +13,7 @@ namespace Kopakabana
         public TourException(string mes):base(mes) { }
         //public TourException(string name) { Name=name;}
         public TourException(string mes,string name) : base(mes) { Name = name; }
-        public string getName()
+        public string GetName()
         {
             return Name;
         }

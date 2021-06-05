@@ -15,7 +15,7 @@ namespace Kopakabana
         {
             Surname = surname;
         }
-        public string getSurname()
+        public string GetSurname()
         {
             return Surname;
         }

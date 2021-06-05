@@ -23,14 +23,22 @@ namespace People
             P3 = p3;
             P4 = p4;            
         }
-
-        public void setPlayers(Player p1, Player p2, Player p3, Player p4)
+        public bool Equals(Team T)
+        {
+            if (T.GetName() == GetName() && T.GetName() == GetName())
+                return true;
+            else
+                return false;
+        }
+        //Dostep do zawodnikow
+        public void SetPlayers(Player p1, Player p2, Player p3, Player p4)
         {
             P1 = p1;
             P2 = p2;
             P3 = p3;
             P4 = p4;
         }
+
         public List<Player> GetPlayers()
         {
             Gracze = new List<Player>();
@@ -40,27 +48,29 @@ namespace People
             Gracze.Add(P4);
             return Gracze;
         }
-
-        public string getName()
+        //Dostep do nazwy
+        public string GetName()
         {
             return Name;
         }
-        public void setName(string name)
+        public void SetName(string name)
         {
             Name = name;
         }
-        public int getWins()
+        //Dostep do liczby wygranych
+        public int GetWins()
         {
             return this.Wins;
         }
-        public void setWins(int wins)
+        public void SetWins(int wins)
         {
             this.Wins = wins;
         }
-        public void setWins()
+        /*public void SetWins()
         {
             Wins++;
-        }
+        }*/
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public override string ToString()
         {
             return Name + " " + Wins;

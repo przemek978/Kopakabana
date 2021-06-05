@@ -24,6 +24,32 @@ namespace Matches
             AS1 = ref2;
             AS2 = ref3;
         }*/
+        public override void SetWhoWon()
+        {
+            if (Result1 > Result2 && Result1 == 3)
+            {
+                WhoWon = T1;
+                /*if (WhatFinal != true && WhatSemi != true)
+                    AddWins(T1);*/
+
+            }
+            else if (Result1 < Result2 && Result2 == 3)
+            {
+                WhoWon = T2;
+               /* if (WhatFinal != true && WhatSemi != true)
+                    AddWins(T2);*/
+            }
+            else
+                WhoWon = null;
+        }
+        public override bool Equals(Match V)
+        {
+            if (V.GetTeam1().GetName() == GetTeam1().GetName() && V.GetTeam2().GetName() == GetTeam2().GetName())
+                return true;
+            else
+                return false;
+        }
+        //Dostep do asystentow
         public void SetAssistant1(Referee ref2)
         {
             AS1 = ref2;
@@ -40,27 +66,10 @@ namespace Matches
         {
             return AS2;
         }
-        public override void SetWhoWon()
-        {
-            if (Result1 > Result2 && Result1 == 3)
-            {
-                WhoWon = T1;
-                if (WhatFinal != true && WhatSemi != true)
-                    AddWins(T1);
-
-            }
-            else if (Result1 < Result2 && Result2 == 3)
-            {
-                WhoWon = T2;
-                if (WhatFinal != true && WhatSemi != true)
-                    AddWins(T2);
-            }
-            else
-                WhoWon = null;
-        }
+        
         public override string ToString()
         {
-            return T1.getName() + " - " + T2.getName() + " " + getResult1() + " : " + getResult2();
+            return T1.GetName() + " - " + T2.GetName() + " " + GetResult1() + " : " + GetResult2();
         }
     }
 }
