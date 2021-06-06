@@ -15,14 +15,32 @@ namespace Matches
         protected Referee REF;
         public bool WhatSemi = false, WhatFinal = false;
         protected int Result1, Result2;
-       
+
         /*public void AddWins(Team addwon)
         {
             addwon.SetWins(addwon.GetWins() + 1);
         }*/
         public abstract bool Equals(Match M);
         //Dostep do Whowon
-        public abstract void SetWhoWon();
+        public virtual void SetWhoWon()
+        {
+
+            if (Result1 > Result2 && Result1 == 1)
+            {
+                WhoWon = T1;
+                /*if (WhatFinal != true && WhatSemi != true)
+                    AddWins(T1);*/
+            }
+            else if (Result1 < Result2 && Result2 == 1)
+            {
+                WhoWon = T2;
+                /*if (WhatFinal != true && WhatSemi != true)
+                    AddWins(T2);*/
+            }
+            else
+                WhoWon = null;
+
+        }
         public Team GetWhoWon()
         {
             return WhoWon;
@@ -45,7 +63,7 @@ namespace Matches
         {
             T2.SetName(name2);
             T2.SetPlayers(p1, p2, p3, p4);
-        }          
+        }
         //Dostep do sedziego  
         public Referee GetReferee()
         {

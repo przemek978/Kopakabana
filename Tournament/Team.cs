@@ -12,7 +12,6 @@ namespace People
         private string Name;
         private Player P1, P2, P3, P4;
         private int Wins;
-        List<Player> Gracze;
 
         public Team(string name,Player p1, Player p2, Player p3, Player p4)
         {
@@ -41,6 +40,7 @@ namespace People
 
         public List<Player> GetPlayers()
         {
+            List<Player> Gracze;
             Gracze = new List<Player>();
             Gracze.Add(P1);
             Gracze.Add(P2);
@@ -66,10 +66,6 @@ namespace People
         {
             this.Wins = wins;
         }
-        /*public void SetWins()
-        {
-            Wins++;
-        }*/
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public override string ToString()
         {

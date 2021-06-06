@@ -65,7 +65,7 @@ namespace Kopakabana
         }
 
         //GENEROWANIE//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //Meczów każdy z każdym
+            //Meczów każdy z każdym
         public void GenerateMatches()
         {
             try
@@ -168,7 +168,7 @@ namespace Kopakabana
                 }
             }
         }
-        //Finału
+            //Finału
         public void GenerateFinal()
         {
             try
@@ -323,13 +323,13 @@ namespace Kopakabana
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         //USTAWIANIE LIST////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //Edycja sedziow
+            //Edycja sedziow
         public void SetReferee(int index, string name, string surname)
         {
             // Referees[index] = new Referee(name, surname);
             Referees[index].SetName(name);
             Referees[index].SetSurname(surname);
-        }///Ready
+        }
             //Edycja Druzyn
         public void SetTeam(int index, string name, Player p1, Player p2, Player p3, Player p4)
         {

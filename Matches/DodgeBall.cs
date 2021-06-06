@@ -15,23 +15,23 @@ namespace Matches
             T2 = t2;
             REF = Ref;
         }
-        public override void SetWhoWon()
+        /*public override void SetWhoWon()
         {
             if (Result1 > Result2 && Result1 == 1)
             {
                 WhoWon = T1;
                /* if (WhatFinal != true && WhatSemi != true)
-                    AddWins(T1);*/
+                    AddWins(T1);
             }
             else if (Result1 < Result2 && Result2 == 1)
             {
                 WhoWon = T2;
                 /*if (WhatFinal != true && WhatSemi != true)
-                    //AddWins(T2);*/
+                    //AddWins(T2);
             }
             else
                 WhoWon = null;
-        }
+        }*/
         public override bool Equals(Match D)
         {
             if (D.GetTeam1().GetName() == GetTeam1().GetName() && D.GetTeam2().GetName() == GetTeam2().GetName())
