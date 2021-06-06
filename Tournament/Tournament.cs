@@ -72,7 +72,7 @@ namespace Kopakabana
             {
                 if (Referees.Count < 3)
                     throw new Exception();
-                int q = 0, Ref, AS1, AS2;
+                int q = 0, Ref;
                 Matches = new List<Match>();
                 Random Rn = new Random();
                 ///Generowanie dla siatkowki
@@ -513,7 +513,7 @@ namespace Kopakabana
                         var Mecze = GetMatches();
                         foreach (Match M in Matches)
                         {
-                            if (((M is VolleyBall && type == 'V' && M.WhatSemi == false) || (M is VolleyBall && type == 'S' && M.WhatSemi) || (M is VolleyBall && type == 'F' && ((VolleyBall)M).WhatFinal)) && ((M.GetTeam1().GetName() == name1) && (M.GetTeam2().GetName() == name2)))
+                            if (((M is VolleyBall && type == 'V' && M.WhatSemi == false && M.WhatFinal == false) || (M is VolleyBall && type == 'S' && M.WhatSemi) || (M is VolleyBall && type == 'F' && ((VolleyBall)M).WhatFinal)) && ((M.GetTeam1().GetName() == name1) && (M.GetTeam2().GetName() == name2)))
                             {
                                 M.SetResult1(sc1);
                                 M.SetResult2(sc2);
@@ -549,7 +549,7 @@ namespace Kopakabana
 
                                 }
                             }
-                            else if (((M is VolleyBall && type == 'V' && M.WhatSemi == false) || (M is VolleyBall && type == 'S' && ((VolleyBall)M).WhatSemi) || (M is VolleyBall && type == 'F' && ((VolleyBall)M).WhatFinal)) && ((M.GetTeam1().GetName() == name2) && (M.GetTeam2().GetName() == name1)))
+                            else if (((M is VolleyBall && type == 'V' && M.WhatSemi == false && M.WhatFinal == false) || (M is VolleyBall && type == 'S' && ((VolleyBall)M).WhatSemi) || (M is VolleyBall && type == 'F' && ((VolleyBall)M).WhatFinal)) && ((M.GetTeam1().GetName() == name2) && (M.GetTeam2().GetName() == name1)))
                             {
                                 M.SetResult1(sc2);
                                 M.SetResult2(sc1);
